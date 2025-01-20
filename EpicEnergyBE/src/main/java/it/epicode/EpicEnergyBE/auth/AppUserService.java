@@ -46,6 +46,8 @@ public class AppUserService {
             appUser.setAvatar(cloudinaryService.uploader(avatar,"usersT3").get("url").toString());
         }
 
+        appUser.setRoles(Set.of(Role.ROLE_USER));
+
 
         return appUserRepository.save(appUser);
     }
