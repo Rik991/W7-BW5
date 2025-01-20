@@ -13,6 +13,7 @@ import java.util.Set;
 @RestController
 @RequestMapping("/api/auth")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "*")
 public class AuthController {
 
     private final AppUserService appUserService;
@@ -36,10 +37,7 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<AuthResponse> login(@RequestBody LoginRequest loginRequest) {
-        String token = appUserService.authenticateUser(
-                loginRequest.getUsername(),
-                loginRequest.getPassword()
-        );
-        return ResponseEntity.ok(new AuthResponse(token));
+        AuthResponse authResponse = appUserService.authenticateUser(loginRequest.getUsername(), loginRequest.getPassword());
+        return ResponseEntity.ok(authResponse);
     }
 }
