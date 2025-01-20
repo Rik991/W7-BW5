@@ -34,6 +34,7 @@ public class Cliente {
     private Double fatturatoAnnuale;
 
     private String pec;
+
     private String telefono;
 
     @Column(name = "email_contatto")

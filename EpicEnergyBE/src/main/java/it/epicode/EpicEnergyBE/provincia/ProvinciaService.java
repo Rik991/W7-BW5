@@ -2,6 +2,7 @@ package it.epicode.EpicEnergyBE.provincia;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -12,6 +13,7 @@ import java.util.Collection;
 import java.util.List;
 
 @Service
+@Transactional
 public class ProvinciaService {
 
     @Autowired
