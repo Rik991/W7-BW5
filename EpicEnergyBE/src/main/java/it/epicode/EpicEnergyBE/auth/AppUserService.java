@@ -1,7 +1,9 @@
 package it.epicode.EpicEnergyBE.auth;
 
+import it.epicode.EpicEnergyBE.cloudinary.CloudinaryService;
 import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -10,12 +12,16 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.Optional;
 import java.util.Set;
 
 @Service
 public class AppUserService {
+
+    @Autowired
+    private CloudinaryService cloudinaryService;
 
     @Autowired
     private AppUserRepository appUserRepository;
@@ -29,15 +35,17 @@ public class AppUserService {
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
 
-    public AppUser registerUser(String username, String password, Set<Role> roles) {
-        if (appUserRepository.existsByUsername(username)) {
+    public AppUser registerUser(RegisterRequest registerRequest, MultipartFile avatar) {
+        if (appUserRepository.existsByUsername(registerRequest.getUsername())) {
             throw new EntityExistsException("Username già in uso");
         }
 
         AppUser appUser = new AppUser();
-        appUser.setUsername(username);
-        appUser.setPassword(passwordEncoder.encode(password));
-        appUser.setRoles(roles);
+        BeanUtils.copyProperties(registerRequest, appUser);
+        if (avatar != null && !avatar.isEmpty()) {
+            appUser.setAvatar(cloudinaryService.uploader(avatar,"usersT3").get("url").toString());
+        }
+
 
         return appUserRepository.save(appUser);
     }

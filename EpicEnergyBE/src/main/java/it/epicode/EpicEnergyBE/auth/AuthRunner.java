@@ -23,13 +23,28 @@ public class AuthRunner implements ApplicationRunner {
         // Creazione dell'utente admin se non esiste
         Optional<AppUser> adminUser = appUserService.findByUsername("admin");
         if (adminUser.isEmpty()) {
-            appUserService.registerUser("admin", "adminpwd", Set.of(Role.ROLE_ADMIN));
+            RegisterRequest adminRequest = new RegisterRequest();
+            adminRequest.setUsername("admin");
+            adminRequest.setPassword(passwordEncoder.encode("adminpwd"));
+            adminRequest.setEmail("admin@epicode.it");
+            adminRequest.setNome("Admin");
+            adminRequest.setCognome("User");
+            appUserService.registerUser(adminRequest, null);
         }
 
         // Creazione dell'utente user se non esiste
         Optional<AppUser> normalUser = appUserService.findByUsername("user");
         if (normalUser.isEmpty()) {
-            appUserService.registerUser("user", "userpwd", Set.of(Role.ROLE_USER));
+            RegisterRequest userRequest = new RegisterRequest();
+            userRequest.setUsername("user");
+            userRequest.setPassword(passwordEncoder.encode("userpwd"));
+            userRequest.setEmail("user@epicode.it");
+            userRequest.setNome("User");
+            userRequest.setCognome("Schiavo");
+            appUserService.registerUser(userRequest, null);
         }
     }
 }
+
+
+
