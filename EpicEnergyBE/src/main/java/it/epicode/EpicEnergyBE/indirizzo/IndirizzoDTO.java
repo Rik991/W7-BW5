@@ -8,6 +8,6 @@ public class IndirizzoDTO {
     private String civico;
     private String localita;
     private String cap;
-    private Long comuneId;
+    private String comune;
 }
 

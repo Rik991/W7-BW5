@@ -9,4 +9,6 @@ public interface ComuneRepository extends JpaRepository<Comune, Long> {
 
     List<Comune> findByProvincia(Provincia provincia);
 
+    Comune findByDenominazione(String denominazione);
+
 }

@@ -1,6 +1,5 @@
 package it.epicode.EpicEnergyBE.cliente;
 
-import it.epicode.EpicEnergyBE.indirizzo.Indirizzo;
 import it.epicode.EpicEnergyBE.indirizzo.IndirizzoDTO;
 import lombok.Data;
 

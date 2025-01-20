@@ -50,8 +50,7 @@ public class ClienteService {
     }
 
     private Indirizzo convertToEntity(IndirizzoDTO indirizzoDTO) {
-        Comune comune = comuneRepository.findById(indirizzoDTO.getComuneId())
-                .orElseThrow(() -> new IllegalArgumentException("Comune not found"));
+        Comune comune = comuneRepository.findByDenominazione(indirizzoDTO.getComune());
 
         Indirizzo indirizzo = new Indirizzo();
         indirizzo.setVia(indirizzoDTO.getVia());
