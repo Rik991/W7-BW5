@@ -7,25 +7,24 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
 
 @RestController
-@RequestMapping("/api/comuni")
 public class ComuneController {
 
     @Autowired
     private ComuneService comuneService;
 
-    @PostMapping
-    public ResponseEntity<String> importComuni() {
+
+    public ResponseEntity<String> importaComuni(@RequestParam String filePath) {
         try {
-            comuneService.importComuniFromCSV("src/main/resources/assets/comuni-italiani.csv");
-            return ResponseEntity.ok("Importazione comuni completata con successo");
+            comuneService.importaComuni(filePath);
+            return ResponseEntity.ok("Comuni importati con successo.");
         } catch (IOException e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .body("Errore durante l'importazione: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Errore durante l'importazione dei comuni.");
         }
     }
 }

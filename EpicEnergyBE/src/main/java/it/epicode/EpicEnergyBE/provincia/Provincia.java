@@ -18,7 +18,5 @@ public class Provincia {
     private String nome;
     private String regione;
 
-    @OneToMany(mappedBy = "provincia")
-    private List<Comune> comuni;
 
 }

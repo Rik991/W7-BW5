@@ -9,6 +9,10 @@ import org.springframework.stereotype.Service;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ComuneService {
@@ -19,25 +23,24 @@ public class ComuneService {
     @Autowired
     private ProvinciaRepository provinciaRepository;
 
-    public void importComuniFromCSV(String csvFile) throws IOException {
-        try (BufferedReader br = new BufferedReader(new FileReader(csvFile))) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                String[] values = line.split(";");
-                if (values.length >= 3) {
+    public void importaComuni(String filePath) throws IOException {
+        List<String> lines = Files.readAllLines(Paths.get(filePath));
+        for (String line : lines) {
+            String[] data = line.split(";");
+            if (data.length == 4) {
+                String codiceProvincia = data[0];
+                String progressivo = data[1];
+                String denominazione = data[2];
+                String nomeProvincia = data[3];
+
+                Optional<Provincia> provinciaOpt = provinciaRepository.findBySigla(nomeProvincia);
+                if (provinciaOpt.isPresent()) {
                     Comune comune = new Comune();
-                    comune.setCodiceProvincia(values[0].trim());
-                    comune.setProgressivoComune(values[1].trim());
-                    comune.setDenominazione(values[2].trim());
+                    comune.setCodiceProvincia(codiceProvincia);
+                    comune.setProgressivo(progressivo);
+                    comune.setDenominazione(denominazione);
+                    comune.setProvincia(provinciaOpt.get());
 
-                    // Cerca la provincia corrispondente
-                    Provincia provincia = provinciaRepository
-                            .findBySigla(values[0].trim())
-                            .orElseThrow(() -> new RuntimeException("Provincia non trovata: " + values[0]));
-
-                    comuneRepository.findByProvincia(provincia);
-
-                    comune.setProvincia(provincia);
                     comuneRepository.save(comune);
                 }
             }
