@@ -1,9 +1,12 @@
 package it.epicode.EpicEnergyBE.cliente;
 
+import it.epicode.EpicEnergyBE.fattura.Fattura;
+import it.epicode.EpicEnergyBE.indirizzo.Indirizzo;
 import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
 @Entity
@@ -47,18 +50,16 @@ public class Cliente {
 
     @Column(name = "logo_aziendale")
     private String logoAziendale;
-//
-//    @Enumerated(EnumType.STRING)
-//    private TipoCliente tipo;
-//
-//    @OneToOne(cascade = CascadeType.ALL)
-//    private Indirizzo sedeLegale;
-//
-//    @OneToOne(cascade = CascadeType.ALL)
-//    private Indirizzo sedeOperativa;
-//
-//    @OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL)
-//    private List<Fattura> fatture;
+
+    @Column(name = "tipo_cliente")
+    @Enumerated(EnumType.STRING)
+    private TipoCliente tipoCliente;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    private Indirizzo sedeLegale;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    private Indirizzo sedeOperativa;
 
 
 }

@@ -35,7 +35,7 @@ public class AppUserService {
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
 
-    public AppUser registerUser(RegisterRequest registerRequest, MultipartFile avatar) {
+    public AppUser registerUser(RegisterRequest registerRequest, MultipartFile avatar, Set<Role> roles) {
         if (appUserRepository.existsByUsername(registerRequest.getUsername())) {
             throw new EntityExistsException("Username già in uso");
         }
@@ -46,7 +46,7 @@ public class AppUserService {
             appUser.setAvatar(cloudinaryService.uploader(avatar,"usersT3").get("url").toString());
         }
 
-        appUser.setRoles(Set.of(Role.ROLE_USER));
+        appUser.setRoles(roles);
 
 
         return appUserRepository.save(appUser);

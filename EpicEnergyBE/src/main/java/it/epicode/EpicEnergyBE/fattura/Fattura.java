@@ -1,5 +1,7 @@
 package it.epicode.EpicEnergyBE.fattura;
 
+import it.epicode.EpicEnergyBE.cliente.Cliente;
+import it.epicode.EpicEnergyBE.fattura.stato_fattura.StatoFattura;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -17,9 +19,11 @@ public class Fattura {
     private Double importo;
     private String numero;
 
-//    @ManyToOne
-//    private StatoFattura stato;
-//
-//    @ManyToOne
-//    private Cliente cliente;
+    @ManyToOne
+    @JoinColumn(name = "stato_fattura_id")
+    private StatoFattura statoFattura;
+
+    @ManyToOne
+    @JoinColumn(name = "cliente_id")
+    private Cliente cliente;
 }

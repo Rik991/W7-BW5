@@ -19,7 +19,7 @@ public class AuthController {
 
     @PostMapping(path = "/register", consumes = {"multipart/form-data"})
     public ResponseEntity<AppUser> register(@RequestParam("appUser") String appUser,
-                                            @RequestParam(value = "avatar", required = false) MultipartFile avatar) {
+                                            @RequestParam(value = "avatar", required = false) MultipartFile avatar){
         ObjectMapper objectMapper = new ObjectMapper();
         RegisterRequest registerRequest;
 
@@ -29,7 +29,7 @@ public class AuthController {
             throw new RuntimeException(e);
         }
 
-        return new ResponseEntity<>(appUserService.registerUser(registerRequest, avatar), HttpStatus.CREATED);
+        return new ResponseEntity<>(appUserService.registerUser(registerRequest, avatar, Set.of(Role.ROLE_USER)), HttpStatus.CREATED);
 
 
     }

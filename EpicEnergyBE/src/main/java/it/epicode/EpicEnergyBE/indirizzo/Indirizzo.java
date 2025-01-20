@@ -1,9 +1,8 @@
 package it.epicode.EpicEnergyBE.indirizzo;
 
+import it.epicode.EpicEnergyBE.provincia.comune.Comune;
 import jakarta.persistence.*;
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 @Data
 @Entity
@@ -19,7 +18,7 @@ public class Indirizzo {
     private String localita;
     private String cap;
 
-//    @ManyToOne
-//    private Comune comune;
+    @ManyToOne
+    private Comune comune;
 
 }

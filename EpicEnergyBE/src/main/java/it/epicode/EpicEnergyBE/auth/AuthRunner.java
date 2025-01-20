@@ -18,6 +18,7 @@ public class AuthRunner implements ApplicationRunner {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+
     @Override
     public void run(ApplicationArguments args) throws Exception {
         // Creazione dell'utente admin se non esiste
@@ -28,8 +29,8 @@ public class AuthRunner implements ApplicationRunner {
             adminRequest.setPassword(passwordEncoder.encode("adminpwd"));
             adminRequest.setEmail("admin@epicode.it");
             adminRequest.setNome("Admin");
-            adminRequest.setCognome("User");
-            appUserService.registerUser(adminRequest, null);
+            adminRequest.setCognome("Capo");
+            appUserService.registerUser(adminRequest, null, Set.of(Role.ROLE_ADMIN));
         }
 
         // Creazione dell'utente user se non esiste
@@ -41,8 +42,10 @@ public class AuthRunner implements ApplicationRunner {
             userRequest.setEmail("user@epicode.it");
             userRequest.setNome("User");
             userRequest.setCognome("Schiavo");
-            appUserService.registerUser(userRequest, null);
+            appUserService.registerUser(userRequest, null, Set.of(Role.ROLE_USER));
         }
+
+
     }
 }
 
