@@ -40,6 +40,7 @@ public class AppUserService {
             throw new EntityExistsException("Username già in uso");
         }
 
+        registerRequest.setPassword(passwordEncoder.encode(registerRequest.getPassword()));
         AppUser appUser = new AppUser();
         BeanUtils.copyProperties(registerRequest, appUser);
         if (avatar != null && !avatar.isEmpty()) {
