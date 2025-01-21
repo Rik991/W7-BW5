@@ -1,5 +1,6 @@
 package it.epicode.EpicEnergyBE.cliente;
 
+import it.epicode.EpicEnergyBE.indirizzo.Indirizzo;
 import it.epicode.EpicEnergyBE.indirizzo.IndirizzoDTO;
 import lombok.Data;
 
@@ -19,9 +20,8 @@ import java.time.LocalDate;
         private String nomeContatto;
         private String cognomeContatto;
         private String telefonoContatto;
-        private String logoAziendale;
         private TipoCliente tipoCliente;
-        private IndirizzoDTO sedeLegale;
-        private IndirizzoDTO sedeOperativa;
+        private Indirizzo sedeLegale;
+        private Indirizzo sedeOperativa;
     }
 
