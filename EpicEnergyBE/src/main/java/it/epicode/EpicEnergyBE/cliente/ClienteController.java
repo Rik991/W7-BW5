@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import org.apache.commons.lang3.StringUtils;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -50,8 +51,12 @@ public class ClienteController {
                                                  @RequestParam("comuneSedeOperativa") String comuneSedeOperativa,
                                                  @RequestParam(value = "logoAziendale", required = false) MultipartFile logo) throws JsonProcessingException {
 
-        Comune comuneLegale = comuneRepository.findByDenominazione(comuneSedeLegale);
-        Comune comuneOperativo = comuneRepository.findByDenominazione(comuneSedeOperativa);
+
+        String comuneSedeLegaleCapitalized = StringUtils.capitalize(comuneSedeLegale);
+        String comuneSedeOperativaCapitalized = StringUtils.capitalize(comuneSedeOperativa);
+
+        Comune comuneLegale = comuneRepository.findByDenominazione(comuneSedeLegaleCapitalized);
+        Comune comuneOperativo = comuneRepository.findByDenominazione(comuneSedeOperativaCapitalized);
 
         Indirizzo indirizzoSedeLegale = new Indirizzo();
         indirizzoSedeLegale.setVia(viaSedeLegale);
