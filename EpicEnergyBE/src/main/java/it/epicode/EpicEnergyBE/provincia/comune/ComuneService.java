@@ -5,6 +5,7 @@ import it.epicode.EpicEnergyBE.provincia.Provincia;
 import it.epicode.EpicEnergyBE.provincia.ProvinciaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 
 import java.io.IOException;
@@ -15,6 +16,7 @@ import java.util.Optional;
 import java.util.logging.Logger;
 
 @Service
+@Transactional
 public class ComuneService {
 
     @Autowired
