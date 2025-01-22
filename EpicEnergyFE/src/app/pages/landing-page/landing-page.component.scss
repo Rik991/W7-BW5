@@ -127,7 +127,7 @@
   width: 55%;
 }
 
-.border-info {
+.border-circle {
   padding-top: 3em;
   border: 4px solid rgb(122, 187, 245); /* Colore e spessore del bordo */
   border-radius: 50%; /* Inizialmente un cerchio */
@@ -137,7 +137,7 @@
   cursor: pointer;
 }
 
-.border-info:hover {
+.border-circle:hover {
   border-radius: 10%; /* Diventa un rettangolo */
   width: 20em; /* Larghezza aumentata */
   height: 10em; /* Altezza ridotta */
