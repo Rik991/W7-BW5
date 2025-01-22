@@ -1,17 +1,15 @@
 package it.epicode.EpicEnergyBE.cliente;
 
 import it.epicode.EpicEnergyBE.cloudinary.CloudinaryService;
-import it.epicode.EpicEnergyBE.indirizzo.Indirizzo;
-import it.epicode.EpicEnergyBE.indirizzo.IndirizzoDTO;
+
 import it.epicode.EpicEnergyBE.indirizzo.IndirizzoRepository;
-import it.epicode.EpicEnergyBE.provincia.comune.Comune;
+
 import it.epicode.EpicEnergyBE.provincia.comune.ComuneRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
