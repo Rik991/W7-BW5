@@ -13,11 +13,10 @@ export class FattureComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.fb.group({
-      date: [''],
-      importo: [''],
-      numero: [''],
+      ragioneSociale: [''],
+      importoFattura: [''],
+      dataFatturazione: [''],
       statoFattura: [''],
-      cliente: [''],
     });
   }
 

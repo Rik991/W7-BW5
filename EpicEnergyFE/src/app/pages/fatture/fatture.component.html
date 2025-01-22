@@ -4,23 +4,31 @@
       <!-- From Uiverse.io by mi-series -->
       <div class="mb-">
         <header>Registration Form</header>
-        <form class="form mx-3" action="#">
+        <form [formGroup]="form" class="form mx-3">
           <div class="input-box">
             <h6 class="text-start">Ragione Sociale</h6>
-            <input required="" placeholder="Enel" type="text" />
+            <input
+              formControlName="ragioneSociale"
+              placeholder="Enel"
+              type="text"
+            />
           </div>
           <div class="column">
             <div class="input-box">
               <h6 class="text-start">Importo Fattura</h6>
               <input
-                required=""
+                formControlName="importoFattura"
                 placeholder="Inserisci il totale"
-                type="telephone"
+                type="text"
               />
             </div>
             <div class="input-box">
               <h6 class="text-start">Data Fatturazione</h6>
-              <input required="" placeholder="Inserisci data" type="date" />
+              <input
+                formControlName="dataFatturazione"
+                placeholder="Inserisci data"
+                type="date"
+              />
             </div>
           </div>
 
@@ -28,17 +36,16 @@
             <h6 class="text-start">Stato Fattura</h6>
             <div class="column">
               <div class="select-box">
-                <select>
-                  <option hidden="">Country</option>
-                  <option>USA</option>
-                  <option>UK</option>
-                  <option>Germany</option>
-                  <option>Japan</option>
+                <select formControlName="statoFattura">
+                  <option hidden="">Seleziona Stato</option>
+                  <option>Pagata</option>
+                  <option>Non Pagata</option>
+                  <option>In Attesa</option>
                 </select>
               </div>
             </div>
           </div>
-          <button>Submit</button>
+          <button type="submit">Submit</button>
         </form>
       </div>
     </div>
@@ -47,7 +54,9 @@
         <div class="row mt-2">
           <div class="col-6 text-start">
             <p class="mb-1">NO. <span>00123</span></p>
-            <p class="mb-1">Date: <span>22 gennaio 2025</span></p>
+            <p class="mb-1">
+              Date: <span>{{ form.get("dataFatturazione")?.value }}</span>
+            </p>
           </div>
         </div>
         <hr class="mt-1" />
@@ -56,8 +65,10 @@
           <div class="col-6 text-start">
             <h5>Mittente:</h5>
             <p>
-              Nome Azienda<br />Indirizzo<br />Città, CAP<br />Partita IVA:
-              12345678901
+              Nome Azienda: {{ form.get("ragioneSociale")?.value }}<br />
+              Indirizzo<br />
+              Città, CAP<br />
+              Partita IVA: 12345678901
             </p>
           </div>
           <div class="col-6 text-end">
