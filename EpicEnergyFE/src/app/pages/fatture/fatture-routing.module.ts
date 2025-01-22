@@ -1,8 +1,12 @@
 import { NgModule, OnInit } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { FattureComponent } from './fatture.component';
+import { NewFatturaComponent } from './new-fattura/new-fattura.component';
 
-const routes: Routes = [{ path: '', component: FattureComponent }];
+const routes: Routes = [
+  { path: '', component: FattureComponent },
+  { path: 'newfattura', component: NewFatturaComponent },
+];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

@@ -1,0 +1,142 @@
+<div class="container text-center my-5">
+  <div class="row">
+    <div class="col-12 col-lg-6">
+      <!-- From Uiverse.io by mi-series -->
+      <div class="mb-">
+        <header>Registration Form</header>
+        <form [formGroup]="form" class="form mx-3">
+          <div class="input-box">
+            <h6 class="text-start">Ragione Sociale</h6>
+            <input
+              formControlName="ragioneSociale"
+              placeholder="Enel"
+              type="text"
+            />
+          </div>
+          <div class="column">
+            <div class="input-box">
+              <h6 class="text-start">Importo Fattura</h6>
+              <input
+                formControlName="importoFattura"
+                placeholder="Inserisci il totale"
+                type="text"
+              />
+            </div>
+            <div class="input-box">
+              <h6 class="text-start">Data Fatturazione</h6>
+              <input
+                formControlName="dataFatturazione"
+                placeholder="Inserisci data"
+                type="date"
+              />
+            </div>
+          </div>
+
+          <div class="input-box address">
+            <h6 class="text-start">Stato Fattura</h6>
+            <div class="column">
+              <div class="select-box">
+                <select formControlName="statoFattura">
+                  <option hidden="">Seleziona Stato</option>
+                  <option>Pagata</option>
+                  <option>Non Pagata</option>
+                  <option>In Attesa</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <button type="submit" class="fw-bolder text-white">Submit</button>
+        </form>
+      </div>
+      <hr />
+      <div class="d-flex justify-content-between align-items-center mx-3 mb-5">
+        <h6 class="m-0">Salva e Scarica la Fattura!</h6>
+        <button (click)="downloadPDF()">
+          <div class="svg-wrapper-1">
+            <div class="svg-wrapper">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                width="30"
+                height="30"
+                class="icon"
+              >
+                <path
+                  d="M22,15.04C22,17.23 20.24,19 18.07,19H5.93C3.76,19 2,17.23 2,15.04C2,13.07 3.43,11.44 5.31,11.14C5.28,11 5.27,10.86 5.27,10.71C5.27,9.33 6.38,8.2 7.76,8.2C8.37,8.2 8.94,8.43 9.37,8.8C10.14,7.05 11.13,5.44 13.91,5.44C17.28,5.44 18.87,8.06 18.87,10.83C18.87,10.94 18.87,11.06 18.86,11.17C20.65,11.54 22,13.13 22,15.04Z"
+                ></path>
+              </svg>
+            </div>
+          </div>
+          <span>Download</span>
+        </button>
+      </div>
+    </div>
+    <div class="col-12 col-lg-6">
+      <div class="container bg-white shadow-sm py-3 px-3" #fattura>
+        <div class="row mt-2">
+          <div class="col-6 text-start">
+            <p class="mb-1">NO. <span>00123</span></p>
+            <p class="mb-1">
+              Date: <span>{{ form.get("dataFatturazione")?.value }}</span>
+            </p>
+          </div>
+        </div>
+        <hr class="mt-1" />
+        <h1>Fattura</h1>
+        <div class="row mt-4">
+          <div class="col-6 text-start">
+            <h5>Mittente:</h5>
+            <p>
+              Nome Azienda: {{ form.get("ragioneSociale")?.value }}<br />
+              Indirizzo<br />
+              Città, CAP<br />
+              Partita IVA: 12345678901
+            </p>
+          </div>
+          <div class="col-6 text-end">
+            <h5>Destinatario:</h5>
+            <p>Nome Cliente<br />Indirizzo<br />Città, CAP</p>
+          </div>
+        </div>
+        <table class="table mt-4">
+          <thead class="table-dark">
+            <tr>
+              <th>Descrizione</th>
+              <th>Quantità</th>
+              <th>Prezzo Unitario</th>
+              <th>Totale</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Servizio 1</td>
+              <td>2</td>
+              <td>&euro; 100,00</td>
+              <td>&euro; 200,00</td>
+            </tr>
+            <tr>
+              <td>Prodotto A</td>
+              <td>1</td>
+              <td>&euro; 50,00</td>
+              <td>&euro; 50,00</td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <th colspan="3" class="text-end">Totale</th>
+              <th>&euro; {{ form.get("importoFattura")?.value }}</th>
+            </tr>
+          </tfoot>
+        </table>
+        <div class="row mt-4">
+          <div class="col-12 text-start">
+            <p class="mb-1">
+              <strong>Metodo di Pagamento:</strong> Bonifico Bancario
+            </p>
+            <p><strong>IBAN:</strong> IT00X1234567890123456789012</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
