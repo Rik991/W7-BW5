@@ -88,36 +88,4 @@ public class ClienteService {
 
 
 
-    //FILTRAGGIO
-
-//    @Transactional
-//    public Page<Cliente> findByFilters(Double fatturatoAnnuale, LocalDate dataInserimento, LocalDate dataUltimoContatto, String nome, Pageable pageable) {
-//        return clienteRepository.findByFilters(fatturatoAnnuale, dataInserimento, dataUltimoContatto, nome, pageable);
-//    }
-
-    @Transactional
-    public Page<Cliente> findAllByOrderByNomeContatto(Pageable pageable) {
-        return clienteRepository.findAllByOrderByNomeContatto(pageable);
-    }
-
-    @Transactional
-    public Page<Cliente> findAllByOrderByFatturatoAnnuale(Pageable pageable) {
-        return clienteRepository.findAllByOrderByFatturatoAnnuale(pageable);
-    }
-
-    @Transactional
-    public Page<Cliente> findAllByOrderByDataInserimento(Pageable pageable) {
-        return clienteRepository.findAllByOrderByDataInserimento(pageable);
-    }
-
-    @Transactional
-    public Page<Cliente> findAllByOrderByDataUltimoContatto(Pageable pageable) {
-        return clienteRepository.findAllByOrderByDataUltimoContatto(pageable);
-    }
-
-    @Transactional
-    public Page<Cliente> findAllByOrderByProvinciaSedeLegale(Pageable pageable) {
-        return clienteRepository.findAllByOrderByProvinciaSedeLegale(pageable);
-    }
-
 }

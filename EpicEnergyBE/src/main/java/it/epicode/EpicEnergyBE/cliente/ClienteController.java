@@ -123,46 +123,4 @@ public class ClienteController {
         return ResponseEntity.noContent().build();
     }
 
-    // FILTRAGGIO
-
-//    @GetMapping("/filter")
-//    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
-//    public ResponseEntity<Page<Cliente>> getFilteredClienti(
-//            @RequestParam(required = false) Double fatturatoAnnuale,
-//            @RequestParam(required = false) LocalDate dataInserimento,
-//            @RequestParam(required = false) LocalDate dataUltimoContatto,
-//            @RequestParam(required = false) String nome,
-//            Pageable pageable) {
-//        return ResponseEntity.ok(clienteService.findByFilters(fatturatoAnnuale, dataInserimento, dataUltimoContatto, nome, pageable));
-//    }
-
-    @GetMapping("/orderByNome")
-    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
-    public ResponseEntity<Page<Cliente>> getClientiOrderByNome(Pageable pageable) {
-        return ResponseEntity.ok(clienteService.findAllByOrderByNomeContatto(pageable));
-    }
-
-    @GetMapping("/orderByFatturato")
-    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
-    public ResponseEntity<Page<Cliente>> getClientiOrderByFatturato(Pageable pageable) {
-        return ResponseEntity.ok(clienteService.findAllByOrderByFatturatoAnnuale(pageable));
-    }
-
-    @GetMapping("/orderByDataInserimento")
-    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
-    public ResponseEntity<Page<Cliente>> getClientiOrderByDataInserimento(Pageable pageable) {
-        return ResponseEntity.ok(clienteService.findAllByOrderByDataInserimento(pageable));
-    }
-
-    @GetMapping("/orderByDataUltimoContatto")
-    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
-    public ResponseEntity<Page<Cliente>> getClientiOrderByDataUltimoContatto(Pageable pageable) {
-        return ResponseEntity.ok(clienteService.findAllByOrderByDataUltimoContatto(pageable));
-    }
-
-    @GetMapping("/orderByProvinciaSedeLegale")
-    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
-    public ResponseEntity<Page<Cliente>> getClientiOrderByProvinciaSedeLegale(Pageable pageable) {
-        return ResponseEntity.ok(clienteService.findAllByOrderByProvinciaSedeLegale(pageable));
-    }
 }
