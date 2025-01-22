@@ -26,7 +26,7 @@ public class AuthRunner implements ApplicationRunner {
         if (adminUser.isEmpty()) {
             RegisterRequest adminRequest = new RegisterRequest();
             adminRequest.setUsername("admin");
-            adminRequest.setPassword(passwordEncoder.encode("adminpwd"));
+            adminRequest.setPassword("adminpwd");
             adminRequest.setEmail("admin@epicode.it");
             adminRequest.setNome("Admin");
             adminRequest.setCognome("Capo");
@@ -38,7 +38,7 @@ public class AuthRunner implements ApplicationRunner {
         if (normalUser.isEmpty()) {
             RegisterRequest userRequest = new RegisterRequest();
             userRequest.setUsername("user");
-            userRequest.setPassword(passwordEncoder.encode("userpwd"));
+            userRequest.setPassword("userpwd");
             userRequest.setEmail("user@epicode.it");
             userRequest.setNome("User");
             userRequest.setCognome("Schiavo");
