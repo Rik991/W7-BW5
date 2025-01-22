@@ -1,13 +1,11 @@
 package it.epicode.EpicEnergyBE.cliente;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import it.epicode.EpicEnergyBE.indirizzo.Indirizzo;
 import it.epicode.EpicEnergyBE.provincia.comune.Comune;
 import it.epicode.EpicEnergyBE.provincia.comune.ComuneRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.apache.commons.lang3.StringUtils;
@@ -26,7 +24,6 @@ public class ClienteController {
     private ComuneRepository comuneRepository;
 
     @PostMapping(consumes = {"multipart/form-data"})
-    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     public ResponseEntity<Cliente> createCliente(@RequestParam("ragioneSociale") String ragioneSociale,
                                                  @RequestParam("partitaIva") String partitaIva,
                                                  @RequestParam("email") String email,
@@ -49,8 +46,7 @@ public class ClienteController {
                                                  @RequestParam("localitaSedeOperativa") String localitaSedeOperativa,
                                                  @RequestParam("capSedeOperativa") String capSedeOperativa,
                                                  @RequestParam("comuneSedeOperativa") String comuneSedeOperativa,
-                                                 @RequestParam(value = "logoAziendale", required = false) MultipartFile logo) throws JsonProcessingException {
-
+                                                 @RequestParam(value = "logoAziendale", required = false) MultipartFile logo) {
 
         String comuneSedeLegaleCapitalized = StringUtils.capitalize(comuneSedeLegale);
         String comuneSedeOperativaCapitalized = StringUtils.capitalize(comuneSedeOperativa);
@@ -93,14 +89,12 @@ public class ClienteController {
     }
 
     @GetMapping
-    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     public ResponseEntity<List<Cliente>> getAllClienti() {
         List<Cliente> clienti = clienteService.findAll();
         return ResponseEntity.ok(clienti);
     }
 
     @GetMapping("/{id}")
-    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     public ResponseEntity<Cliente> getClienteById(@PathVariable Long id) {
         Cliente cliente = clienteService.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Cliente non trovato"));
@@ -108,14 +102,12 @@ public class ClienteController {
     }
 
     @PutMapping("/{id}")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<Cliente> updateCliente(@PathVariable Long id, @RequestBody ClienteDTO clienteDTO) {
         Cliente updatedCliente = clienteService.updateCliente(id, clienteDTO);
         return ResponseEntity.ok(updatedCliente);
     }
 
     @DeleteMapping("/{id}")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<Void> deleteCliente(@PathVariable Long id) {
         clienteService.deleteCliente(id);
         return ResponseEntity.noContent().build();
