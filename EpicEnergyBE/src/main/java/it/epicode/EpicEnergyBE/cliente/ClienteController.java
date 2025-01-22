@@ -6,6 +6,7 @@ import it.epicode.EpicEnergyBE.provincia.comune.ComuneRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.apache.commons.lang3.StringUtils;
@@ -24,6 +25,7 @@ public class ClienteController {
     private ComuneRepository comuneRepository;
 
     @PostMapping(consumes = {"multipart/form-data"})
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')" )
     public ResponseEntity<Cliente> createCliente(@RequestParam("ragioneSociale") String ragioneSociale,
                                                  @RequestParam("partitaIva") String partitaIva,
                                                  @RequestParam("email") String email,

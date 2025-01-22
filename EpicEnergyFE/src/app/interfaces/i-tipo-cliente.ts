@@ -1,4 +1,4 @@
-export enum iTipoCliente {
+export enum TipoCliente {
   PA,
   SAS,
   SPA,
