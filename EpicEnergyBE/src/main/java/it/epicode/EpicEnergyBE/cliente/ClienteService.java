@@ -2,7 +2,6 @@ package it.epicode.EpicEnergyBE.cliente;
 
 import it.epicode.EpicEnergyBE.cloudinary.CloudinaryService;
 import it.epicode.EpicEnergyBE.indirizzo.Indirizzo;
-import it.epicode.EpicEnergyBE.indirizzo.IndirizzoDTO;
 import it.epicode.EpicEnergyBE.indirizzo.IndirizzoRepository;
 import it.epicode.EpicEnergyBE.provincia.comune.Comune;
 import it.epicode.EpicEnergyBE.provincia.comune.ComuneRepository;
@@ -34,11 +33,18 @@ public class ClienteService {
     public Cliente createCliente(ClienteDTO clienteDTO, MultipartFile logo) {
 
         Cliente cliente = new Cliente();
-        BeanUtils.copyProperties(clienteDTO,cliente);
+        BeanUtils.copyProperties(clienteDTO, cliente);
 
         if (logo != null && !logo.isEmpty()) {
-            cliente.setLogoAziendale(cloudinaryService.uploader(logo,"loghiAziendeT3").get("url").toString());
+            cliente.setLogoAziendale(cloudinaryService.uploader(logo, "loghiAziendeT3").get("url").toString());
         }
+
+        // Salva gli indirizzi prima di salvare il cliente
+        Indirizzo sedeLegale = indirizzoRepository.save(clienteDTO.getSedeLegale());
+        Indirizzo sedeOperativa = indirizzoRepository.save(clienteDTO.getSedeOperativa());
+
+        cliente.setSedeLegale(sedeLegale);
+        cliente.setSedeOperativa(sedeOperativa);
 
         return clienteRepository.save(cliente);
     }
@@ -55,9 +61,9 @@ public class ClienteService {
     public Cliente updateCliente(Long id, ClienteDTO clienteDTO) {
         Cliente cliente = clienteRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Cliente non trovato"));
-//
-//        Indirizzo sedeLegale = createIndirizzo(clienteDTO.getSedeLegale());
-//        Indirizzo sedeOperativa = createIndirizzo(clienteDTO.getSedeOperativa());
+
+        Indirizzo sedeLegale = indirizzoRepository.save(clienteDTO.getSedeLegale());
+        Indirizzo sedeOperativa = indirizzoRepository.save(clienteDTO.getSedeOperativa());
 
         cliente.setRagioneSociale(clienteDTO.getRagioneSociale());
         cliente.setPartitaIva(clienteDTO.getPartitaIva());
@@ -71,10 +77,9 @@ public class ClienteService {
         cliente.setNomeContatto(clienteDTO.getNomeContatto());
         cliente.setCognomeContatto(clienteDTO.getCognomeContatto());
         cliente.setTelefonoContatto(clienteDTO.getTelefonoContatto());
-
         cliente.setTipoCliente(clienteDTO.getTipoCliente());
-//        cliente.setSedeLegale(sedeLegale);
-//        cliente.setSedeOperativa(sedeOperativa);
+        cliente.setSedeLegale(sedeLegale);
+        cliente.setSedeOperativa(sedeOperativa);
 
         return clienteRepository.save(cliente);
     }
@@ -82,5 +87,4 @@ public class ClienteService {
     public void deleteCliente(Long id) {
         clienteRepository.deleteById(id);
     }
-
 }
