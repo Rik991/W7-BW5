@@ -47,23 +47,23 @@ public class FatturaController {
     }
 
 
-    @GetMapping("/ragioneSociale")
+    @GetMapping("/ragione_sociale")
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     public ResponseEntity<Page<Fattura>> getFattureByClienteRagioneSociale(@RequestParam String ragioneSociale, Pageable pageable) {
         return ResponseEntity.ok(fatturaService.findByClienteRagioneSociale(ragioneSociale, pageable));
     }
 
-    @GetMapping("/statoFattura")
+    @GetMapping("/stato_fattura")
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     public ResponseEntity<Page<Fattura>> getFattureByStatoFattura(@RequestParam String statoFatturaNome, Pageable pageable) {
         return ResponseEntity.ok(fatturaService.findByStatoFattura(statoFatturaNome, pageable));
     }
 
-    @GetMapping("/data")
-    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
-    public ResponseEntity<Page<Fattura>> getFattureByData(@RequestParam LocalDate data, Pageable pageable) {
-        return ResponseEntity.ok(fatturaService.findByData(data, pageable));
-    }
+  @GetMapping("/data")
+@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+public ResponseEntity<Page<Fattura>> getFattureByData(@RequestParam LocalDate dataInizio, @RequestParam LocalDate dataFine, Pageable pageable) {
+    return ResponseEntity.ok(fatturaService.findByData(dataInizio, dataFine, pageable));
+}
 
     @GetMapping("/anno")
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
@@ -71,7 +71,7 @@ public class FatturaController {
         return ResponseEntity.ok(fatturaService.findByAnno(anno, pageable));
     }
 
-    @GetMapping("/importoRange")
+    @GetMapping("/importo_range")
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
     public ResponseEntity<Page<Fattura>> getFattureByImportoRange(@RequestParam Double minImporto, @RequestParam Double maxImporto, Pageable pageable) {
         return ResponseEntity.ok(fatturaService.findByImportoRange(minImporto, maxImporto, pageable));

@@ -76,8 +76,8 @@ public class FatturaService {
         return fatturaRepository.findFattureByStatoFattura(statoFatturaNome, pageable);
     }
 
-    public Page<Fattura> findByData(LocalDate data, Pageable pageable) {
-        return fatturaRepository.findFattureByData(data, pageable);
+    public Page<Fattura> findByData(LocalDate dataInizio, LocalDate dataFine, Pageable pageable) {
+        return fatturaRepository.findFattureByData(dataInizio, dataFine, pageable);
     }
 
     public Page<Fattura> findByAnno(int anno, Pageable pageable) {

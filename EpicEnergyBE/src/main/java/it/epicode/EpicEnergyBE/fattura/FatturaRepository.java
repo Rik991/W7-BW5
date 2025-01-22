@@ -20,8 +20,8 @@ public interface FatturaRepository extends JpaRepository<Fattura, Long> {
     @Query("SELECT f FROM Fattura f WHERE f.statoFattura.nome = :statoFatturaNome")
     Page<Fattura> findFattureByStatoFattura(@Param("statoFatturaNome") String statoFatturaNome, Pageable pageable);
 
-    @Query("SELECT f FROM Fattura f WHERE f.data = :data")
-    Page<Fattura> findFattureByData(@Param("data") LocalDate data, Pageable pageable);
+    @Query("SELECT f FROM Fattura f WHERE f.data BETWEEN :dataInizio AND :dataFine")
+    Page<Fattura> findFattureByData(@Param("dataInizio") LocalDate dataInizio, @Param("dataFine") LocalDate dataFine, Pageable pageable);
 
     @Query("SELECT f FROM Fattura f WHERE YEAR(f.data) = :anno")
     Page<Fattura> findFattureByAnno(@Param("anno") int anno, Pageable pageable);
