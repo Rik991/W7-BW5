@@ -10,6 +10,6 @@ public class FatturaDTO {
     private Double importo;
     private String numero;
     private Long clienteId;
-    private Long statoFatturaId;
     private String statoFatturaNome;
+
 }

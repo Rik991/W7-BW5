@@ -4,7 +4,10 @@ import it.epicode.EpicEnergyBE.cliente.Cliente;
 import it.epicode.EpicEnergyBE.cliente.ClienteRepository;
 import it.epicode.EpicEnergyBE.fattura.stato_fattura.StatoFattura;
 import it.epicode.EpicEnergyBE.fattura.stato_fattura.StatoFatturaRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,8 +27,8 @@ public class FatturaService {
 
     @Transactional
     public Fattura createFattura(FatturaDTO fatturaDTO) {
-        Cliente cliente = clienteRepository.findById(fatturaDTO.getClienteId())
-                .orElseThrow(() -> new IllegalArgumentException("Cliente non trovato"));
+        Cliente cliente = clienteRepository.findByRagioneSociale(fatturaDTO.getClienteRagioneSociale())
+                .orElseThrow(() -> new EntityNotFoundException("Cliente non trovato"));
 
         StatoFattura statoFattura = new StatoFattura();
         statoFattura.setNome(fatturaDTO.getStatoFatturaNome());
@@ -41,20 +44,24 @@ public class FatturaService {
         return fatturaRepository.save(fattura);
     }
 
-    public List<Fattura> findAll() {
-        return fatturaRepository.findAll();
+    public Page<Fattura> findAll(Pageable pageable) {
+        return fatturaRepository.findAll(pageable);
     }
 
-    public Optional<Fattura> findById(Long id) {
-        return fatturaRepository.findById(id);
+    public List<Fattura> findByClienteRagioneSociale(String ragioneSociale) {
+        return fatturaRepository.findByClienteRagioneSociale(ragioneSociale);
+    }
+
+    public Optional<Fattura> findBy(String ragioneSociale) {
+        return fatturaRepository.findByNumero(ragioneSociale);
     }
 
     @Transactional
-    public Fattura updateFattura(Long id, FatturaDTO fatturaDTO) {
-        Fattura fattura = fatturaRepository.findById(id)
+    public Fattura updateFattura(FatturaDTO fatturaDTO) {
+        Fattura fattura = fatturaRepository.findById(fatturaDTO.getId())
                 .orElseThrow(() -> new IllegalArgumentException("Fattura non trovata"));
 
-        Cliente cliente = clienteRepository.findById(fatturaDTO.getClienteId())
+        Cliente cliente = clienteRepository.findByRagioneSociale(fatturaDTO.getClienteRagioneSociale())
                 .orElseThrow(() -> new IllegalArgumentException("Cliente non trovato"));
         StatoFattura statoFattura = statoFatturaRepository.findById(fatturaDTO.getStatoFatturaId())
                 .orElseThrow(() -> new IllegalArgumentException("Stato Fattura non trovato"));
@@ -70,7 +77,6 @@ public class FatturaService {
 
         return fatturaRepository.save(fattura);
     }
-
 
     public void deleteFattura(Long id) {
         fatturaRepository.deleteById(id);
