@@ -1,6 +1,10 @@
 package it.epicode.EpicEnergyBE.fattura;
 
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -15,37 +19,36 @@ public class FatturaController {
 
     @PostMapping
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
-    public ResponseEntity<Fattura> createFattura(@RequestBody FatturaDTO fatturaDTO) {
-        Fattura newFattura = fatturaService.createFattura(fatturaDTO);
-        return ResponseEntity.ok(newFattura);
+    public ResponseEntity<Fattura> createFattura(@RequestParam String ragioneSociale,
+                                                 @RequestBody FatturaDTO fatturaDTO) {
+        return new ResponseEntity<>(fatturaService.createFattura(ragioneSociale,fatturaDTO), HttpStatus.CREATED);
     }
 
     @GetMapping
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
-    public ResponseEntity<List<Fattura>> getAllFatture() {
-        List<Fattura> fatture = fatturaService.findAll();
-        return ResponseEntity.ok(fatture);
+    public ResponseEntity<Page<Fattura>> getAllFatture(Pageable pageable) {
+        return ResponseEntity.ok(fatturaService.findAll(pageable));
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/{numero}")
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
-    public ResponseEntity<Fattura> getFatturaById(@PathVariable Long id) {
-        Fattura fattura = fatturaService.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Fattura non trovata"));
+    public ResponseEntity<Fattura> getFattureByRagioneSociale(@PathVariable String numero) {
+        Fattura fattura = fatturaService.findByNumero(numero)
+                .orElseThrow(() -> new EntityNotFoundException("Fattura non trovata"));
         return ResponseEntity.ok(fattura);
     }
 
-    @PutMapping("/{id}")
+    @PutMapping("/{numero}")
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
-    public ResponseEntity<Fattura> updateFattura(@PathVariable Long id, @RequestBody FatturaDTO fatturaDTO) {
-        Fattura updatedFattura = fatturaService.updateFattura(id, fatturaDTO);
+    public ResponseEntity<Fattura> updateFattura(@PathVariable String numero, @RequestBody FatturaDTO fatturaDTO) {
+        Fattura updatedFattura = fatturaService.updateFattura(numero, fatturaDTO);
         return ResponseEntity.ok(updatedFattura);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/{numero}")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public ResponseEntity<Void> deleteFattura(@PathVariable Long id) {
-        fatturaService.deleteFattura(id);
-        return ResponseEntity.noContent().build();
+    public ResponseEntity<String> deleteFattura(@PathVariable String numero) {
+        fatturaService.deleteFattura(numero);
+        return new ResponseEntity<>("Fattura eliminata correttamente!",HttpStatus.NO_CONTENT);
     }
 }

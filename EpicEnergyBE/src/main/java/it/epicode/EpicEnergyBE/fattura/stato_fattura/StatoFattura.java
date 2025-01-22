@@ -11,5 +11,6 @@ public class StatoFattura {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
+    @Column(unique = true)
     private String nome;
 }

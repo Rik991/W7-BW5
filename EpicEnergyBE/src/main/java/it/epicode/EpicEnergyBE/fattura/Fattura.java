@@ -17,6 +17,8 @@ public class Fattura {
 
     private LocalDate data;
     private Double importo;
+
+    @Column(unique = true)
     private String numero;
 
     @ManyToOne

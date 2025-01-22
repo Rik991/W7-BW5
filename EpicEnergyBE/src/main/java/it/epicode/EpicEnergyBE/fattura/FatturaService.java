@@ -11,7 +11,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -26,13 +25,12 @@ public class FatturaService {
     private StatoFatturaRepository statoFatturaRepository;
 
     @Transactional
-    public Fattura createFattura(FatturaDTO fatturaDTO) {
-        Cliente cliente = clienteRepository.findByRagioneSociale(fatturaDTO.getClienteRagioneSociale())
+    public Fattura createFattura(String ragioneSociale,FatturaDTO fatturaDTO) {
+        Cliente cliente = clienteRepository.findByRagioneSociale(ragioneSociale)
                 .orElseThrow(() -> new EntityNotFoundException("Cliente non trovato"));
 
-        StatoFattura statoFattura = new StatoFattura();
-        statoFattura.setNome(fatturaDTO.getStatoFatturaNome());
-        statoFattura = statoFatturaRepository.save(statoFattura);
+        StatoFattura statoFattura = statoFatturaRepository.findByNome(fatturaDTO.getStatoFatturaNome())
+                .orElseThrow(() -> new EntityNotFoundException("Stato fattura non trovato"));
 
         Fattura fattura = new Fattura();
         fattura.setData(fatturaDTO.getData());
@@ -48,26 +46,20 @@ public class FatturaService {
         return fatturaRepository.findAll(pageable);
     }
 
-    public List<Fattura> findByClienteRagioneSociale(String ragioneSociale) {
-        return fatturaRepository.findByClienteRagioneSociale(ragioneSociale);
-    }
-
-    public Optional<Fattura> findBy(String ragioneSociale) {
-        return fatturaRepository.findByNumero(ragioneSociale);
+    public Optional<Fattura> findByNumero(String numero) {
+        return fatturaRepository.findByNumero(numero);
     }
 
     @Transactional
-    public Fattura updateFattura(FatturaDTO fatturaDTO) {
-        Fattura fattura = fatturaRepository.findById(fatturaDTO.getId())
-                .orElseThrow(() -> new IllegalArgumentException("Fattura non trovata"));
+    public Fattura updateFattura(String numero, FatturaDTO fatturaDTO) {
+        Fattura fattura = fatturaRepository.findByNumero(numero)
+                .orElseThrow(() -> new EntityNotFoundException("Fattura non trovata"));
 
-        Cliente cliente = clienteRepository.findByRagioneSociale(fatturaDTO.getClienteRagioneSociale())
-                .orElseThrow(() -> new IllegalArgumentException("Cliente non trovato"));
-        StatoFattura statoFattura = statoFatturaRepository.findById(fatturaDTO.getStatoFatturaId())
-                .orElseThrow(() -> new IllegalArgumentException("Stato Fattura non trovato"));
+        Cliente cliente = clienteRepository.findById(fatturaDTO.getClienteId())
+                .orElseThrow(()-> new EntityNotFoundException("Cliente non trovato!"));
 
-        statoFattura.setNome(fatturaDTO.getStatoFatturaNome());
-        statoFattura = statoFatturaRepository.save(statoFattura);
+        StatoFattura statoFattura= statoFatturaRepository.findByNome(fatturaDTO.getStatoFatturaNome())
+                .orElseThrow(()-> new EntityNotFoundException("StatoFattura non trovato!"));
 
         fattura.setData(fatturaDTO.getData());
         fattura.setImporto(fatturaDTO.getImporto());
@@ -78,7 +70,7 @@ public class FatturaService {
         return fatturaRepository.save(fattura);
     }
 
-    public void deleteFattura(Long id) {
-        fatturaRepository.deleteById(id);
+    public void deleteFattura(String numero) {
+        fatturaRepository.deleteByNumero(numero);
     }
 }
