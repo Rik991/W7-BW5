@@ -1,1 +1,136 @@
-<p>home works!</p>
+<section class="container mt-4">
+  <div class="d-flex">
+    <div
+      class="d-flex flex-column flex-shrink-0 px-3 py-4 navSide rounded-4"
+      style="width: 280px"
+    >
+      <div
+        class="nav-item align-items-center btn w-100 rounded-3 p-1 text-start fw-semibold text-bg-profile d-flex justify-content-between"
+      >
+        <div class="d-flex align-items-center">
+          <img
+            src="{{ profileImg }}"
+            class="avatar rounded-3 object-fit-cover"
+          />
+          <div class="ms-3 fs-5" aria-current="page">{{ name }}</div>
+        </div>
+        <i class="bi bi-caret-right-fill fs-4"></i>
+      </div>
+      <hr />
+      <p class="text-white fw-">MAIN</p>
+      <ul class="nav nav-pills flex-column mb-auto">
+        <li class="nav-item">
+          <a
+            class="btn w-100 rounded-4 py-2 px-3 text-start fw-semibold activeSide d-flex align-items-center"
+            aria-current="page"
+          >
+            <i class="bi bi-rocket-takeoff fs-5 me-2"></i>Overview</a
+          >
+        </li>
+        <li>
+          <a
+            class="btn w-100 rounded-4 py-2 px-3 my-2 text-start fw-semibold text-white d-flex align-items-center"
+          >
+            <i class="bi bi-app-indicator fs-5 me-2"></i>Notifications</a
+          >
+        </li>
+        <li>
+          <a
+            class="btn w-100 rounded-4 py-2 px-3 my-2 text-start fw-semibold text-white d-flex align-items-center"
+          >
+            <i class="bi bi-hourglass fs-5 me-2"></i>Pending
+          </a>
+        </li>
+        <li>
+          <a
+            class="btn w-100 rounded-4 py-2 px-3 my-2 text-start fw-semibold text-white d-flex align-items-center"
+          >
+            <i class="bi bi-send fs-5 me-2"></i>Send</a
+          >
+        </li>
+        <li>
+          <a
+            class="btn w-100 rounded-4 py-2 px-3 my-2 text-start fw-semibold text-white d-flex align-items-center"
+          >
+            <i class="bi bi-lightbulb fs-5 me-2"></i>Upgrade to premium</a
+          >
+        </li>
+      </ul>
+      <hr />
+      <p class="text-white fw-">SETTINGS</p>
+      <ul class="nav nav-pills flex-column mb-auto">
+        <li>
+          <a
+            class="btn w-100 rounded-4 py-2 px-3 my-2 text-start fw-semibold text-white d-flex align-items-center"
+          >
+            <i class="bi bi-gear-wide fs-5 me-2"></i>
+            Stettings</a
+          >
+        </li>
+        <li>
+          <a
+            class="btn w-100 rounded-4 py-2 px-3 my-2 text-start fw-semibold text-white d-flex align-items-center"
+          >
+            <i class="bi bi-info-square fs-5 me-2 text-white"></i>
+            Help</a
+          >
+        </li>
+      </ul>
+    </div>
+    <div class="w-100 ms-4 me-3">
+      <div class="d-flex justify-content-between">
+        <h1>
+          Welcome <span class="text-info">{{ name }}</span>
+        </h1>
+        <div>
+          <button
+            routerLink="/fatture"
+            class="btn btn-close-white bg-white shadow-sm rounded-3 px-3 py-2 mx-2 fw-semibold"
+          >
+            Add Fattura
+            <i class="bi bi-plus-square fw-bolder ms-2"></i>
+          </button>
+          <button
+            routerLink="/clienti/register"
+            class="btn btn-close-white bg-white shadow-sm rounded-3 px-3 py-2 mx-2 fw-semibold"
+          >
+            Add Cliente
+            <i class="bi bi-plus-square fw-bolder ms-2"></i>
+          </button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col bg-white shadow-sm rounded-3 m-3 p-3">
+          <h5>Fatture</h5>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">An item</li>
+            <li class="list-group-item">A second item</li>
+            <li class="list-group-item">A third item</li>
+            <li class="list-group-item">A fourth item</li>
+            <li class="list-group-item">And a fifth one</li>
+          </ul>
+          <div class="text-end">
+            <button class="btn shadow-sm p-2 py-1 px-2">
+              <i class="bi bi-arrows-angle-expand"></i>
+            </button>
+          </div>
+        </div>
+        <div class="col bg-white shadow-sm rounded-3 m-3 p-3 h-100">
+          <h5>Clienti</h5>
+          <ul class="list-group list-group-flush">
+            <li class="list-group-item">An item</li>
+            <li class="list-group-item">A second item</li>
+            <li class="list-group-item">A third item</li>
+            <li class="list-group-item">A fourth item</li>
+            <li class="list-group-item">And a fifth one</li>
+          </ul>
+          <div class="text-end">
+            <button class="btn shadow-sm p-2 py-1 px-2">
+              <i class="bi bi-arrows-angle-expand"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

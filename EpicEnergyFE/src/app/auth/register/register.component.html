@@ -10,18 +10,54 @@
       <input
         type="text"
         [placeholder]="
-          form.get('name')?.touched && form.get('name')?.invalid
+          form.get('username')?.touched && form.get('username')?.invalid
             ? ''
-            : 'Inserisci il tuo nome'
+            : 'Inserisci il tuo username'
         "
-        formControlName="name"
+        formControlName="username"
         class="form-control bg-transparent border-black"
       />
       <div
-        *ngIf="form.get('name')?.invalid && form.get('name')?.touched"
+        *ngIf="form.get('username')?.invalid && form.get('username')?.touched"
+        class="error-placeholder text-danger"
+      >
+        Lo username è richiesto.
+      </div>
+    </div>
+    <div class="form-group col-4 position-relative">
+      <input
+        type="text"
+        [placeholder]="
+          form.get('nome')?.touched && form.get('nome')?.invalid
+            ? ''
+            : 'Inserisci il tuo nome'
+        "
+        formControlName="nome"
+        class="form-control bg-transparent border-black"
+      />
+      <div
+        *ngIf="form.get('nome')?.invalid && form.get('nome')?.touched"
         class="error-placeholder text-danger"
       >
         Il nome è richiesto.
+      </div>
+    </div>
+    <div class="form-group col-4 position-relative">
+      <input
+        type="text"
+        [placeholder]="
+          form.get('cognome')?.touched && form.get('cognome')?.invalid
+            ? ''
+            : 'Inserisci il tuo cognome'
+        "
+        formControlName="cognome"
+        class="form-control bg-transparent border-black"
+      />
+      <div
+        *ngIf="form.get('cognome')?.invalid && form.get('cognome')?.touched"
+        class="error-placeholder text-danger"
+      >
+        Il cognome è richiesto.
       </div>
     </div>
 
@@ -62,7 +98,28 @@
         Inserisci una password di almeno 6 caratteri.
       </div>
     </div>
+    <div class="form-group col-4 position-relative">
+      <label for="avatar">Avatar</label>
+      <input
+        type="file"
+        id="avatar"
+        (change)="onFileChange($event)"
+        accept="image/*"
+        class="form-control bg-transparent border-black"
+      />
+    </div>
 
-    <button type="submit" class="btn btn-success border mt-3">Conferma</button>
+    <p>
+      Sei già registrato? Effettua il
+      <a class="pointer" routerLink="/auth/login">logIn</a>
+    </p>
+
+    <button
+      type="submit"
+      class="btn btn-success border"
+      [disabled]="form.invalid"
+    >
+      Conferma
+    </button>
   </form>
 </div>

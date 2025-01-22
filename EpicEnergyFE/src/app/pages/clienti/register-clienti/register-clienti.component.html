@@ -1,0 +1,229 @@
+<div class="container text-center py-5 align-items-center">
+  <form
+    [formGroup]="form"
+    class="d-flex flex-column gap-4 align-items-center mt-5"
+    (ngSubmit)="registerClienti()"
+  >
+    <h1 class="text-dark">Registrazione Cliente</h1>
+
+    <div class="form-group col-4 position-relative">
+      <input
+        type="text"
+        placeholder="Inserisci la ragione sociale"
+        formControlName="ragioneSociale"
+        class="form-control bg-transparent border-black"
+      />
+    </div>
+
+    <div class="form-group col-4 position-relative">
+      <input
+        type="text"
+        placeholder="Inserisci la partita IVA"
+        formControlName="partitaIva"
+        class="form-control bg-transparent border-black"
+      />
+    </div>
+
+    <div class="form-group col-4 position-relative">
+      <input
+        type="email"
+        placeholder="Inserisci la tua email"
+        formControlName="email"
+        class="form-control bg-transparent border-black"
+      />
+    </div>
+
+    <div class="form-group col-4 position-relative">
+      <input
+        type="text"
+        placeholder="Inserisci la data dell'ultimo contatto"
+        formControlName="dataUltimoContatto"
+        class="form-control bg-transparent border-black"
+      />
+    </div>
+
+    <div class="form-group col-4 position-relative">
+      <input
+        type="number"
+        placeholder="Inserisci il fatturato annuale"
+        formControlName="fatturatoAnnuale"
+        class="form-control bg-transparent border-black"
+      />
+    </div>
+
+    <div class="form-group col-4 position-relative">
+      <input
+        type="text"
+        placeholder="Inserisci la PEC"
+        formControlName="pec"
+        class="form-control bg-transparent border-black"
+      />
+    </div>
+
+    <div class="form-group col-4 position-relative">
+      <input
+        type="text"
+        placeholder="Inserisci il telefono"
+        formControlName="telefono"
+        class="form-control bg-transparent border-black"
+      />
+    </div>
+
+    <div class="form-group col-4 position-relative">
+      <input
+        type="text"
+        placeholder="Inserisci l'email del contatto"
+        formControlName="emailContatto"
+        class="form-control bg-transparent border-black"
+      />
+    </div>
+
+    <div class="form-group col-4 position-relative">
+      <input
+        type="text"
+        placeholder="Inserisci il nome del contatto"
+        formControlName="nomeContatto"
+        class="form-control bg-transparent border-black"
+      />
+    </div>
+
+    <div class="form-group col-4 position-relative">
+      <input
+        type="text"
+        placeholder="Inserisci il cognome del contatto"
+        formControlName="cognomeContatto"
+        class="form-control bg-transparent border-black"
+      />
+    </div>
+
+    <div class="form-group col-4 position-relative">
+      <input
+        type="text"
+        placeholder="Inserisci il telefono del contatto"
+        formControlName="telefonoContatto"
+        class="form-control bg-transparent border-black"
+      />
+    </div>
+
+    <div class="form-group col-4 position-relative">
+      <select
+        formControlName="tipoCliente"
+        class="form-control bg-transparent border-black"
+      >
+        <option value="" disabled selected>Seleziona il tipo di cliente</option>
+        <option value="PA">PA</option>
+        <option value="SAS">SAS</option>
+        <option value="SPA">SPA</option>
+        <option value="SRL">SRL</option>
+      </select>
+    </div>
+
+    <div class="form-group col-4 position-relative">
+      <input
+        type="file"
+        (change)="onFileChange($event)"
+        class="form-control bg-transparent border-black"
+      />
+    </div>
+
+    <div formGroupName="sedeLegale">
+      <h2 class="text-dark">Indirizzo Sede Legale</h2>
+
+      <div class="form-group col-4 position-relative">
+        <input
+          type="text"
+          placeholder="Inserisci la via"
+          formControlName="via"
+          class="form-control bg-transparent border-black"
+        />
+      </div>
+
+      <div class="form-group col-4 position-relative">
+        <input
+          type="text"
+          placeholder="Inserisci il civico"
+          formControlName="civico"
+          class="form-control bg-transparent border-black"
+        />
+      </div>
+
+      <div class="form-group col-4 position-relative">
+        <input
+          type="text"
+          placeholder="Inserisci la località"
+          formControlName="localita"
+          class="form-control bg-transparent border-black"
+        />
+      </div>
+
+      <div class="form-group col-4 position-relative">
+        <input
+          type="text"
+          placeholder="Inserisci il CAP"
+          formControlName="cap"
+          class="form-control bg-transparent border-black"
+        />
+      </div>
+
+      <div class="form-group col-4 position-relative">
+        <input
+          type="text"
+          placeholder="Inserisci il comune"
+          formControlName="comune"
+          class="form-control bg-transparent border-black"
+        />
+      </div>
+    </div>
+
+    <div formGroupName="sedeOperativa">
+      <h2 class="text-dark">Indirizzo Sede Operativa</h2>
+
+      <div class="form-group col-4 position-relative">
+        <input
+          type="text"
+          placeholder="Inserisci la via"
+          formControlName="via"
+          class="form-control bg-transparent border-black"
+        />
+      </div>
+
+      <div class="form-group col-4 position-relative">
+        <input
+          type="text"
+          placeholder="Inserisci il civico"
+          formControlName="civico"
+          class="form-control bg-transparent border-black"
+        />
+      </div>
+
+      <div class="form-group col-4 position-relative">
+        <input
+          type="text"
+          placeholder="Inserisci la località"
+          formControlName="localita"
+          class="form-control bg-transparent border-black"
+        />
+      </div>
+
+      <div class="form-group col-4 position-relative">
+        <input
+          type="text"
+          placeholder="Inserisci il CAP"
+          formControlName="cap"
+          class="form-control bg-transparent border-black"
+        />
+      </div>
+
+      <div class="form-group col-4 position-relative">
+        <input
+          type="text"
+          placeholder="Inserisci il comune"
+          formControlName="comune"
+          class="form-control bg-transparent border-black"
+        />
+      </div>
+    </div>
+
+    <button type="submit" class="btn btn-success border mt-3">Conferma</button>
+  </form>
+</div>
