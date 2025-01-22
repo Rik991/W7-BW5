@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ClientiService } from '../../../services/clienti.service';
 import { iClienti } from '../../../interfaces/i-clienti';
@@ -21,31 +21,31 @@ export class RegisterClientiComponent implements OnInit {
 
   ngOnInit() {
     this.form = this.fb.group({
-      ragioneSociale: [''],
-      partitaIva: [''],
-      email: [''],
+      ragioneSociale: ['', Validators.required],
+      partitaIva: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
       dataUltimoContatto: [''],
-      fatturatoAnnuale: [''],
-      pec: [''],
-      telefono: [''],
+      fatturatoAnnuale: ['', Validators.required],
+      pec: ['', Validators.email],
+      telefono: ['', Validators.required],
       emailContatto: [''],
       nomeContatto: [''],
       cognomeContatto: [''],
       telefonoContatto: [''],
-      tipoCliente: [''],
+      tipoCliente: ['', Validators.required],
       sedeLegale: this.fb.group({
         via: [''],
         civico: [''],
         localita: [''],
         cap: [''],
-        comune: [''],
+        comune: ['', Validators.required],
       }),
       sedeOperativa: this.fb.group({
         via: [''],
         civico: [''],
         localita: [''],
         cap: [''],
-        comune: [''],
+        comune: ['', Validators.required],
       }),
     });
   }
@@ -77,15 +77,15 @@ export class RegisterClientiComponent implements OnInit {
 
       this.clientiService
         .registerClienti(formData, this.logoAziendaleFile)
-        .subscribe(
-          (res) => {
+        .subscribe({
+          next: (res) => {
             this.router.navigate(['/clienti']);
             alert('Registrazione cliente effettuata correttamente');
           },
-          (error) => {
+          error: (error) => {
             alert('Errore nella registrazione del cliente: ' + error.message);
-          }
-        );
+          },
+        });
     } else {
       alert('Controlla i tuoi dati, ci sono errori nel modulo.');
     }
