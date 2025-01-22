@@ -18,7 +18,7 @@ public class FatturaController {
     private FatturaService fatturaService;
 
     @PostMapping
-    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<Fattura> createFattura(@RequestParam String ragioneSociale,
                                                  @RequestBody FatturaDTO fatturaDTO) {
         return new ResponseEntity<>(fatturaService.createFattura(ragioneSociale,fatturaDTO), HttpStatus.CREATED);
@@ -39,16 +39,10 @@ public class FatturaController {
     }
 
     @PutMapping("/{numero}")
-    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<Fattura> updateFattura(@PathVariable String numero, @RequestBody FatturaDTO fatturaDTO) {
         Fattura updatedFattura = fatturaService.updateFattura(numero, fatturaDTO);
         return ResponseEntity.ok(updatedFattura);
     }
 
-    @DeleteMapping("/{numero}")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public ResponseEntity<String> deleteFattura(@PathVariable String numero) {
-        fatturaService.deleteFattura(numero);
-        return new ResponseEntity<>("Fattura eliminata correttamente!",HttpStatus.NO_CONTENT);
-    }
 }
