@@ -5,6 +5,8 @@ import it.epicode.EpicEnergyBE.indirizzo.Indirizzo;
 import it.epicode.EpicEnergyBE.provincia.comune.Comune;
 import it.epicode.EpicEnergyBE.provincia.comune.ComuneRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -119,5 +121,48 @@ public class ClienteController {
     public ResponseEntity<Void> deleteCliente(@PathVariable Long id) {
         clienteService.deleteCliente(id);
         return ResponseEntity.noContent().build();
+    }
+
+    // FILTRAGGIO
+
+//    @GetMapping("/filter")
+//    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+//    public ResponseEntity<Page<Cliente>> getFilteredClienti(
+//            @RequestParam(required = false) Double fatturatoAnnuale,
+//            @RequestParam(required = false) LocalDate dataInserimento,
+//            @RequestParam(required = false) LocalDate dataUltimoContatto,
+//            @RequestParam(required = false) String nome,
+//            Pageable pageable) {
+//        return ResponseEntity.ok(clienteService.findByFilters(fatturatoAnnuale, dataInserimento, dataUltimoContatto, nome, pageable));
+//    }
+
+    @GetMapping("/orderByNome")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+    public ResponseEntity<Page<Cliente>> getClientiOrderByNome(Pageable pageable) {
+        return ResponseEntity.ok(clienteService.findAllByOrderByNomeContatto(pageable));
+    }
+
+    @GetMapping("/orderByFatturato")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+    public ResponseEntity<Page<Cliente>> getClientiOrderByFatturato(Pageable pageable) {
+        return ResponseEntity.ok(clienteService.findAllByOrderByFatturatoAnnuale(pageable));
+    }
+
+    @GetMapping("/orderByDataInserimento")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+    public ResponseEntity<Page<Cliente>> getClientiOrderByDataInserimento(Pageable pageable) {
+        return ResponseEntity.ok(clienteService.findAllByOrderByDataInserimento(pageable));
+    }
+
+    @GetMapping("/orderByDataUltimoContatto")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+    public ResponseEntity<Page<Cliente>> getClientiOrderByDataUltimoContatto(Pageable pageable) {
+        return ResponseEntity.ok(clienteService.findAllByOrderByDataUltimoContatto(pageable));
+    }
+
+    @GetMapping("/orderByProvinciaSedeLegale")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+    public ResponseEntity<Page<Cliente>> getClientiOrderByProvinciaSedeLegale(Pageable pageable) {
+        return ResponseEntity.ok(clienteService.findAllByOrderByProvinciaSedeLegale(pageable));
     }
 }

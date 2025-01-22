@@ -8,10 +8,13 @@ import it.epicode.EpicEnergyBE.provincia.comune.Comune;
 import it.epicode.EpicEnergyBE.provincia.comune.ComuneRepository;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -81,6 +84,40 @@ public class ClienteService {
 
     public void deleteCliente(Long id) {
         clienteRepository.deleteById(id);
+    }
+
+
+
+    //FILTRAGGIO
+
+//    @Transactional
+//    public Page<Cliente> findByFilters(Double fatturatoAnnuale, LocalDate dataInserimento, LocalDate dataUltimoContatto, String nome, Pageable pageable) {
+//        return clienteRepository.findByFilters(fatturatoAnnuale, dataInserimento, dataUltimoContatto, nome, pageable);
+//    }
+
+    @Transactional
+    public Page<Cliente> findAllByOrderByNomeContatto(Pageable pageable) {
+        return clienteRepository.findAllByOrderByNomeContatto(pageable);
+    }
+
+    @Transactional
+    public Page<Cliente> findAllByOrderByFatturatoAnnuale(Pageable pageable) {
+        return clienteRepository.findAllByOrderByFatturatoAnnuale(pageable);
+    }
+
+    @Transactional
+    public Page<Cliente> findAllByOrderByDataInserimento(Pageable pageable) {
+        return clienteRepository.findAllByOrderByDataInserimento(pageable);
+    }
+
+    @Transactional
+    public Page<Cliente> findAllByOrderByDataUltimoContatto(Pageable pageable) {
+        return clienteRepository.findAllByOrderByDataUltimoContatto(pageable);
+    }
+
+    @Transactional
+    public Page<Cliente> findAllByOrderByProvinciaSedeLegale(Pageable pageable) {
+        return clienteRepository.findAllByOrderByProvinciaSedeLegale(pageable);
     }
 
 }
