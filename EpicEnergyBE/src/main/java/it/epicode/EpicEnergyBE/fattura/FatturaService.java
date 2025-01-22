@@ -10,6 +10,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.Optional;
 
 @Service
@@ -67,4 +68,23 @@ public class FatturaService {
         return fatturaRepository.save(fattura);
     }
 
+    public Page<Fattura> findByClienteRagioneSociale(String ragioneSociale, Pageable pageable) {
+        return fatturaRepository.findFattureCliente(ragioneSociale, pageable);
+    }
+
+    public Page<Fattura> findByStatoFattura(String statoFatturaNome, Pageable pageable) {
+        return fatturaRepository.findFattureByStatoFattura(statoFatturaNome, pageable);
+    }
+
+    public Page<Fattura> findByData(LocalDate dataInizio, LocalDate dataFine, Pageable pageable) {
+        return fatturaRepository.findFattureByData(dataInizio, dataFine, pageable);
+    }
+
+    public Page<Fattura> findByAnno(int anno, Pageable pageable) {
+        return fatturaRepository.findFattureByAnno(anno, pageable);
+    }
+
+    public Page<Fattura> findByImportoRange(Double minImporto, Double maxImporto, Pageable pageable) {
+        return fatturaRepository.findFattureByImportoRange(minImporto, maxImporto, pageable);
+    }
 }
