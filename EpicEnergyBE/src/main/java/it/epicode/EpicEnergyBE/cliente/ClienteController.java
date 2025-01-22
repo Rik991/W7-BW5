@@ -15,7 +15,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/clienti-completi")
+@RequestMapping("/api/clienti")
 public class ClienteController {
 
     @Autowired
