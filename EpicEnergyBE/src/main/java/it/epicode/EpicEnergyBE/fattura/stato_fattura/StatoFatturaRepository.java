@@ -8,4 +8,5 @@ import java.util.Optional;
 
 public interface StatoFatturaRepository extends JpaRepository<StatoFattura, Long> {
     Optional<StatoFattura> findByNome(String nome);
+    void deleteByNome(String nome);
 }

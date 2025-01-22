@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
 
@@ -24,7 +23,6 @@ public class FatturaService {
     @Autowired
     private StatoFatturaRepository statoFatturaRepository;
 
-    @Transactional
     public Fattura createFattura(String ragioneSociale,FatturaDTO fatturaDTO) {
         Cliente cliente = clienteRepository.findByRagioneSociale(ragioneSociale)
                 .orElseThrow(() -> new EntityNotFoundException("Cliente non trovato"));
@@ -50,7 +48,6 @@ public class FatturaService {
         return fatturaRepository.findByNumero(numero);
     }
 
-    @Transactional
     public Fattura updateFattura(String numero, FatturaDTO fatturaDTO) {
         Fattura fattura = fatturaRepository.findByNumero(numero)
                 .orElseThrow(() -> new EntityNotFoundException("Fattura non trovata"));
@@ -70,7 +67,4 @@ public class FatturaService {
         return fatturaRepository.save(fattura);
     }
 
-    public void deleteFattura(String numero) {
-        fatturaRepository.deleteByNumero(numero);
-    }
 }

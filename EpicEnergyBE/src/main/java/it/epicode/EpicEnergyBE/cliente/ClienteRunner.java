@@ -3,7 +3,6 @@ package it.epicode.EpicEnergyBE.cliente;
 import it.epicode.EpicEnergyBE.indirizzo.Indirizzo;
 import it.epicode.EpicEnergyBE.provincia.comune.Comune;
 import it.epicode.EpicEnergyBE.provincia.comune.ComuneRepository;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
