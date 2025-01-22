@@ -46,8 +46,8 @@ public class ClienteService {
         return clienteRepository.save(cliente);
     }
 
-    public List<Cliente> findAll() {
-        return clienteRepository.findAll();
+    public Page<Cliente> findAll(Pageable pageable) {
+        return clienteRepository.findAll(pageable);
     }
 
     public Optional<Cliente> findById(Long id) {

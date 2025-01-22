@@ -96,9 +96,9 @@ public class ClienteController {
 
     @GetMapping
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
-    public ResponseEntity<List<Cliente>> getAllClienti() {
-        List<Cliente> clienti = clienteService.findAll();
-        return ResponseEntity.ok(clienti);
+    public ResponseEntity<Page<Cliente>> getAllClienti(Pageable pageable) {
+
+        return ResponseEntity.ok(clienteService.findAll(pageable));
     }
 
     @GetMapping("/{id}")
