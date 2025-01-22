@@ -22,7 +22,7 @@ public class FatturaController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<Fattura> createFattura(@RequestParam String ragioneSociale,
                                                  @RequestBody FatturaDTO fatturaDTO) {
-        return new ResponseEntity<>(fatturaService.createFattura(ragioneSociale,fatturaDTO), HttpStatus.CREATED);
+        return new ResponseEntity<>(fatturaService.createFattura(ragioneSociale, fatturaDTO), HttpStatus.CREATED);
     }
 
     @GetMapping
@@ -59,11 +59,11 @@ public class FatturaController {
         return ResponseEntity.ok(fatturaService.findByStatoFattura(statoFatturaNome, pageable));
     }
 
-  @GetMapping("/data")
-@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
-public ResponseEntity<Page<Fattura>> getFattureByData(@RequestParam LocalDate dataInizio, @RequestParam LocalDate dataFine, Pageable pageable) {
-    return ResponseEntity.ok(fatturaService.findByData(dataInizio, dataFine, pageable));
-}
+    @GetMapping("/data")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+    public ResponseEntity<Page<Fattura>> getFattureByData(@RequestParam LocalDate dataInizio, @RequestParam LocalDate dataFine, Pageable pageable) {
+        return ResponseEntity.ok(fatturaService.findByData(dataInizio, dataFine, pageable));
+    }
 
     @GetMapping("/anno")
     @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
