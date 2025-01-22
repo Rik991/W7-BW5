@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule, OnInit } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { FattureComponent } from './fatture.component';
 
@@ -6,6 +6,6 @@ const routes: Routes = [{ path: '', component: FattureComponent }];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class FattureRoutingModule { }
+export class FattureRoutingModule {}

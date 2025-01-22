@@ -1,1 +1,109 @@
-<p>fatture works!</p>
+<div class="container text-center my-5">
+  <div class="row">
+    <div class="col-12 col-lg-6">
+      <!-- From Uiverse.io by mi-series -->
+      <div class="mb-">
+        <header>Registration Form</header>
+        <form class="form mx-3" action="#">
+          <div class="input-box">
+            <h6 class="text-start">Ragione Sociale</h6>
+            <input required="" placeholder="Enel" type="text" />
+          </div>
+          <div class="column">
+            <div class="input-box">
+              <h6 class="text-start">Importo Fattura</h6>
+              <input
+                required=""
+                placeholder="Inserisci il totale"
+                type="telephone"
+              />
+            </div>
+            <div class="input-box">
+              <h6 class="text-start">Data Fatturazione</h6>
+              <input required="" placeholder="Inserisci data" type="date" />
+            </div>
+          </div>
+
+          <div class="input-box address">
+            <h6 class="text-start">Stato Fattura</h6>
+            <div class="column">
+              <div class="select-box">
+                <select>
+                  <option hidden="">Country</option>
+                  <option>USA</option>
+                  <option>UK</option>
+                  <option>Germany</option>
+                  <option>Japan</option>
+                </select>
+              </div>
+            </div>
+          </div>
+          <button>Submit</button>
+        </form>
+      </div>
+    </div>
+    <div class="col-12 col-lg-6">
+      <div class="container bg-white shadow-sm py-3 px-3">
+        <div class="row mt-2">
+          <div class="col-6 text-start">
+            <p class="mb-1">NO. <span>00123</span></p>
+            <p class="mb-1">Date: <span>22 gennaio 2025</span></p>
+          </div>
+        </div>
+        <hr class="mt-1" />
+        <h1>Fattura</h1>
+        <div class="row mt-4">
+          <div class="col-6 text-start">
+            <h5>Mittente:</h5>
+            <p>
+              Nome Azienda<br />Indirizzo<br />Città, CAP<br />Partita IVA:
+              12345678901
+            </p>
+          </div>
+          <div class="col-6 text-end">
+            <h5>Destinatario:</h5>
+            <p>Nome Cliente<br />Indirizzo<br />Città, CAP</p>
+          </div>
+        </div>
+        <table class="table mt-4">
+          <thead class="table-dark">
+            <tr>
+              <th>Descrizione</th>
+              <th>Quantità</th>
+              <th>Prezzo Unitario</th>
+              <th>Totale</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Servizio 1</td>
+              <td>2</td>
+              <td>&euro; 100,00</td>
+              <td>&euro; 200,00</td>
+            </tr>
+            <tr>
+              <td>Prodotto A</td>
+              <td>1</td>
+              <td>&euro; 50,00</td>
+              <td>&euro; 50,00</td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <th colspan="3" class="text-end">Totale</th>
+              <th>&euro; 250,00</th>
+            </tr>
+          </tfoot>
+        </table>
+        <div class="row mt-4">
+          <div class="col-12 text-start">
+            <p class="mb-1">
+              <strong>Metodo di Pagamento:</strong> Bonifico Bancario
+            </p>
+            <p><strong>IBAN:</strong> IT00X1234567890123456789012</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
