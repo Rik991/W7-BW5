@@ -88,21 +88,20 @@ public class ClienteService {
 
 //get filtrate
 
-    public Page<Cliente> getClientiConFatturatoTra0E20000(Pageable pageable) {
-        return clienteRepository.findByFatturatoAnnualeBetween0And20000(pageable);
+    public Page<Cliente> getClientiByfatturatoAnnualeRange(Double minImporto,Double maxImporto,Pageable pageable) {
+        return clienteRepository.findByFatturatoAnnualeRange(minImporto,maxImporto,pageable);
     }
 
-    public Page<Cliente> getClientiConFatturatoTra20000E50000(Pageable pageable) {
-        return clienteRepository.findByFatturatoAnnualeBetween20000And50000(pageable);
+    public Page<Cliente> getClientiTraDateInserimento(LocalDate dataInizio, LocalDate dataFine, Pageable pageable) {
+        return clienteRepository.findByDataInserimentoBetween(dataInizio, dataFine, pageable);
     }
 
-    public Page<Cliente> getClientiConFatturatoTra50000E100000(Pageable pageable) {
-        return clienteRepository.findByFatturatoAnnualeBetween50000And100000(pageable);
+    public Page<Cliente> getClientiTraDateUltimoContatto(LocalDate dataInizio, LocalDate dataFine, Pageable pageable) {
+        return clienteRepository.findByDataUltimoContattoBetween(dataInizio, dataFine, pageable);
     }
 
-    public Page<Cliente> getClientiConFatturatoMaggioreDi100000(Pageable pageable) {
-        return clienteRepository.findByFatturatoAnnualeGreaterThan100000(pageable);
+    public Page<Cliente> getClientiByRagioneSociale(String ragioneSociale, Pageable pageable) {
+        return clienteRepository.findByRagioneSocialeContains(ragioneSociale, pageable);
     }
-
 
 }
