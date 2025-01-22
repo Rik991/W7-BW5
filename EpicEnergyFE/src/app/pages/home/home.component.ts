@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { iClienti } from '../../interfaces/i-clienti';
 
 @Component({
   selector: 'app-home',
@@ -9,10 +10,9 @@ export class HomeComponent implements OnInit {
   name: string = 'Joseph';
   profileImg: string =
     'https://img.freepik.com/premium-vector/man-avatar-profile-picture-isolated-background-avatar-profile-picture-man_1293239-4866.jpg';
-  fattureArr: any;
-  clientiArr: any;
 
-  ngOnInit(): void {
-    throw new Error('Method not implemented.');
-  }
+  fattureArr: any;
+  clientiArr: iClienti[] = [];
+
+  ngOnInit(): void {}
 }
