@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -45,4 +46,34 @@ public class FatturaController {
         return ResponseEntity.ok(updatedFattura);
     }
 
+
+    @GetMapping("/ragioneSociale")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+    public ResponseEntity<Page<Fattura>> getFattureByClienteRagioneSociale(@RequestParam String ragioneSociale, Pageable pageable) {
+        return ResponseEntity.ok(fatturaService.findByClienteRagioneSociale(ragioneSociale, pageable));
+    }
+
+    @GetMapping("/statoFattura")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+    public ResponseEntity<Page<Fattura>> getFattureByStatoFattura(@RequestParam String statoFatturaNome, Pageable pageable) {
+        return ResponseEntity.ok(fatturaService.findByStatoFattura(statoFatturaNome, pageable));
+    }
+
+    @GetMapping("/data")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+    public ResponseEntity<Page<Fattura>> getFattureByData(@RequestParam LocalDate data, Pageable pageable) {
+        return ResponseEntity.ok(fatturaService.findByData(data, pageable));
+    }
+
+    @GetMapping("/anno")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+    public ResponseEntity<Page<Fattura>> getFattureByAnno(@RequestParam int anno, Pageable pageable) {
+        return ResponseEntity.ok(fatturaService.findByAnno(anno, pageable));
+    }
+
+    @GetMapping("/importoRange")
+    @PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+    public ResponseEntity<Page<Fattura>> getFattureByImportoRange(@RequestParam Double minImporto, @RequestParam Double maxImporto, Pageable pageable) {
+        return ResponseEntity.ok(fatturaService.findByImportoRange(minImporto, maxImporto, pageable));
+    }
 }
