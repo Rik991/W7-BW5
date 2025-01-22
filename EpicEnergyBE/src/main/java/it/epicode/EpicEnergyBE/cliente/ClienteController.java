@@ -131,7 +131,7 @@ public class ClienteController {
         return ResponseEntity.ok(clienteService.getClientiByfatturatoAnnualeRange(minImporto,maxImporto,pageable));
     }
 
-    @GetMapping("/tra_date_inserimento")
+    @GetMapping("/registrazioni_tra_date_inserimento")
     public ResponseEntity<Page<Cliente>> getClientiTraDate(
             @RequestParam("dataInizio") LocalDate dataInizio,
             @RequestParam("dataFine") LocalDate dataFine,
@@ -139,7 +139,7 @@ public class ClienteController {
         return ResponseEntity.ok(clienteService.getClientiTraDateInserimento(dataInizio, dataFine, pageable));
     }
 
-    @GetMapping("/tra_date_ultimo_contatto")
+    @GetMapping("/date_ultimo_contatto")
     public ResponseEntity<Page<Cliente>> getClientiTraDateUltimoContatto(
             @RequestParam("dataInizio") LocalDate dataInizio,
             @RequestParam("dataFine") LocalDate dataFine,

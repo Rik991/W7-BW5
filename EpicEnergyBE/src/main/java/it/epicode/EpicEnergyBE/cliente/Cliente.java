@@ -13,15 +13,16 @@ import java.util.List;
 @Table(name = "clienti")
 public class Cliente {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "ragione_sociale")
+    @Column(name = "ragione_sociale", unique = true)
     private String ragioneSociale;
 
-    @Column(name = "partita_iva")
+    @Column(name = "partita_iva", unique = true)
     private String partitaIva;
 
+    @Column(unique = true)
     private String email;
 
     @Column(name = "data_inserimento")
@@ -33,8 +34,10 @@ public class Cliente {
     @Column(name = "fatturato_annuale")
     private Double fatturatoAnnuale;
 
+    @Column(unique = true)
     private String pec;
 
+    @Column(unique = true)
     private String telefono;
 
     @Column(name = "email_contatto")
@@ -49,7 +52,7 @@ public class Cliente {
     @Column(name = "telefono_contatto")
     private String telefonoContatto;
 
-    @Column(name = "logo_aziendale")
+    @Column(name = "logo_aziendale",unique = true)
     private String logoAziendale;
 
     @Column(name = "tipo_cliente")

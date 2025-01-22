@@ -9,7 +9,7 @@ import lombok.Data;
 @Table(name = "comuni")
 public class Comune {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String codiceProvincia;

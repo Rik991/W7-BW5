@@ -33,7 +33,6 @@ public class ClienteService {
     @Autowired
     private CloudinaryService cloudinaryService;
 
-    @Transactional
     public Cliente createCliente(ClienteDTO clienteDTO, MultipartFile logo) {
 
         Cliente cliente = new Cliente();
@@ -54,13 +53,10 @@ public class ClienteService {
         return clienteRepository.findById(id);
     }
 
-    @Transactional
+
     public Cliente updateCliente(Long id, ClienteDTO clienteDTO) {
         Cliente cliente = clienteRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Cliente non trovato"));
-//
-//        Indirizzo sedeLegale = createIndirizzo(clienteDTO.getSedeLegale());
-//        Indirizzo sedeOperativa = createIndirizzo(clienteDTO.getSedeOperativa());
 
         cliente.setRagioneSociale(clienteDTO.getRagioneSociale());
         cliente.setPartitaIva(clienteDTO.getPartitaIva());
@@ -74,10 +70,9 @@ public class ClienteService {
         cliente.setNomeContatto(clienteDTO.getNomeContatto());
         cliente.setCognomeContatto(clienteDTO.getCognomeContatto());
         cliente.setTelefonoContatto(clienteDTO.getTelefonoContatto());
-
         cliente.setTipoCliente(clienteDTO.getTipoCliente());
-//        cliente.setSedeLegale(sedeLegale);
-//        cliente.setSedeOperativa(sedeOperativa);
+        cliente.setSedeLegale(clienteDTO.getSedeLegale());
+        cliente.setSedeOperativa(clienteDTO.getSedeOperativa());
 
         return clienteRepository.save(cliente);
     }
