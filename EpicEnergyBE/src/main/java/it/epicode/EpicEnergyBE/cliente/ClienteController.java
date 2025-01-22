@@ -124,4 +124,26 @@ public class ClienteController {
         return new ResponseEntity<>("Cliente eliminato correttamente!",HttpStatus.NO_CONTENT);
     }
 
+    //indirizzi filtrati
+
+    @GetMapping("/fatturato/tra0E20000")
+    public ResponseEntity<Page<Cliente>> getClientiTra0E20000(Pageable pageable) {
+        return ResponseEntity.ok(clienteService.getClientiConFatturatoTra0E20000(pageable));
+    }
+
+    @GetMapping("/fatturato/tra20000E50000")
+    public ResponseEntity<Page<Cliente>> getClientiTra20000E50000(Pageable pageable) {
+        return ResponseEntity.ok(clienteService.getClientiConFatturatoTra20000E50000(pageable));
+    }
+
+    @GetMapping("/fatturato/tra50000E100000")
+    public ResponseEntity<Page<Cliente>> getClientiTra50000E100000(Pageable pageable) {
+        return ResponseEntity.ok(clienteService.getClientiConFatturatoTra50000E100000(pageable));
+    }
+
+    @GetMapping("/fatturato/superioreA100000")
+    public ResponseEntity<Page<Cliente>> getClientiSuperioreA100000(Pageable pageable) {
+        return ResponseEntity.ok(clienteService.getClientiConFatturatoMaggioreDi100000(pageable));
+    }
+
 }

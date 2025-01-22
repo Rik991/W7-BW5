@@ -86,6 +86,23 @@ public class ClienteService {
         clienteRepository.deleteById(id);
     }
 
+//get filtrate
+
+    public Page<Cliente> getClientiConFatturatoTra0E20000(Pageable pageable) {
+        return clienteRepository.findByFatturatoAnnualeBetween0And20000(pageable);
+    }
+
+    public Page<Cliente> getClientiConFatturatoTra20000E50000(Pageable pageable) {
+        return clienteRepository.findByFatturatoAnnualeBetween20000And50000(pageable);
+    }
+
+    public Page<Cliente> getClientiConFatturatoTra50000E100000(Pageable pageable) {
+        return clienteRepository.findByFatturatoAnnualeBetween50000And100000(pageable);
+    }
+
+    public Page<Cliente> getClientiConFatturatoMaggioreDi100000(Pageable pageable) {
+        return clienteRepository.findByFatturatoAnnualeGreaterThan100000(pageable);
+    }
 
 
 }
