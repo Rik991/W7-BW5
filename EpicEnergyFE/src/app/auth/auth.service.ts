@@ -31,9 +31,17 @@ export class AuthService {
   constructor(private http: HttpClient, private router: Router) {
     this.restoreUser();
   }
+  register(userData: Partial<iUser>, avatar?: File) {
+    const formData = new FormData();
+    // Converti i dati utente in JSON string
+    formData.append('appUser', JSON.stringify(userData));
 
-  register(newUser: Partial<iUser>) {
-    return this.http.post<iAccessData>(this.registerUrl, newUser);
+    // Aggiungi il file avatar se presente
+    if (avatar) {
+      formData.append('avatar', avatar);
+    }
+
+    return this.http.post<iUser>(this.registerUrl, formData);
   }
 
   login(authData: iLoginRequest) {
