@@ -20,11 +20,14 @@ public class ClienteRunner implements ApplicationRunner {
     @Autowired
     private ClienteService clienteService;
 
+    @Autowired
+    private ClienteRepository clienteRepository;
+
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
 
-        if (clienteService.findAll().isEmpty()) {
+        if (clienteRepository.findAll().isEmpty()) {
             Comune comuneLegale = comuneRepository.findByDenominazione("Marsala");
             Comune comuneOperativo = comuneRepository.findByDenominazione("Catania");
 
