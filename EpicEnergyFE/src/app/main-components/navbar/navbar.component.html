@@ -1,36 +1,48 @@
-<header class="d-flex justify-content-center py-3 mb-4 shadow-sm bg-white">
+<header class="d-flex justify-content-center py-3 shadow-sm bg-white">
   <ul class="nav nav-pills">
-    <li class="nav-item">
+    <li class="nav-item mx-2">
       <a
         routerLink="/home"
-        class="nav-link"
-        routerLinkActive="active"
+        class="btn fw-bolder"
+        routerLinkActive="activeNav"
         aria-current="page"
         >Home</a
       >
     </li>
-    <li class="nav-item">
-      <a routerLink="/clienti" class="nav-link" routerLinkActive="active"
+    <li class="nav-item mx-2">
+      <a
+        routerLink="/clienti"
+        class="btn fw-bolder"
+        routerLinkActive="activeNav"
         >Clienti</a
       >
     </li>
-    <li class="nav-item">
-      <a routerLink="/fatture" class="nav-link" routerLinkActive="active"
+    <li class="nav-item mx-2">
+      <a
+        routerLink="/fatture"
+        class="btn fw-bolder"
+        routerLinkActive="activeNav"
         >Fatture</a
       >
     </li>
-    <li *ngIf="!isLoggedIn" class="nav-item">
-      <a routerLink="/auth/login" class="nav-link" routerLinkActive="active"
+    <li *ngIf="!isLoggedIn" class="nav-item mx-2">
+      <a
+        routerLink="/auth/login"
+        class="btn fw-bolder"
+        routerLinkActive="activeNav"
         >LogIn</a
       >
     </li>
-    <li *ngIf="!isLoggedIn" class="nav-item">
-      <a routerLink="/auth/register" class="nav-link" routerLinkActive="active"
+    <li *ngIf="!isLoggedIn" class="nav-item mx-2">
+      <a
+        routerLink="/auth/register"
+        class="btn fw-bolder"
+        routerLinkActive="activeNav"
         >Register</a
       >
     </li>
-    <li *ngIf="isLoggedIn" (click)="logout()" class="nav-item">
-      <a class="nav-link" routerLinkActive="active">Log out</a>
+    <li *ngIf="isLoggedIn" (click)="logout()" class="nav-item mx-2">
+      <a class="btn fw-bolder" routerLinkActive="activeNav">Log out</a>
     </li>
   </ul>
 </header>
