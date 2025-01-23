@@ -23,10 +23,7 @@ export class NewFatturaComponent {
   ngOnInit(): void {
     this.form = this.fb.group({
       ragioneSociale: ['', Validators.required],
-      importoFattura: [
-        '',
-        [Validators.required, Validators.pattern(/^\d+(\.\d{1,2})?$/)],
-      ],
+      importoFattura: ['', [Validators.required, Validators.required]],
       dataFatturazione: ['', Validators.required],
       statoFattura: ['', Validators.required],
     });
@@ -34,17 +31,14 @@ export class NewFatturaComponent {
 
   createFattura() {
     if (this.form.valid) {
-      const fatturaRequest: iFatturaRequest = {
+      const fatturaDto: iFatturaRequest = {
         data: this.form.value.dataFatturazione,
         importo: Number(this.form.value.importoFattura),
         numero: '', // Numero fattura lasciato vuoto
         statoFatturaNome: this.form.value.statoFattura,
       };
-
-      console.log(fatturaRequest); // Verifica i dati prima di inviarli
-
       this.fattureService
-        .createFattura(this.form.value.ragioneSociale, fatturaRequest)
+        .createFattura(this.form.value.ragioneSociale, fatturaDto)
         .subscribe({
           next: (response) => {
             console.log('Fattura creata con successo:', response);
@@ -57,6 +51,7 @@ export class NewFatturaComponent {
         });
     }
   }
+
   //grazie al @viewChild possiamo accedere al nostro elemento html e quindi creare un pdf
   downloadPDF() {
     const data = this.fatturaElement.nativeElement;

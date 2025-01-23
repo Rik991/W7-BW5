@@ -16,12 +16,12 @@ export class FattureService {
 
   createFattura(
     ragioneSociale: string,
-    fatturaData: iFatturaRequest
+    fatturaDto: iFatturaRequest
   ): Observable<iFattura> {
     const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
     return this.http.post<iFattura>(
       `${this.fattureUrl}?ragioneSociale=${ragioneSociale}`,
-      fatturaData,
+      fatturaDto,
       { headers }
     );
   }
