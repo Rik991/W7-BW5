@@ -21,17 +21,30 @@
       <ul class="nav nav-pills flex-column mb-auto">
         <li class="nav-item">
           <a
-            class="btn w-100 rounded-4 py-2 px-3 text-start fw-semibold activeSide d-flex align-items-center"
+            class="btn w-100 rounded-4 py-2 px-3 text-start fw-semibold d-flex text-white align-items-center"
             aria-current="page"
           >
             <i class="bi bi-rocket-takeoff fs-5 me-2"></i>Overview</a
           >
         </li>
+      </ul>
+      <hr />
+      <p class="text-white fw-">QUICK LINK</p>
+      <ul class="nav nav-pills flex-column mb-auto">
         <li>
           <a
             class="btn w-100 rounded-4 py-2 px-3 my-2 text-start fw-semibold text-white d-flex align-items-center"
+            routerLink="clienti/register"
           >
-            <i class="bi bi-app-indicator fs-5 me-2"></i>Notifications</a
+            <i class="bi bi-plus-circle fs-5 me-2"></i>Cliente</a
+          >
+        </li>
+        <li>
+          <a
+            class="btn w-100 rounded-4 py-2 px-3 my-2 text-start fw-semibold text-white d-flex align-items-center"
+            routerLink="/fatture/newfattura"
+          >
+            <i class="bi bi-plus-circle fs-5 me-2"></i>Fattura</a
           >
         </li>
         <li>
@@ -46,13 +59,6 @@
             class="btn w-100 rounded-4 py-2 px-3 my-2 text-start fw-semibold text-white d-flex align-items-center"
           >
             <i class="bi bi-send fs-5 me-2"></i>Send</a
-          >
-        </li>
-        <li>
-          <a
-            class="btn w-100 rounded-4 py-2 px-3 my-2 text-start fw-semibold text-white d-flex align-items-center"
-          >
-            <i class="bi bi-lightbulb fs-5 me-2"></i>Upgrade to premium</a
           >
         </li>
       </ul>
@@ -82,26 +88,10 @@
         <h1>
           Welcome <span class="text-info">{{ name }}</span>
         </h1>
-        <div>
-          <button
-            routerLink="/fatture/newfattura"
-            class="btn btn-close-white bg-white shadow-sm rounded-3 px-3 py-2 mx-2 fw-semibold"
-          >
-            Add Fattura
-            <i class="bi bi-plus-square fw-bolder ms-2"></i>
-          </button>
-          <button
-            routerLink="/clienti/register"
-            class="btn btn-close-white bg-white shadow-sm rounded-3 px-3 py-2 mx-2 fw-semibold"
-          >
-            Add Cliente
-            <i class="bi bi-plus-square fw-bolder ms-2"></i>
-          </button>
-        </div>
       </div>
       <div class="row">
         <div class="col bg-white shadow-sm rounded-3 m-3 p-3 hover">
-          <h5>Fatture</h5>
+          <h5>Gestione Fatture</h5>
           <div class="table-responsive rounded">
             <table class="table table-striped">
               <tbody>
