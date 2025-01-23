@@ -4,7 +4,7 @@
       <!-- From Uiverse.io by mi-series -->
       <div class="mb-">
         <header>Registration Form</header>
-        <form [formGroup]="form" class="form mx-3">
+        <form [formGroup]="form" class="form mx-3" (ngSubmit)="createFattura()">
           <div class="input-box">
             <h6 class="text-start">Ragione Sociale</h6>
             <input
@@ -38,7 +38,7 @@
               <div class="select-box">
                 <select formControlName="statoFattura">
                   <option hidden="">Seleziona Stato</option>
-                  <option>Pagata</option>
+                  <option>pagata</option>
                   <option>Non Pagata</option>
                   <option>In Attesa</option>
                 </select>
