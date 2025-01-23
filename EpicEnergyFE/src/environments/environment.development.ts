@@ -4,7 +4,7 @@ export const environment = {
   clientiUrl: 'http://localhost:8080/api/clienti',
   clientiByRagioneSocialeUrl:
     'http://localhost:8080/api/clienti/search_by_ragione_sociale',
-  clientiByDataInserimentoUrl:
+  clientiByRangeDataInserimentoUrl:
     'http://localhost:8080/api/clienti/registrazioni_tra_date_inserimento',
   clientiByRangeFatturatoAnnualeUrl:
     'http://localhost:8080/api/clienti/fatturato_annuale_range',

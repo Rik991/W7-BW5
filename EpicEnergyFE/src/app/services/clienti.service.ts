@@ -10,6 +10,13 @@ import { iPageClienti } from '../interfaces/i-page-clienti';
 })
 export class ClientiService {
   clientiUrl: string = environment.clientiUrl;
+  clientiByRagioneSocialeUrl: string = environment.clientiByRagioneSocialeUrl;
+  clientiByRangeDataInserimentoUrl: string =
+    environment.clientiByRangeDataInserimentoUrl;
+  clientiByRangeFatturatoAnnualeUrl: string =
+    environment.clientiByRangeFatturatoAnnualeUrl;
+  clientiByDataUltimoContattoUrl: string =
+    environment.clientiByDataUltimoContattoUrl;
 
   constructor(private http: HttpClient) {}
 
@@ -128,6 +135,42 @@ export class ClientiService {
 
   getByRagioneSociale(ragioneSociale: string): Observable<iClienti> {
     let params = new HttpParams().set('ragioneSociale', ragioneSociale);
-    return this.http.get<iClienti>(this.clientiUrl, { params });
+    return this.http.get<iClienti>(this.clientiByRagioneSocialeUrl, { params });
+  }
+
+  getClientiByRangeDataInserimento(
+    dataIniziale: string,
+    dataFinale: string
+  ): Observable<iPageClienti> {
+    let params = new HttpParams()
+      .set('dataIniziale', dataIniziale)
+      .set('dataFinale', dataFinale);
+    return this.http.get<iPageClienti>(this.clientiByRangeDataInserimentoUrl, {
+      params,
+    });
+  }
+
+  getClientiByRangeFatturatoAnnuale(
+    fatturatoMin: number,
+    fatturatoMax: number
+  ): Observable<iPageClienti> {
+    let params = new HttpParams()
+      .set('fatturatoMin', fatturatoMin.toString())
+      .set('fatturatoMax', fatturatoMax.toString());
+    return this.http.get<iPageClienti>(this.clientiByRangeFatturatoAnnualeUrl, {
+      params,
+    });
+  }
+
+  getclientiByDataUltimoContatto(
+    dataIniziale: string,
+    dataFinale: string
+  ): Observable<iPageClienti> {
+    let params = new HttpParams()
+      .set('dataIniziale', dataIniziale)
+      .set('dataFinale', dataFinale);
+    return this.http.get<iPageClienti>(this.clientiByDataUltimoContattoUrl, {
+      params,
+    });
   }
 }
