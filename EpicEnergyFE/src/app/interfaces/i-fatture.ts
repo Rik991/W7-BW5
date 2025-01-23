@@ -10,6 +10,6 @@ export interface iFattura {
 }
 
 export interface iStatoFattura {
-  id: number;
+  id?: number;
   nome: string;
 }

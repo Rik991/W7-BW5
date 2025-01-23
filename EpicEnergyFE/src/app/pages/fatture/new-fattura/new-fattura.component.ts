@@ -33,16 +33,32 @@ export class NewFatturaComponent implements OnInit {
   }
 
   createStatoFattura(nome: string) {
-    this.fattureService.createStatoFattura({ nome }).subscribe({
+    this.fattureService.createStatoFattura(nome).subscribe({
       next: (response) => {
-        console.log('Stato Fattura creato con successo:', response);
-        this.getAllStatoFattura(); // Aggiorna la lista degli stati
+        this.getAllStatoFattura();
         this.form.patchValue({ statoFattura: response.nome });
       },
       error: (error) => {
         console.error('Errore nella creazione dello stato Fattura:', error);
+        alert('Errore nella creazione dello stato fattura. Riprovare.');
       },
     });
+  }
+
+  onStatoFatturaChange(event: Event) {
+    const selectElement = event.target as HTMLSelectElement;
+
+    // Verifica se l'opzione selezionata è "Aggiungi nuovo stato..."
+    if (selectElement.value === 'new') {
+      const nuovoStato = prompt('Inserisci il nome del nuovo stato:');
+
+      // Controlla che l'utente abbia effettivamente inserito un valore
+      if (nuovoStato && nuovoStato.trim() !== '') {
+        this.createStatoFattura(nuovoStato.trim());
+      } else {
+        alert('Il nome dello stato non può essere vuoto.');
+      }
+    }
   }
 
   getAllStatoFattura() {
@@ -55,18 +71,6 @@ export class NewFatturaComponent implements OnInit {
         console.error('Errore nel recupero degli stati Fattura:', error);
       },
     });
-  }
-
-  onStatoFatturaChange(event: Event) {
-    const selectElement = event.target as HTMLSelectElement;
-    if (selectElement.value === 'new') {
-      const nuovoStato = prompt('Inserisci il nome del nuovo stato:');
-      if (nuovoStato) {
-        this.createStatoFattura(nuovoStato);
-      } else {
-        this.form.patchValue({ statoFattura: '' });
-      }
-    }
   }
 
   createFattura() {

@@ -36,8 +36,14 @@
             <h6 class="text-start">Stato Fattura</h6>
             <div class="column">
               <div class="select-box">
-                <select formControlName="statoFattura" (change)="onStatoFatturaChange($event)">
-                  <option *ngFor="let statoFattura of statoFatture" [value]="statoFattura.nome">
+                <select
+                  formControlName="statoFattura"
+                  (change)="onStatoFatturaChange($event)"
+                >
+                  <option
+                    *ngFor="let statoFattura of statoFatture"
+                    [value]="statoFattura.nome"
+                  >
                     {{ statoFattura.nome }}
                   </option>
                   <option value="new">Aggiungi nuovo stato...</option>

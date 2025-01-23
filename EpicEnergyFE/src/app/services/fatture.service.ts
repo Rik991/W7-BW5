@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment.development';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
 import { iFatturaRequest } from '../interfaces/i-fattura-request';
 import { Observable } from 'rxjs';
@@ -19,18 +19,12 @@ export class FattureService {
     return this.http.get<iStatoFattura[]>(this.StatoFatturaUrl);
   }
 
-  createStatoFattura(statoFattura: { nome: string }): Observable<iStatoFattura> {
-    const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-    return this.http.post<iStatoFattura>(
-      this.StatoFatturaUrl,
-      { nome: statoFattura },
-      { headers }
-    );
+  createStatoFattura(nome: string) {
+    const params = new HttpParams().set('nome', nome);
+    return this.http.post<iStatoFattura>(environment.statoFatturaUrl, null, {
+      params,
+    });
   }
-
-
-
-
 
   createFattura(
     ragioneSociale: string,
