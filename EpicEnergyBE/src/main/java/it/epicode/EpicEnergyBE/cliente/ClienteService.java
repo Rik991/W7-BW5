@@ -109,8 +109,8 @@ public class ClienteService {
         return clienteRepository.findByDataUltimoContattoBetween(dataInizio, dataFine, pageable);
     }
 
-    public Cliente getClienteByRagioneSociale(String ragioneSociale) {
-        return clienteRepository.findByRagioneSocialeContains(ragioneSociale);
+    public Page<Cliente> getClientiByRagioneSociale(String ragioneSociale, Pageable pageable) {
+        return clienteRepository.findByRagioneSocialeContains(ragioneSociale, pageable);
     }
 
 }

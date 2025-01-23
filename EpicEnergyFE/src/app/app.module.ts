@@ -16,6 +16,7 @@ import { LoginComponent } from './auth/login/login.component';
 import { NavbarComponent } from './main-components/navbar/navbar.component';
 import { FooterComponent } from './main-components/footer/footer.component';
 import { TokenInterceptor } from './auth/token.interceptor';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,7 @@ import { TokenInterceptor } from './auth/token.interceptor';
     NavbarComponent,
     FooterComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, ReactiveFormsModule],
+  imports: [BrowserModule, AppRoutingModule, ReactiveFormsModule, NgbModule],
   providers: [
     provideHttpClient(withInterceptorsFromDi()),
     {
