@@ -17,6 +17,7 @@ export class NewFatturaComponent implements OnInit {
   form!: FormGroup;
   statoFatture: iStatoFattura[] = [];
   clienti: iCliente[] = [];
+  clienteSelezionato?: iCliente;
 
   @ViewChild('fattura', { static: false }) fatturaElement!: ElementRef;
 
@@ -64,6 +65,14 @@ export class NewFatturaComponent implements OnInit {
         alert('Il nome dello stato non può essere vuoto.');
       }
     }
+  }
+
+  onClienteChange(event: Event) {
+    const selectElement = event.target as HTMLSelectElement;
+    const ragioneSociale = selectElement.value;
+    this.clienteSelezionato = this.clienti.find(
+      (cliente) => cliente.ragioneSociale === ragioneSociale
+    );
   }
 
   getAllStatoFattura() {

@@ -6,7 +6,10 @@
         <header>Registration Form</header>
         <form [formGroup]="form" class="form mx-3" (ngSubmit)="createFattura()">
           <div class="select-box">
-            <select formControlName="ragioneSociale">
+            <select
+              formControlName="ragioneSociale"
+              (change)="onClienteChange($event)"
+            >
               <option value="">Seleziona cliente</option>
               <option
                 *ngFor="let cliente of clienti"
@@ -96,7 +99,7 @@
           <div class="col-6 text-start">
             <h5>Mittente:</h5>
             <p>
-              Nome Azienda: {{ form.get("ragioneSociale")?.value }}<br />
+              Nome Azienda: Epicode SRL<br />
               Indirizzo<br />
               Città, CAP<br />
               Partita IVA: 12345678901
@@ -104,7 +107,23 @@
           </div>
           <div class="col-6 text-end">
             <h5>Destinatario:</h5>
-            <p>Nome Cliente<br />Indirizzo<br />Città, CAP</p>
+            <p>
+              <strong>Ragione Sociale:</strong>
+              {{ clienteSelezionato?.ragioneSociale }}<br />
+              <strong>Sede legale:</strong>
+              {{ clienteSelezionato?.sedeLegale?.via }}<br />
+              <strong>Sede operativa:</strong>
+              {{ clienteSelezionato?.sedeOperativa?.via }}<br />
+              <strong>Partita IVA: </strong>{{ clienteSelezionato?.partitaIva
+              }}<br />
+              <strong>Nome:</strong>{{ clienteSelezionato?.nomeContatto }}<br />
+              <strong>Cognome:</strong> {{ clienteSelezionato?.cognomeContatto
+              }}<br />
+              <strong>Email:</strong> {{ clienteSelezionato?.emailContatto
+              }}<br />
+              <strong>Telefono:</strong>
+              {{ clienteSelezionato?.telefonoContatto }}
+            </p>
           </div>
         </div>
         <table class="table mt-4">
@@ -118,9 +137,9 @@
           </thead>
           <tbody>
             <tr>
-              <td>Servizio 1</td>
-              <td>2</td>
-              <td>&euro; 100,00</td>
+              <td>IVA%</td>
+              <td>1</td>
+              <td>&euro; 22%</td>
               <td>&euro; 200,00</td>
             </tr>
             <tr>
