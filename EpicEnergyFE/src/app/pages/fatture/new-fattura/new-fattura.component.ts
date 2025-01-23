@@ -1,3 +1,4 @@
+import { ClientiService } from './../../../services/clienti.service';
 import { FattureService } from './../../../services/fatture.service';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -5,6 +6,7 @@ import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import { iFatturaRequest } from '../../../interfaces/i-fattura-request';
 import { iStatoFattura } from '../../../interfaces/i-fatture';
+import { iCliente } from '../../../interfaces/i-clienti';
 
 @Component({
   selector: 'app-new-fattura',
@@ -14,12 +16,15 @@ import { iStatoFattura } from '../../../interfaces/i-fatture';
 export class NewFatturaComponent implements OnInit {
   form!: FormGroup;
   statoFatture: iStatoFattura[] = [];
+  clienti: iCliente [] = [];
 
   @ViewChild('fattura', { static: false }) fatturaElement!: ElementRef;
 
   constructor(
     private fb: FormBuilder,
-    private fattureService: FattureService
+    private fattureService: FattureService,
+    private clientiService: ClientiService
+
   ) {}
 
   ngOnInit(): void {
@@ -30,6 +35,7 @@ export class NewFatturaComponent implements OnInit {
       statoFattura: ['', Validators.required],
     });
     this.getAllStatoFattura();
+    this.getAllClienti();
   }
 
   createStatoFattura(nome: string) {
@@ -72,6 +78,19 @@ export class NewFatturaComponent implements OnInit {
       },
     });
   }
+
+  getAllClienti() {
+    this.clientiService.getAllClienti().subscribe({
+      next: (response) => {
+        console.log('Clienti:', response);
+        this.clienti = response;
+      },
+      error: (error) => {
+        console.error('Errore nel recupero dei clienti:', error);
+      }
+    })
+  }
+
 
   createFattura() {
     if (this.form.valid) {

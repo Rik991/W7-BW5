@@ -68,6 +68,10 @@ export class ClientiService {
     return this.http.post<iCliente>(this.clientiUrl, formData);
   }
 
+  getAllClienti(): Observable<iCliente[]> {
+    return this.http.get<iCliente[]>(this.clientiUrl);
+  }
+
   getClienti(page: number): Observable<iPageClienti> {
     let params = new HttpParams()
       .set('page', page.toString())
