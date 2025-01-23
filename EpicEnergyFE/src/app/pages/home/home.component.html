@@ -123,18 +123,75 @@
           </div>
         </div>
         <div class="col bg-white shadow-sm rounded-3 m-3 p-3 h-100">
-          <h5>Clienti</h5>
-          <ul class="list-group list-group-flush">
-            <li class="list-group-item">An item</li>
-            <li class="list-group-item">A second item</li>
-            <li class="list-group-item">A third item</li>
-            <li class="list-group-item">A fourth item</li>
-            <li class="list-group-item">And a fifth one</li>
-          </ul>
-          <div class="text-end">
-            <button routerLink="/clienti" class="btn shadow-sm p-2 py-1 px-2">
-              <i class="bi bi-arrows-angle-expand"></i>
-            </button>
+          <h5>Filtra clienti per:</h5>
+          <div class="m-4 d-flex flex-column">
+            <div class="m-4">
+              <button
+                class="btn btn-primary"
+                (click)="sendData(1)"
+                routerLink="/clienti"
+              >
+                Tutti i Clienti
+              </button>
+            </div>
+            <!-- ///////////// -->
+            <div class="m-4">
+              <button
+                class="btn btn-primary"
+                (click)="sendData(2)"
+                routerLink="/clienti"
+              >
+                Ragione sociale
+              </button>
+              <input
+                class="mx-3"
+                type="text"
+                [(ngModel)]="data.ragioneSociale"
+              />
+            </div>
+            <!-- ////////// -->
+            <div class="m-4">
+              <button
+                class="btn btn-primary"
+                (click)="sendData(3)"
+                routerLink="/clienti"
+              >
+                Data ultimo contatto
+              </button>
+              <input class="mx-3" type="text" [(ngModel)]="data.dataIniziale" />
+              <input class="mx-3" type="text" [(ngModel)]="data.dataFinale" />
+            </div>
+            <!-- ////// -->
+
+            <div class="m-4">
+              <button
+                class="btn btn-primary"
+                (click)="sendData(4)"
+                routerLink="/clienti"
+              >
+                Data inserimento
+              </button>
+              <input class="mx-3" type="text" [(ngModel)]="data.dataIniziale" />
+              <input class="mx-3" type="text" [(ngModel)]="data.dataFinale" />
+            </div>
+
+            <!-- ///////// -->
+            <div class="m-4">
+              <button
+                class="btn btn-primary"
+                (click)="sendData(5)"
+                routerLink="/clienti"
+              >
+                Fatturato annuale
+              </button>
+              <input class="mx-3" type="text" [(ngModel)]="data.fatturatoMin" />
+              <input class="mx-3" type="text" [(ngModel)]="data.fatturatoMax" />
+            </div>
+            <div class="text-end">
+              <button routerLink="/clienti" class="btn shadow-sm p-2 py-1 px-2">
+                <i class="bi bi-arrows-angle-expand"></i>
+              </button>
+            </div>
           </div>
         </div>
       </div>
