@@ -4,9 +4,8 @@ import {
   HttpHandler,
   HttpEvent,
   HttpInterceptor,
-  HttpErrorResponse,
 } from '@angular/common/http';
-import { Observable, switchMap, catchError, throwError } from 'rxjs';
+import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
 import { environment } from '../../environments/environment.development';
 
