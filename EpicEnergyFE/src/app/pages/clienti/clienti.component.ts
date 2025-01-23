@@ -1,72 +1,61 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ClientiService } from '../../services/clienti.service';
 import { iPageClienti } from '../../interfaces/i-page-clienti';
 import { iCliente } from '../../interfaces/i-clienti';
+import { iFilterClienti } from '../../interfaces/i-filter-clienti';
 
 @Component({
   selector: 'app-clienti',
   templateUrl: './clienti.component.html',
   styleUrl: './clienti.component.scss',
 })
-export class ClientiComponent {
-  constructor(private clientiSvc: ClientiService) {}
-
+export class ClientiComponent implements OnInit {
+  filterData!: iFilterClienti;
   pageClienti!: iPageClienti;
   clientiArray: iCliente[] = [];
   currentPage: number = 1;
 
-  key: number = 1;
+  constructor(private clientiSvc: ClientiService) {}
 
-  ragioneSociale!: string;
-  dataUltimoIn!: string;
-  dataUltimoFin!: string;
+  ngOnInit(): void {
+    this.clientiSvc.filtroClienti$.subscribe((data) => {
+      this.filterData = data;
+    });
 
-  dataRangeIn!: string;
-  dataRangeFin!: string;
-
-  fatturatoMin!: string;
-  fatturatoMax!: string;
+    this.onPageChange(this.currentPage);
+  }
 
   onPageChange(page: number): void {
     this.currentPage = page;
-    switch (this.key) {
+    switch (this.filterData.key) {
       case 1:
         this.getAll(page);
         break;
       case 2:
-        this.getByRagione(this.ragioneSociale, page);
+        this.getByRagione(this.filterData.ragioneSociale, page);
         break;
       case 3:
         this.getByDataUltimoContatto(
-          this.dataUltimoIn,
-          this.dataUltimoFin,
+          this.filterData.dataIniziale,
+          this.filterData.dataFinale,
           page
         );
         break;
       case 4:
         this.getByRangeDataInserimento(
-          this.dataRangeIn,
-          this.dataRangeFin,
+          this.filterData.dataIniziale,
+          this.filterData.dataFinale,
           page
         );
         break;
       case 5:
         this.getByRangeFatturatoAnnuale(
-          this.fatturatoMin,
-          this.fatturatoMax,
+          this.filterData.fatturatoMin,
+          this.filterData.fatturatoMax,
           page
         );
         break;
     }
-  }
-
-  resetPage(key: number): void {
-    this.currentPage = 1;
-    this.key = key;
-  }
-
-  ngOnInit(): void {
-    // this.loadPage(this.currentPage);
   }
 
   getAll(page: number): void {
@@ -74,19 +63,16 @@ export class ClientiComponent {
     this.clientiSvc.getClienti(currentPage).subscribe((pageClienti) => {
       this.pageClienti = pageClienti;
       this.clientiArray = pageClienti.content;
-      console.log('all', pageClienti);
     });
   }
 
   getByRagione(ragioneSociale: string, page: number): void {
-    this.ragioneSociale = ragioneSociale;
     const currentPage = page - 1;
     this.clientiSvc
       .getByRagioneSociale(ragioneSociale, currentPage)
       .subscribe((pageClienti) => {
         this.pageClienti = pageClienti;
         this.clientiArray = pageClienti.content;
-        console.log('ragione', pageClienti);
       });
   }
 
@@ -95,28 +81,22 @@ export class ClientiComponent {
     dataFine: string,
     page: number
   ): void {
-    this.dataRangeIn = dataInizio;
-    this.dataRangeFin = dataFine;
     const currentPage = page - 1;
     this.clientiSvc
       .getClientiByRangeDataInserimento(dataInizio, dataFine, currentPage)
       .subscribe((pageClienti) => {
         this.pageClienti = pageClienti;
         this.clientiArray = pageClienti.content;
-        console.log('rangedataIns', pageClienti);
       });
   }
 
   getByRangeFatturatoAnnuale(min: string, max: string, page: number): void {
-    this.fatturatoMin = min;
-    this.fatturatoMax = max;
     const currentPage = page - 1;
     this.clientiSvc
       .getClientiByRangeFatturatoAnnuale(min, max, currentPage)
       .subscribe((pageClienti) => {
         this.pageClienti = pageClienti;
         this.clientiArray = pageClienti.content;
-        console.log('fatturato', pageClienti);
       });
   }
 
@@ -125,15 +105,12 @@ export class ClientiComponent {
     dataFine: string,
     page: number
   ): void {
-    this.dataUltimoIn = dataInizio;
-    this.dataUltimoFin = dataFine;
     const currentPage = page - 1;
     this.clientiSvc
       .getclientiByDataUltimoContatto(dataInizio, dataFine, currentPage)
       .subscribe((pageClienti) => {
         this.pageClienti = pageClienti;
         this.clientiArray = pageClienti.content;
-        console.log('ultimo cont', pageClienti);
       });
   }
 }

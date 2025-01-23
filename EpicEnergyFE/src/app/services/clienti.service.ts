@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { environment } from '../../environments/environment.development';
 import { iCliente } from '../interfaces/i-clienti';
 import { iPageClienti } from '../interfaces/i-page-clienti';
+import { iFilterClienti } from '../interfaces/i-filter-clienti';
 
 @Injectable({
   providedIn: 'root',
@@ -19,6 +20,20 @@ export class ClientiService {
     environment.clientiByDataUltimoContattoUrl;
 
   constructor(private http: HttpClient) {}
+
+  private filtroClientiSubject = new BehaviorSubject<iFilterClienti>({
+    key: 0,
+    ragioneSociale: '',
+    dataIniziale: '',
+    dataFinale: '',
+    fatturatoMin: '',
+    fatturatoMax: '',
+  });
+  filtroClienti$ = this.filtroClientiSubject.asObservable();
+
+  sendData(data: iFilterClienti) {
+    this.filtroClientiSubject.next(data);
+  }
 
   registerClienti(
     clientData: Partial<iCliente>,
