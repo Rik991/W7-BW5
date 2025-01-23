@@ -37,7 +37,11 @@ public class FatturaService {
         Fattura fattura = new Fattura();
         fattura.setData(fatturaDTO.getData());
         fattura.setImporto(fatturaDTO.getImporto());
-        fattura.setNumero(fatturaDTO.getNumero());
+        if (!fatturaRepository.findAll().isEmpty()){
+            fattura.setNumero(String.valueOf(fatturaRepository.findAll().size() + 1));
+        } else {
+            fattura.setNumero("1");
+        }
         fattura.setCliente(cliente);
         fattura.setStatoFattura(statoFattura);
 
