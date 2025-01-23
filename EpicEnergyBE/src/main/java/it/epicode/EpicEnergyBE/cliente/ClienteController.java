@@ -148,10 +148,10 @@ public class ClienteController {
     }
 
     @GetMapping("/search_by_ragione_sociale")
-    public ResponseEntity<Cliente> getClientiByRagioneSociale(
+    public ResponseEntity<Page<Cliente>> getClientiByRagioneSociale(
             @RequestParam("ragioneSociale") String ragioneSociale,
             Pageable pageable) {
-        return ResponseEntity.ok(clienteService.getClienteByRagioneSociale(ragioneSociale));
+        return ResponseEntity.ok(clienteService.getClientiByRagioneSociale(ragioneSociale, pageable));
     }
 
 }

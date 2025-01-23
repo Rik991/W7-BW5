@@ -6,11 +6,7 @@ import { iCliente } from '../../interfaces/i-clienti';
   templateUrl: './badge.component.html',
   styleUrl: './badge.component.scss',
 })
-export class BadgeComponent implements OnInit {
+export class BadgeComponent {
   // da fare
   @Input() cliente!: iCliente;
-
-  ngOnInit(): void {
-    console.log('card', this.cliente);
-  }
 }

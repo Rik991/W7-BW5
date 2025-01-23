@@ -77,7 +77,7 @@ export class ClientiService {
   getClienti(page: number): Observable<iPageClienti> {
     let params = new HttpParams()
       .set('page', page.toString())
-      .set('size', '10');
+      .set('size', '12');
 
     return this.http.get<iPageClienti>(this.clientiUrl, { params });
   }
@@ -139,30 +139,44 @@ export class ClientiService {
     return this.http.put<iCliente>(`${this.clientiUrl}/${id}`, formData);
   }
 
-  getByRagioneSociale(ragioneSociale: string): Observable<iCliente> {
-    let params = new HttpParams().set('ragioneSociale', ragioneSociale);
-    return this.http.get<iCliente>(this.clientiByRagioneSocialeUrl, { params });
+  getByRagioneSociale(
+    ragioneSociale: string,
+    page: number
+  ): Observable<iPageClienti> {
+    let params = new HttpParams()
+      .set('ragioneSociale', ragioneSociale)
+      .set('page', page.toString())
+      .set('size', '12');
+    return this.http.get<iPageClienti>(this.clientiByRagioneSocialeUrl, {
+      params,
+    });
   }
 
   getClientiByRangeDataInserimento(
     dataIniziale: string,
-    dataFinale: string
+    dataFinale: string,
+    page: number
   ): Observable<iPageClienti> {
     let params = new HttpParams()
       .set('dataIniziale', dataIniziale)
-      .set('dataFinale', dataFinale);
+      .set('dataFinale', dataFinale)
+      .set('page', page.toString())
+      .set('size', '12');
     return this.http.get<iPageClienti>(this.clientiByRangeDataInserimentoUrl, {
       params,
     });
   }
 
   getClientiByRangeFatturatoAnnuale(
-    fatturatoMin: number,
-    fatturatoMax: number
+    fatturatoMin: string,
+    fatturatoMax: string,
+    page: number
   ): Observable<iPageClienti> {
     let params = new HttpParams()
-      .set('fatturatoMin', fatturatoMin.toString())
-      .set('fatturatoMax', fatturatoMax.toString());
+      .set('fatturatoMin', fatturatoMin)
+      .set('fatturatoMax', fatturatoMax)
+      .set('page', page.toString())
+      .set('size', '12');
     return this.http.get<iPageClienti>(this.clientiByRangeFatturatoAnnualeUrl, {
       params,
     });
@@ -170,11 +184,14 @@ export class ClientiService {
 
   getclientiByDataUltimoContatto(
     dataIniziale: string,
-    dataFinale: string
+    dataFinale: string,
+    page: number
   ): Observable<iPageClienti> {
     let params = new HttpParams()
       .set('dataIniziale', dataIniziale)
-      .set('dataFinale', dataFinale);
+      .set('dataFinale', dataFinale)
+      .set('page', page.toString())
+      .set('size', '12');
     return this.http.get<iPageClienti>(this.clientiByDataUltimoContattoUrl, {
       params,
     });

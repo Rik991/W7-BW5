@@ -23,6 +23,6 @@ public interface ClienteRepository extends JpaRepository<Cliente, Long> {
     Page<Cliente> findByDataUltimoContattoBetween(@Param("dataInizio") LocalDate dataInizio, @Param("dataFine") LocalDate dataFine, Pageable pageable);
 
     @Query("SELECT c FROM Cliente c WHERE LOWER(c.ragioneSociale) LIKE LOWER(CONCAT('%', :ragioneSociale, '%'))")
-    Cliente findByRagioneSocialeContains(@Param("ragioneSociale") String ragioneSociale);
+    Page<Cliente> findByRagioneSocialeContains(@Param("ragioneSociale") String ragioneSociale, Pageable pageable);
 
 }
