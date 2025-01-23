@@ -1,17 +1,19 @@
 import { FattureService } from './../../../services/fatture.service';
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import { iFatturaRequest } from '../../../interfaces/i-fattura-request';
+import { iStatoFattura } from '../../../interfaces/i-fatture';
 
 @Component({
   selector: 'app-new-fattura',
   templateUrl: './new-fattura.component.html',
   styleUrls: ['./new-fattura.component.scss'],
 })
-export class NewFatturaComponent {
+export class NewFatturaComponent implements OnInit {
   form!: FormGroup;
+  statoFatture: iStatoFattura[] = [];
 
   @ViewChild('fattura', { static: false }) fatturaElement!: ElementRef;
 
@@ -27,6 +29,44 @@ export class NewFatturaComponent {
       dataFatturazione: ['', Validators.required],
       statoFattura: ['', Validators.required],
     });
+    this.getAllStatoFattura();
+  }
+
+  createStatoFattura(nome: string) {
+    this.fattureService.createStatoFattura({ nome }).subscribe({
+      next: (response) => {
+        console.log('Stato Fattura creato con successo:', response);
+        this.getAllStatoFattura(); // Aggiorna la lista degli stati
+        this.form.patchValue({ statoFattura: response.nome });
+      },
+      error: (error) => {
+        console.error('Errore nella creazione dello stato Fattura:', error);
+      },
+    });
+  }
+
+  getAllStatoFattura() {
+    this.fattureService.getAllStatoFattura().subscribe({
+      next: (response) => {
+        console.log('Stati Fattura:', response);
+        this.statoFatture = response;
+      },
+      error: (error) => {
+        console.error('Errore nel recupero degli stati Fattura:', error);
+      },
+    });
+  }
+
+  onStatoFatturaChange(event: Event) {
+    const selectElement = event.target as HTMLSelectElement;
+    if (selectElement.value === 'new') {
+      const nuovoStato = prompt('Inserisci il nome del nuovo stato:');
+      if (nuovoStato) {
+        this.createStatoFattura(nuovoStato);
+      } else {
+        this.form.patchValue({ statoFattura: '' });
+      }
+    }
   }
 
   createFattura() {
@@ -42,17 +82,14 @@ export class NewFatturaComponent {
         .subscribe({
           next: (response) => {
             console.log('Fattura creata con successo:', response);
-            // Aggiungi qui la logica post-creazione (es. redirect, messaggio di successo)
           },
           error: (error) => {
             console.error('Errore nella creazione della fattura:', error);
-            // Gestione dell'errore
           },
         });
     }
   }
 
-  //grazie al @viewChild possiamo accedere al nostro elemento html e quindi creare un pdf
   downloadPDF() {
     const data = this.fatturaElement.nativeElement;
     html2canvas(data).then((canvas) => {
