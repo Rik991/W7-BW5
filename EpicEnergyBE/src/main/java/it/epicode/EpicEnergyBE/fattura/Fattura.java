@@ -24,8 +24,7 @@ public class Fattura {
     @Positive(message = "L'importo deve essere positivo!")
     private Double importo;
 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(nullable = false,unique = true)
+    @Column(unique = true)
     private String numero;
 
     @ManyToOne
