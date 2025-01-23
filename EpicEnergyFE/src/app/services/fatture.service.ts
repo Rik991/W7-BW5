@@ -37,4 +37,10 @@ export class FattureService {
       { headers }
     );
   }
+
+  findByClienteRagioneSAociale(ragioneSociale: string): Observable<iFattura[]> {
+    return this.http.get<iFattura[]>(
+      `${this.fattureUrl}?ragioneSociale=${ragioneSociale}`
+    );
+  }
 }
