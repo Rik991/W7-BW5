@@ -18,6 +18,13 @@ export class LoginComponent implements OnInit {
     private fb: FormBuilder
   ) {}
 
+  onSubmit(event: Event) {
+    event.preventDefault();
+    if (this.form.valid) {
+      this.login();
+    }
+  }
+
   ngOnInit() {
     this.form = this.fb.group({
       username: ['', [Validators.required]],

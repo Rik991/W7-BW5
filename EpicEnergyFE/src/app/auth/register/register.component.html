@@ -1,125 +1,114 @@
-<div class="container text-center py-5 align-items-center">
-  <form
-    [formGroup]="form"
-    class="d-flex flex-column gap-4 align-items-center mt-5"
-    (ngSubmit)="register()"
-  >
-    <h1 class="text-dark">Registrati</h1>
+<div class="container py-5 d-flex justify-content-center">
+  <form [formGroup]="form" class="form" (ngSubmit)="register()">
+    <p class="title">Registrati</p>
+    <p class="message">
+      Registrati ora e ottieni l'accesso completo alla nostra app.
+    </p>
 
-    <div class="form-group col-4 position-relative">
+    <div class="flex">
+      <label>
+        <input
+          class="input"
+          type="text"
+          formControlName="nome"
+          placeholder=""
+          required
+        />
+        <span>Nome</span>
+        <div
+          *ngIf="form.get('nome')?.invalid && form.get('nome')?.touched"
+          class="text-danger"
+        >
+          Il nome è richiesto
+        </div>
+      </label>
+
+      <label>
+        <input
+          class="input"
+          type="text"
+          formControlName="cognome"
+          placeholder=""
+          required
+        />
+        <span>Cognome</span>
+        <div
+          *ngIf="form.get('cognome')?.invalid && form.get('cognome')?.touched"
+          class="text-danger"
+        >
+          Il cognome è richiesto
+        </div>
+      </label>
+    </div>
+
+    <label>
       <input
+        class="input"
         type="text"
-        [placeholder]="
-          form.get('username')?.touched && form.get('username')?.invalid
-            ? ''
-            : 'Inserisci il tuo username'
-        "
         formControlName="username"
-        class="form-control bg-transparent border-black"
+        placeholder=""
+        required
       />
+      <span>Username</span>
       <div
         *ngIf="form.get('username')?.invalid && form.get('username')?.touched"
-        class="error-placeholder text-danger"
+        class="text-danger"
       >
-        Lo username è richiesto.
+        Lo username è richiesto
       </div>
-    </div>
-    <div class="form-group col-4 position-relative">
-      <input
-        type="text"
-        [placeholder]="
-          form.get('nome')?.touched && form.get('nome')?.invalid
-            ? ''
-            : 'Inserisci il tuo nome'
-        "
-        formControlName="nome"
-        class="form-control bg-transparent border-black"
-      />
-      <div
-        *ngIf="form.get('nome')?.invalid && form.get('nome')?.touched"
-        class="error-placeholder text-danger"
-      >
-        Il nome è richiesto.
-      </div>
-    </div>
-    <div class="form-group col-4 position-relative">
-      <input
-        type="text"
-        [placeholder]="
-          form.get('cognome')?.touched && form.get('cognome')?.invalid
-            ? ''
-            : 'Inserisci il tuo cognome'
-        "
-        formControlName="cognome"
-        class="form-control bg-transparent border-black"
-      />
-      <div
-        *ngIf="form.get('cognome')?.invalid && form.get('cognome')?.touched"
-        class="error-placeholder text-danger"
-      >
-        Il cognome è richiesto.
-      </div>
-    </div>
+    </label>
 
-    <div class="form-group col-4 position-relative">
+    <label>
       <input
+        class="input"
         type="email"
-        [placeholder]="
-          form.get('email')?.touched && form.get('email')?.invalid
-            ? ''
-            : 'Inserisci la tua email'
-        "
         formControlName="email"
-        class="form-control bg-transparent border-black"
+        placeholder=""
+        required
       />
+      <span>Email</span>
       <div
         *ngIf="form.get('email')?.invalid && form.get('email')?.touched"
-        class="error-placeholder text-danger"
+        class="text-danger"
       >
-        Inserisci un'email valida.
+        Inserisci un'email valida
       </div>
-    </div>
+    </label>
 
-    <div class="form-group col-4 position-relative">
+    <label>
       <input
+        class="input"
         type="password"
-        [placeholder]="
-          form.get('password')?.touched && form.get('password')?.invalid
-            ? ''
-            : 'Inserisci password'
-        "
         formControlName="password"
-        class="form-control bg-transparent border-black"
+        placeholder=""
+        required
       />
+      <span>Password</span>
       <div
         *ngIf="form.get('password')?.invalid && form.get('password')?.touched"
-        class="error-placeholder text-danger"
+        class="text-danger"
       >
-        Inserisci una password di almeno 6 caratteri.
+        Inserisci una password di almeno 6 caratteri
       </div>
-    </div>
-    <div class="form-group col-4 position-relative">
-      <label for="avatar">Avatar</label>
+    </label>
+
+    <span>Avatar</span>
+    <label>
       <input
+        class="input"
         type="file"
         id="avatar"
         (change)="onFileChange($event)"
         accept="image/*"
-        class="form-control bg-transparent border-black"
       />
-    </div>
+    </label>
 
-    <p>
-      Sei già registrato? Effettua il
-      <a class="pointer" routerLink="/auth/login">logIn</a>
-    </p>
-
-    <button
-      type="submit"
-      class="btn btn-success border"
-      [disabled]="form.invalid"
-    >
+    <button type="submit" class="submit" [disabled]="form.invalid">
       Conferma
     </button>
+
+    <p class="signin">
+      Sei già registrato? <a routerLink="/auth/login">Accedi</a>
+    </p>
   </form>
 </div>

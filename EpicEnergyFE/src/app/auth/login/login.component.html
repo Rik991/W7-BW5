@@ -1,55 +1,43 @@
 <div class="container text-center py-5 align-items-center">
-  <form
-    [formGroup]="form"
-    class="d-flex flex-column gap-4 align-items-center mt-5"
-    (ngSubmit)="login()"
-  >
-    <h1 class="text-dark">Login</h1>
-
-    <div class="form-group col-4 position-relative">
-      <input
-        type="text"
-        [placeholder]="
-          form.get('username')?.touched && form.get('username')?.invalid
-            ? ''
-            : 'Inserisci la tua username'
-        "
-        formControlName="username"
-        class="form-control bg-transparent border-black w-100"
-      />
-      <div
-        *ngIf="form.get('username')?.invalid && form.get('username')?.touched"
-        class="error-placeholder text-danger"
-      >
-        Inserisci una username valida.
+  <div class="login-box">
+    <p>Login</p>
+    <form [formGroup]="form" (ngSubmit)="login()">
+      <div class="user-box">
+        <input type="text" formControlName="username" required="" />
+        <label>Username</label>
+        <div
+          *ngIf="form.get('username')?.invalid && form.get('username')?.touched"
+          class="text-danger"
+        >
+          Inserisci uno username valido.
+        </div>
       </div>
-    </div>
-
-    <div class="form-group col-4 position-relative">
-      <input
-        type="password"
-        [placeholder]="
-          form.get('password')?.touched && form.get('password')?.invalid
-            ? ''
-            : 'Inserisci la tua password'
-        "
-        formControlName="password"
-        class="form-control bg-transparent border-black w-100"
-      />
-      <div
-        *ngIf="form.get('password')?.invalid && form.get('password')?.touched"
-        class="error-placeholder text-danger"
-      >
-        La password è richiesta.
+      <div class="user-box">
+        <input type="password" formControlName="password" required="" />
+        <label>Password</label>
+        <div
+          *ngIf="form.get('password')?.invalid && form.get('password')?.touched"
+          class="text-danger"
+        >
+          La password è richiesta.
+        </div>
       </div>
-    </div>
-
-    <button
-      type="submit"
-      class="btn btn-success border"
-      [disabled]="form.invalid"
-    >
-      Accedi
-    </button>
-  </form>
+      <a
+        href="#"
+        (click)="onSubmit($event)"
+        class="submit-button"
+        [class.disabled]="form.invalid"
+      >
+        <span></span>
+        <span></span>
+        <span></span>
+        <span></span>
+        Submit
+      </a>
+    </form>
+    <p>
+      Non hai un account?
+      <a routerLink="/auth/register" class="a2">Registrati ora!</a>
+    </p>
+  </div>
 </div>
