@@ -21,8 +21,6 @@ public class ProvinceComuniRunner implements CommandLineRunner {
 
     private String comuniFilePath = "src/main/resources/assets/comuni-italiani.csv";
 
-
-
     @Override
     public void run(String... args) {
         try {

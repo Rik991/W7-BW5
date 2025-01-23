@@ -3,6 +3,9 @@ package it.epicode.EpicEnergyBE.fattura;
 import it.epicode.EpicEnergyBE.cliente.Cliente;
 import it.epicode.EpicEnergyBE.fattura.stato_fattura.StatoFattura;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PastOrPresent;
+import jakarta.validation.constraints.Positive;
 import lombok.Data;
 
 import java.time.LocalDate;
@@ -12,13 +15,17 @@ import java.time.LocalDate;
 @Table(name = "fatture")
 public class Fattura {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private LocalDate data;
+
+    @Positive(message = "L'importo deve essere positivo!")
     private Double importo;
 
-    @Column(unique = true)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(nullable = false,unique = true)
     private String numero;
 
     @ManyToOne

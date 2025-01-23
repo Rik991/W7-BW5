@@ -5,15 +5,18 @@ import it.epicode.EpicEnergyBE.cliente.ClienteRepository;
 import it.epicode.EpicEnergyBE.fattura.stato_fattura.StatoFattura;
 import it.epicode.EpicEnergyBE.fattura.stato_fattura.StatoFatturaRepository;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 
 import java.time.LocalDate;
 import java.util.Optional;
 
 @Service
+@Validated
 public class FatturaService {
     @Autowired
     private FatturaRepository fatturaRepository;
@@ -24,7 +27,7 @@ public class FatturaService {
     @Autowired
     private StatoFatturaRepository statoFatturaRepository;
 
-    public Fattura createFattura(String ragioneSociale,FatturaDTO fatturaDTO) {
+    public Fattura createFattura(String ragioneSociale,@Valid FatturaDTO fatturaDTO) {
         Cliente cliente = clienteRepository.findByRagioneSociale(ragioneSociale)
                 .orElseThrow(() -> new EntityNotFoundException("Cliente non trovato"));
 
@@ -49,7 +52,7 @@ public class FatturaService {
         return fatturaRepository.findByNumero(numero);
     }
 
-    public Fattura updateFattura(String numero, FatturaDTO fatturaDTO) {
+    public Fattura updateFattura(String numero,@Valid FatturaDTO fatturaDTO) {
         Fattura fattura = fatturaRepository.findByNumero(numero)
                 .orElseThrow(() -> new EntityNotFoundException("Fattura non trovata"));
 
