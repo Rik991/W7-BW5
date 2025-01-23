@@ -35,15 +35,6 @@ export class TokenInterceptor implements HttpInterceptor {
       ),
     });
 
-    return next.handle(newRequest).pipe(
-      catchError((error: HttpErrorResponse) => {
-        if (error.status === 401) {
-          // Gestisci l'errore di autenticazione
-          this.authSvc.logout();
-          alert('Sessione scaduta. Effettua nuovamente il login.');
-        }
-        return throwError(error);
-      })
-    );
+    return next.handle(newRequest);
   }
 }
