@@ -11,48 +11,64 @@
     />
   </div> -->
   <div class="m-4 d-flex flex-column">
-    <button
-      class="btn btn-primary"
-      (click)="getByRagione(ragioneInput.value, currentPage)"
-    >
-      filtra by ragione
-    </button>
-    <input type="text" #ragioneInput />
-    <!-- ////////// -->
-    <button class="btn btn-primary" (click)="getAll(currentPage)">
-      filtra by all
-    </button>
+    <div class="m-4">
+      <button
+        class="btn btn-primary"
+        (click)="getAll(1)"
+        (click)="resetPage(1)"
+      >
+        filtra by all
+      </button>
+    </div>
     <!-- ///////////// -->
-    <button
-      class="btn btn-primary"
-      (click)="getByDataUltimoContatto(data1.value, data2.value, currentPage)"
-    >
-      filtra by data ultimo
-    </button>
-    <input type="text" #data1 />
-    <input type="text" #data2 />
+    <div class="m-4">
+      <button
+        class="btn btn-primary"
+        (click)="getByRagione(ragioneInput.value, 1)"
+        (click)="resetPage(2)"
+      >
+        filtra by ragione
+      </button>
+      <input class="mx-3" type="text" #ragioneInput />
+    </div>
+    <!-- ////////// -->
+    <div class="m-4">
+      <button
+        class="btn btn-primary"
+        (click)="getByDataUltimoContatto(data1.value, data2.value, 1)"
+        (click)="resetPage(3)"
+      >
+        filtra by getByDataUltimoContatto
+      </button>
+      <input class="mx-3" type="text" #data1 />
+      <input class="mx-3" type="text" #data2 />
+    </div>
     <!-- ////// -->
 
-    <button
-      class="btn btn-primary"
-      (click)="
-        getByRangeDataInserimento(dataIn.value, dataOut.value, currentPage)
-      "
-    >
-      filtra by data ins
-    </button>
-    <input type="text" #dataIn />
-    <input type="text" #dataOut />
+    <div class="m-4">
+      <button
+        class="btn btn-primary"
+        (click)="getByRangeDataInserimento(dataIn.value, dataOut.value, 1)"
+        (click)="resetPage(4)"
+      >
+        filtra by getByRangeDataInserimento
+      </button>
+      <input class="mx-3" type="text" #dataIn placeholder="in" />
+      <input class="mx-3" type="text" #dataOut placeholder="fin" />
+    </div>
 
     <!-- ///////// -->
-    <button
-      class="btn btn-primary"
-      (click)="getByRangeFatturatoAnnuale(min.value, max.value, currentPage)"
-    >
-      filtra by fatturato
-    </button>
-    <input type="text" #min />
-    <input type="text" #max />
+    <div class="m-4">
+      <button
+        class="btn btn-primary"
+        (click)="getByRangeFatturatoAnnuale(min.value, max.value, 1)"
+        (click)="resetPage(5)"
+      >
+        filtra getByRangeFatturatoAnnuale
+      </button>
+      <input class="mx-3" type="text" #min placeholder="min" />
+      <input class="mx-3" type="text" #max placeholder="max" />
+    </div>
   </div>
 
   <!-- card -->
@@ -70,7 +86,7 @@
       [rotate]="true"
       [ellipses]="false"
       [boundaryLinks]="true"
-      (pageChange)="onPageChange($event, key)"
+      (pageChange)="onPageChange($event)"
     >
     </ngb-pagination>
   </div>

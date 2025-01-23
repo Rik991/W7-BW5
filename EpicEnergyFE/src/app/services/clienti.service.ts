@@ -152,8 +152,8 @@ export class ClientiService {
     page: number
   ): Observable<iPageClienti> {
     let params = new HttpParams()
-      .set('dataIniziale', dataIniziale)
-      .set('dataFinale', dataFinale)
+      .set('dataInizio', dataIniziale)
+      .set('dataFine', dataFinale)
       .set('page', page.toString())
       .set('size', '12');
     return this.http.get<iPageClienti>(this.clientiByRangeDataInserimentoUrl, {
@@ -167,8 +167,8 @@ export class ClientiService {
     page: number
   ): Observable<iPageClienti> {
     let params = new HttpParams()
-      .set('fatturatoMin', fatturatoMin)
-      .set('fatturatoMax', fatturatoMax)
+      .set('minImporto', fatturatoMin)
+      .set('maxImporto', fatturatoMax)
       .set('page', page.toString())
       .set('size', '12');
     return this.http.get<iPageClienti>(this.clientiByRangeFatturatoAnnualeUrl, {
@@ -182,8 +182,8 @@ export class ClientiService {
     page: number
   ): Observable<iPageClienti> {
     let params = new HttpParams()
-      .set('dataIniziale', dataIniziale)
-      .set('dataFinale', dataFinale)
+      .set('dataInizio', dataIniziale)
+      .set('dataFine', dataFinale)
       .set('page', page.toString())
       .set('size', '12');
     return this.http.get<iPageClienti>(this.clientiByDataUltimoContattoUrl, {
