@@ -126,7 +126,7 @@ public class ClienteController {
 
     //indirizzi filtrati
 
-    @GetMapping("/fatturato/fatturato_annuale_range")
+    @GetMapping("/fatturato_annuale_range")
     public ResponseEntity<Page<Cliente>> getClientiByFatturatoAnnualeRange(Double minImporto,Double maxImporto,Pageable pageable) {
         return ResponseEntity.ok(clienteService.getClientiByfatturatoAnnualeRange(minImporto,maxImporto,pageable));
     }

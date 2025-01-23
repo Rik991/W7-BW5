@@ -8,7 +8,7 @@ import { iClienti } from '../interfaces/i-clienti';
   providedIn: 'root',
 })
 export class ClientiService {
-  registerClientiUrl: string = environment.clientiRegisterUrl;
+  registerClientiUrl: string = environment.clientiUrl;
 
   constructor(private http: HttpClient) {}
 
