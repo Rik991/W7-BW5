@@ -22,7 +22,7 @@ export class ClientiService {
   constructor(private http: HttpClient) {}
 
   private filtroClientiSubject = new BehaviorSubject<iFilterClienti>({
-    key: 0,
+    key: 1,
     ragioneSociale: '',
     dataIniziale: '',
     dataFinale: '',
