@@ -1,10 +1,10 @@
-import { iFatture } from "./i-fatture";
+import { iFattura } from './i-fatture';
 
 export interface iPageFatture {
   totalElements: number;
   totalPages: number;
   size: number;
-  content: iFatture[];
+  content: iFattura[];
   number: number;
   sort: Sort;
   numberOfElements: number;
