@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { environment } from '../../environments/environment.development';
 import { iCliente } from '../interfaces/i-clienti';
 import { iPageClienti } from '../interfaces/i-page-clienti';
@@ -69,7 +69,9 @@ export class ClientiService {
   }
 
   getAllClienti(): Observable<iCliente[]> {
-    return this.http.get<iCliente[]>(this.clientiUrl);
+    return this.http.get<{ content: iCliente[] }>(this.clientiUrl).pipe(
+      map((response) => response.content) // Estrai solo la proprietà 'content' (ovvero l'array del payload backend che contiene i clienti)
+    );
   }
 
   getClienti(page: number): Observable<iPageClienti> {

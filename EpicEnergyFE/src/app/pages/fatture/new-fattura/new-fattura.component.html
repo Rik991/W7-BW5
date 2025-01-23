@@ -6,9 +6,8 @@
         <header>Registration Form</header>
         <form [formGroup]="form" class="form mx-3" (ngSubmit)="createFattura()">
           <div class="select-box">
-            <select
-              formControlName="RagioneSociale"
-            >
+            <select formControlName="ragioneSociale">
+              <option value="">Seleziona cliente</option>
               <option
                 *ngFor="let cliente of clienti"
                 [value]="cliente.ragioneSociale"

@@ -16,7 +16,7 @@ import { iCliente } from '../../../interfaces/i-clienti';
 export class NewFatturaComponent implements OnInit {
   form!: FormGroup;
   statoFatture: iStatoFattura[] = [];
-  clienti: iCliente [] = [];
+  clienti: iCliente[] = [];
 
   @ViewChild('fattura', { static: false }) fatturaElement!: ElementRef;
 
@@ -24,7 +24,6 @@ export class NewFatturaComponent implements OnInit {
     private fb: FormBuilder,
     private fattureService: FattureService,
     private clientiService: ClientiService
-
   ) {}
 
   ngOnInit(): void {
@@ -34,8 +33,8 @@ export class NewFatturaComponent implements OnInit {
       dataFatturazione: ['', Validators.required],
       statoFattura: ['', Validators.required],
     });
-    this.getAllStatoFattura();
     this.getAllClienti();
+    this.getAllStatoFattura();
   }
 
   createStatoFattura(nome: string) {
@@ -81,16 +80,15 @@ export class NewFatturaComponent implements OnInit {
 
   getAllClienti() {
     this.clientiService.getAllClienti().subscribe({
-      next: (response) => {
-        console.log('Clienti:', response);
-        this.clienti = response;
+      next: (data) => {
+        console.log('Clienti ricevuti:', data); // Controlla che sia un array
+        this.clienti = data;
       },
       error: (error) => {
         console.error('Errore nel recupero dei clienti:', error);
-      }
-    })
+      },
+    });
   }
-
 
   createFattura() {
     if (this.form.valid) {
