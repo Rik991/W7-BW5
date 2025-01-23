@@ -4,9 +4,8 @@ import {
   HttpHandler,
   HttpEvent,
   HttpInterceptor,
-  HttpErrorResponse,
 } from '@angular/common/http';
-import { Observable, switchMap, catchError, throwError } from 'rxjs';
+import { Observable } from 'rxjs';
 import { AuthService } from './auth.service';
 import { environment } from '../../environments/environment.development';
 
@@ -35,15 +34,6 @@ export class TokenInterceptor implements HttpInterceptor {
       ),
     });
 
-    return next.handle(newRequest).pipe(
-      catchError((error: HttpErrorResponse) => {
-        if (error.status === 401) {
-          // Gestisci l'errore di autenticazione
-          this.authSvc.logout();
-          alert('Sessione scaduta. Effettua nuovamente il login.');
-        }
-        return throwError(error);
-      })
-    );
+    return next.handle(newRequest);
   }
 }
