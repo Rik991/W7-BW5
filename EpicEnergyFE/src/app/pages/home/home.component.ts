@@ -3,6 +3,8 @@ import { Component, OnInit } from '@angular/core';
 import { iFilterClienti } from '../../interfaces/i-filter-clienti';
 import { AuthService } from '../../auth/auth.service';
 import { iUser } from '../../interfaces/i-user';
+import { FattureService } from '../../services/fatture.service';
+import { IFilterFatture } from '../../interfaces/i-filter-fatture';
 
 @Component({
   selector: 'app-home',
@@ -17,7 +19,8 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private clientiSvc: ClientiService,
-    private authSvc: AuthService
+    private authSvc: AuthService,
+    private fattureSvc: FattureService
   ) {}
 
   ngOnInit(): void {
@@ -38,5 +41,22 @@ export class HomeComponent implements OnInit {
   sendData(key: number) {
     this.data.key = key;
     this.clientiSvc.sendData(this.data);
+  }
+
+  dataFatture: IFilterFatture = {
+    key: 1,
+    ragioneSociale: '',
+    dataIniziale: '',
+    dataFinale: '',
+    importoMin: '',
+    importoMax: '',
+    statoFattura: '',
+    numeroFattura: '',
+    anno: '',
+  };
+
+  sendDataFatture(key: number) {
+    this.dataFatture.key = key;
+    this.fattureSvc.sendData(this.dataFatture);
   }
 }

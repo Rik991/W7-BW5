@@ -87,38 +87,6 @@
     </table>
   </div>
 
-  <form [formGroup]="form" class="form mx-3" (ngSubmit)="findByFattureRagioneSociale(form.get('ragioneSociale')?.value)">
-    <div class="form-group">
-      <label for="ragioneSociale" class="form-label">Società</label>
-      <input
-        id="ragioneSociale"
-        formControlName="ragioneSociale"
-        placeholder="Ragione Sociale"
-        type="text"
-        class="form-control"
-      />
-    </div>
-    <div class="form-group mt-3">
-      <button type="submit" class="btn btn-primary">Cerca Fatture</button>
-    </div>
-  </form>
-
-  <div *ngIf="fatture.length > 0" class="mt-4">
-    <h5>Risultati della ricerca:</h5>
-    <ul class="list-group">
-      <li *ngFor="let fattura of fatture" class="list-group-item">
-        <strong>Numero:</strong> {{ fattura.numero }}<br>
-        <strong>Importo:</strong> {{ fattura.importo }}<br>
-        <strong>Stato:</strong> {{ fattura.statoFattura }}<br>
-        <strong>Data:</strong> {{ fattura.data }}
-      </li>
-    </ul>
-  </div>
-
-
-
-
-
   <div class="d-flex justify-content-between align-items-center">
     <p>Pagina 1 di 2</p>
     <nav>

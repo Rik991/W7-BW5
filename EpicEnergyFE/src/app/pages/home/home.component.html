@@ -90,38 +90,46 @@
         </h1>
       </div>
       <div class="row">
-        <div class="col bg-white shadow-sm rounded-3 m-3 p-3 hover">
-          <h5>Gestione Fatture</h5>
-          <div class="table-responsive rounded">
-            <table class="table table-striped">
-              <tbody>
-                <tr>
-                  <td>18/11/2019</td>
-                  <td>Sarraceno EP 2</td>
-                  <td><span class="badge bg-success">Pagata</span></td>
-                  <td>USD 810.00</td>
-                </tr>
-                <tr>
-                  <td>18/11/2019</td>
-                  <td>Hello Cello</td>
-                  <td><span class="badge bg-info">Inviata</span></td>
-                  <td>USD 1,575.00</td>
-                </tr>
-                <tr>
-                  <td>10/11/2019</td>
-                  <td>:Sarraceno EP 2</td>
-                  <td><span class="badge bg-success">Pagata</span></td>
-                  <td>USD 1,980.00</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-          <div class="text-end">
-            <button routerLink="/fatture" class="btn shadow-sm p-2 py-1 px-2">
-              <i class="bi bi-arrows-angle-expand"></i>
-            </button>
+        <!-- da qua -->
+
+        <div class="col bg-white shadow-sm rounded-3 m-3 p-3 h-100">
+          <h5>Filtra Fatture per:</h5>
+          <div class="m-4 d-flex flex-column">
+            <div class="m-4">
+              <button
+                class="btn btn-primary"
+                (click)="sendDataFatture(1)"
+                routerLink="/fatture"
+              >
+                Tutte le fatture
+              </button>
+            </div>
+            <!-- ///////////// -->
+            <div class="m-4">
+              <button
+                class="btn btn-primary"
+                (click)="sendDataFatture(2)"
+                routerLink="/fatture"
+              >
+                Ragione sociale
+              </button>
+              <input
+                class="mx-3"
+                type="text"
+                [(ngModel)]="dataFatture.ragioneSociale"
+              />
+            </div>
+
+            <div class="text-end">
+              <button routerLink="/clienti" class="btn shadow-sm p-2 py-1 px-2">
+                <i class="bi bi-arrows-angle-expand"></i>
+              </button>
+            </div>
           </div>
         </div>
+
+        <!-- a high_quality -->
+
         <div class="col bg-white shadow-sm rounded-3 m-3 p-3 h-100">
           <h5>Filtra clienti per:</h5>
           <div class="m-4 d-flex flex-column">

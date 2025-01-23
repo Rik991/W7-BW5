@@ -3,8 +3,10 @@ import { environment } from '../../environments/environment.development';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 
 import { iFatturaRequest } from '../interfaces/i-fattura-request';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { iFattura, iStatoFattura } from '../interfaces/i-fatture';
+import { iPageFatture } from '../interfaces/i-page-fatture';
+import { IFilterFatture } from '../interfaces/i-filter-fatture';
 
 @Injectable({
   providedIn: 'root',
@@ -12,8 +14,26 @@ import { iFattura, iStatoFattura } from '../interfaces/i-fatture';
 export class FattureService {
   fattureUrl: string = environment.fattureUrl;
   StatoFatturaUrl: string = environment.statoFatturaUrl;
+  fatturaByRagioneSocialeUrl: string = environment.fattureByRagioneSocialeUrl;
 
   constructor(private http: HttpClient) {}
+
+  private filtroFattureSubject = new BehaviorSubject<IFilterFatture>({
+    key: 0,
+    ragioneSociale: '',
+    dataIniziale: '',
+    dataFinale: '',
+    importoMin: '',
+    importoMax: '',
+    statoFattura: '',
+    numeroFattura: '',
+    anno: '',
+  });
+  filtroFatture$ = this.filtroFattureSubject.asObservable();
+
+  sendData(data: IFilterFatture) {
+    this.filtroFattureSubject.next(data);
+  }
 
   getAllStatoFattura(): Observable<iStatoFattura[]> {
     return this.http.get<iStatoFattura[]>(this.StatoFatturaUrl);
@@ -38,9 +58,23 @@ export class FattureService {
     );
   }
 
-  findByClienteRagioneSAociale(ragioneSociale: string): Observable<iFattura[]> {
-    return this.http.get<iFattura[]>(
-      `${this.fattureUrl}?ragioneSociale=${ragioneSociale}`
-    );
+  getAllFatture(page: number): Observable<iPageFatture> {
+    let params = new HttpParams()
+      .set('page', page.toString())
+      .set('size', '12');
+    return this.http.get<iPageFatture>(this.fattureUrl, { params });
+  }
+
+  getByRagioneSociale(
+    ragioneSociale: string,
+    page: number
+  ): Observable<iPageFatture> {
+    let params = new HttpParams()
+      .set('ragioneSociale', ragioneSociale)
+      .set('page', page.toString())
+      .set('size', '12');
+    return this.http.get<iPageFatture>(this.fatturaByRagioneSocialeUrl, {
+      params,
+    });
   }
 }
