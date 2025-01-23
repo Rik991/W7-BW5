@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ClientiService } from '../../../services/clienti.service';
-import { iClienti } from '../../../interfaces/i-clienti';
+import { iCliente } from '../../../interfaces/i-clienti';
 
 @Component({
   selector: 'app-register-clienti',
@@ -58,7 +58,7 @@ export class RegisterClientiComponent implements OnInit {
 
   registerClienti() {
     if (this.form.valid) {
-      const formData: Partial<iClienti> = {
+      const formData: Partial<iCliente> = {
         ragioneSociale: this.form.value.ragioneSociale,
         partitaIva: this.form.value.partitaIva,
         email: this.form.value.email,

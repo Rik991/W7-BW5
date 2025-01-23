@@ -3,7 +3,7 @@
     <li class="nav-item mx-2">
       <a
         routerLink="/home"
-        class="btn fw-bolder"
+        class="btn py-1 fw-bolder"
         routerLinkActive="activeNav"
         aria-current="page"
         >Home</a
@@ -12,7 +12,7 @@
     <li class="nav-item mx-2">
       <a
         routerLink="/fatture"
-        class="btn fw-bolder"
+        class="btn py-1 fw-bolder"
         routerLinkActive="activeNav"
         >Fatture</a
       >
@@ -20,7 +20,7 @@
     <li class="nav-item mx-2">
       <a
         routerLink="/clienti"
-        class="btn fw-bolder"
+        class="btn py-1 fw-bolder"
         routerLinkActive="activeNav"
         >Clienti</a
       >
@@ -28,7 +28,7 @@
     <li *ngIf="!isLoggedIn" class="nav-item mx-2">
       <a
         routerLink="/auth/login"
-        class="btn fw-bolder"
+        class="btn py-1 fw-bolder"
         routerLinkActive="activeNav"
         >LogIn</a
       >
@@ -36,13 +36,13 @@
     <li *ngIf="!isLoggedIn" class="nav-item mx-2">
       <a
         routerLink="/auth/register"
-        class="btn fw-bolder"
+        class="btn py-1 fw-bolder"
         routerLinkActive="activeNav"
         >Register</a
       >
     </li>
     <li *ngIf="isLoggedIn" (click)="logout()" class="nav-item mx-2">
-      <a class="btn fw-bolder" routerLinkActive="activeNav">Log out</a>
+      <a class="btn py-1 fw-bolder" routerLinkActive="activeNav">Log out</a>
     </li>
   </ul>
 </header>
