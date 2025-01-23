@@ -1,12 +1,16 @@
-import { Component, input } from '@angular/core';
-import { iClienti } from '../../interfaces/i-clienti';
+import { Component, Input, input, OnInit } from '@angular/core';
+import { iCliente } from '../../interfaces/i-clienti';
 
 @Component({
   selector: 'app-badge',
   templateUrl: './badge.component.html',
   styleUrl: './badge.component.scss',
 })
-export class BadgeComponent {
+export class BadgeComponent implements OnInit {
   // da fare
-  // @input() badge: iClienti;
+  @Input() cliente!: iCliente;
+
+  ngOnInit(): void {
+    console.log('card', this.cliente);
+  }
 }

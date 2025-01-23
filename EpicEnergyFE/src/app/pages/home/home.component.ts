@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { iClienti } from '../../interfaces/i-clienti';
+import { iCliente } from '../../interfaces/i-clienti';
 
 @Component({
   selector: 'app-home',
@@ -12,7 +12,7 @@ export class HomeComponent implements OnInit {
     'https://img.freepik.com/premium-vector/man-avatar-profile-picture-isolated-background-avatar-profile-picture-man_1293239-4866.jpg';
 
   fattureArr: any;
-  clientiArr: iClienti[] = [];
+  clientiArr: iCliente[] = [];
 
   ngOnInit(): void {}
 }

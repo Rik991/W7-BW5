@@ -1,7 +1,7 @@
 import { iIndirizzo } from './i-indirizzo';
 import { iTipoCliente } from './i-tipo-cliente';
 
-export interface iClienti {
+export interface iCliente {
   id?: number;
   ragioneSociale: string;
   partitaIva: string;

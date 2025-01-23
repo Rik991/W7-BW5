@@ -3,11 +3,12 @@
     <i class="bi bi-box-arrow-up-right"></i>
   </a>
   <div class="wallet-icon">
-    <img
-      src="https://upload.wikimedia.org/wikipedia/commons/6/69/Tron_logo_2018.svg"
-      alt="Tron Logo"
-    />
+    <img src="{{ cliente.logoAziendale }}" alt="Tron Logo" />
   </div>
-  <div class="wallet-title"><p class="m-0">Ragione Sociale</p></div>
-  <div class="wallet-subtitle"><p class="m-0">emailgmail.com</p></div>
+  <div class="wallet-title">
+    <p class="m-0">{{ cliente.ragioneSociale }}</p>
+  </div>
+  <div class="wallet-subtitle">
+    <p class="m-0">{{ cliente.email }}</p>
+  </div>
 </div>

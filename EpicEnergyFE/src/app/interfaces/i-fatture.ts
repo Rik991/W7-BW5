@@ -1,15 +1,15 @@
-import { iClienti } from './i-clienti';
+import { iCliente } from './i-clienti';
 
 export interface iFattura {
   id: number;
   data: string;
   importo: number;
   numero: string;
-  statoFattura: StatoFattura;
-  cliente: iClienti;
+  statoFattura: iStatoFattura;
+  cliente: iCliente;
 }
 
-export interface StatoFattura {
+export interface iStatoFattura {
   id: number;
   nome: string;
 }

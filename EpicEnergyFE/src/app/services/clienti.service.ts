@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment.development';
-import { iClienti } from '../interfaces/i-clienti';
+import { iCliente } from '../interfaces/i-clienti';
 import { iPageClienti } from '../interfaces/i-page-clienti';
 
 @Injectable({
@@ -21,9 +21,9 @@ export class ClientiService {
   constructor(private http: HttpClient) {}
 
   registerClienti(
-    clientData: Partial<iClienti>,
+    clientData: Partial<iCliente>,
     logoAziendale?: File
-  ): Observable<iClienti> {
+  ): Observable<iCliente> {
     const formData = new FormData();
     formData.append('ragioneSociale', clientData.ragioneSociale || '');
     formData.append('partitaIva', clientData.partitaIva || '');
@@ -65,7 +65,7 @@ export class ClientiService {
     if (logoAziendale) {
       formData.append('logoAziendale', logoAziendale);
     }
-    return this.http.post<iClienti>(this.clientiUrl, formData);
+    return this.http.post<iCliente>(this.clientiUrl, formData);
   }
 
   getClienti(page: number): Observable<iPageClienti> {
@@ -76,8 +76,8 @@ export class ClientiService {
     return this.http.get<iPageClienti>(this.clientiUrl, { params });
   }
 
-  getClientiById(id: number): Observable<iClienti> {
-    return this.http.get<iClienti>(`${this.clientiUrl}/${id}`);
+  getClientiById(id: number): Observable<iCliente> {
+    return this.http.get<iCliente>(`${this.clientiUrl}/${id}`);
   }
 
   deleteClienti(id: number): Observable<void> {
@@ -86,9 +86,9 @@ export class ClientiService {
 
   updateClienti(
     id: number,
-    clientData: Partial<iClienti>,
+    clientData: Partial<iCliente>,
     logoAziendale?: File
-  ): Observable<iClienti> {
+  ): Observable<iCliente> {
     const formData = new FormData();
     formData.append('ragioneSociale', clientData.ragioneSociale || '');
     formData.append('partitaIva', clientData.partitaIva || '');
@@ -130,12 +130,12 @@ export class ClientiService {
     if (logoAziendale) {
       formData.append('logoAziendale', logoAziendale);
     }
-    return this.http.put<iClienti>(`${this.clientiUrl}/${id}`, formData);
+    return this.http.put<iCliente>(`${this.clientiUrl}/${id}`, formData);
   }
 
-  getByRagioneSociale(ragioneSociale: string): Observable<iClienti> {
+  getByRagioneSociale(ragioneSociale: string): Observable<iCliente> {
     let params = new HttpParams().set('ragioneSociale', ragioneSociale);
-    return this.http.get<iClienti>(this.clientiByRagioneSocialeUrl, { params });
+    return this.http.get<iCliente>(this.clientiByRagioneSocialeUrl, { params });
   }
 
   getClientiByRangeDataInserimento(

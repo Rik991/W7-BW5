@@ -1,10 +1,10 @@
-import { iClienti } from './i-clienti';
+import { iCliente } from './i-clienti';
 
 export interface iPageClienti {
   totalElements: number;
   totalPages: number;
   size: number;
-  content: iClienti[];
+  content: iCliente[];
   number: number;
   sort: Sort;
   numberOfElements: number;
