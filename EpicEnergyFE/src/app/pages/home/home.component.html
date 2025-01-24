@@ -17,20 +17,8 @@
         <i class="bi bi-caret-right-fill fs-4"></i>
       </div>
       <hr />
-      <p class="text-white fw-">MAIN</p>
-      <ul class="nav nav-pills flex-column mb-auto">
-        <li class="nav-item">
-          <a
-            class="btn w-100 rounded-4 py-2 px-3 text-start fw-semibold d-flex text-white align-items-center"
-            aria-current="page"
-          >
-            <i class="bi bi-rocket-takeoff fs-5 me-2"></i>Overview</a
-          >
-        </li>
-      </ul>
-      <hr />
       <p class="text-white fw-">QUICK LINK</p>
-      <ul class="nav nav-pills flex-column mb-auto">
+      <ul class="nav nav-pills flex-column">
         <li>
           <a
             class="btn w-100 rounded-4 py-2 px-3 my-2 text-start fw-semibold text-white d-flex align-items-center"
@@ -64,7 +52,7 @@
       </ul>
       <hr />
       <p class="text-white fw-">SETTINGS</p>
-      <ul class="nav nav-pills flex-column mb-auto">
+      <ul class="nav nav-pills flex-column">
         <li>
           <a
             class="btn w-100 rounded-4 py-2 px-3 my-2 text-start fw-semibold text-white d-flex align-items-center"
@@ -132,7 +120,6 @@
                   (click)="sendDataFatture(3)"
                   routerLink="/fatture"
                 >
-                  <label for="statoFattura">Filtra per stato fattura:</label>
                   Stato fattura
                 </button>
                 <select
@@ -159,7 +146,7 @@
                   (click)="sendDataFatture(4)"
                   routerLink="/fatture"
                 >
-                  Filtra per Data
+                  Data creazione
                 </button>
                 <label for="dataInizio"><strong>Inizio:</strong></label>
                 <input
@@ -187,7 +174,7 @@
                   (click)="sendDataFatture(5)"
                   routerLink="/fatture"
                 >
-                  Filtra per Anno
+                  Fatture per anno
                 </button>
                 <label for="anno"><strong>Anno:</strong></label>
                 <input
@@ -206,9 +193,9 @@
                   (click)="sendDataFatture(6)"
                   routerLink="/fatture"
                 >
-                  Filtra per Importo
+                  Importo fattura
                 </button>
-                <label for="minImporto"><strong>Importo Minimo:</strong></label>
+                <label for="minImporto"><strong>Min:</strong></label>
                 <input
                   id="minImporto"
                   class="form-control my-2"
@@ -216,7 +203,7 @@
                   [(ngModel)]="dataFatture.importoMin"
                 />
                 <label for="maxImporto" class="mt-2"
-                  ><strong> Importo Massimo:</strong></label
+                  ><strong> Max:</strong></label
                 >
                 <input
                   id="maxImporto"
@@ -310,7 +297,7 @@
               </button>
               <div class="d-flex flex-column flex-grow-1">
                 <div class="d-flex">
-                  <p class="m-0 mt-2 ms-3 fw-semibold"><strong>Da:</strong></p>
+                  <p class="m-0 mt-2 ms-3 fw-semibold"><strong>Min:</strong></p>
                   <input
                     class="m-2 form-control"
                     type="text"
@@ -320,7 +307,7 @@
                 </div>
                 <div class="d-flex">
                   <p class="m-0 mt-2 pe-1 ms-3 fw-semibold">
-                    <strong>A:</strong>
+                    <strong>Max:</strong>
                   </p>
                   <input
                     class="m-2 form-control"
