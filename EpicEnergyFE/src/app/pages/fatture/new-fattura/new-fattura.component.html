@@ -3,15 +3,21 @@
     <div class="col-12 col-lg-6">
       <!-- From Uiverse.io by mi-series -->
       <div class="mb-">
-        <header>Registration Form</header>
-        <form [formGroup]="form" class="form mx-3">
-          <div class="input-box">
-            <h6 class="text-start">Ragione Sociale</h6>
-            <input
+        <header>{{ isEditMode ? "Modifica Fattura" : "Nuova Fattura" }}</header>
+        <form [formGroup]="form" class="form mx-3" (ngSubmit)="onSubmit()">
+          <div class="select-box">
+            <select
               formControlName="ragioneSociale"
-              placeholder="Enel"
-              type="text"
-            />
+              (change)="onClienteChange($event)"
+            >
+              <option value="">Seleziona cliente</option>
+              <option
+                *ngFor="let cliente of clienti"
+                [value]="cliente.ragioneSociale"
+              >
+                {{ cliente.ragioneSociale }}
+              </option>
+            </select>
           </div>
           <div class="column">
             <div class="input-box">
@@ -36,16 +42,24 @@
             <h6 class="text-start">Stato Fattura</h6>
             <div class="column">
               <div class="select-box">
-                <select formControlName="statoFattura">
-                  <option hidden="">Seleziona Stato</option>
-                  <option>Pagata</option>
-                  <option>Non Pagata</option>
-                  <option>In Attesa</option>
+                <select
+                  formControlName="statoFattura"
+                  (change)="onStatoFatturaChange($event)"
+                >
+                  <option
+                    *ngFor="let statoFattura of statoFatture"
+                    [value]="statoFattura.nome"
+                  >
+                    {{ statoFattura.nome }}
+                  </option>
+                  <option value="new">Aggiungi nuovo stato...</option>
                 </select>
               </div>
             </div>
           </div>
-          <button type="submit" class="fw-bolder text-white">Submit</button>
+          <button type="submit" class="fw-bolder text-white">
+            {{ isEditMode ? "Aggiorna" : "Crea" }}
+          </button>
         </form>
       </div>
       <hr />
@@ -75,7 +89,9 @@
       <div class="container bg-white shadow-sm py-3 px-3" #fattura>
         <div class="row mt-2">
           <div class="col-6 text-start">
-            <p class="mb-1">NO. <span>00123</span></p>
+            <p class="mb-1">
+              NO. <span>{{ numeroFattura }}</span>
+            </p>
             <p class="mb-1">
               Date: <span>{{ form.get("dataFatturazione")?.value }}</span>
             </p>
@@ -87,7 +103,7 @@
           <div class="col-6 text-start">
             <h5>Mittente:</h5>
             <p>
-              Nome Azienda: {{ form.get("ragioneSociale")?.value }}<br />
+              Nome Azienda: Epicode SRL<br />
               Indirizzo<br />
               Città, CAP<br />
               Partita IVA: 12345678901
@@ -95,7 +111,23 @@
           </div>
           <div class="col-6 text-end">
             <h5>Destinatario:</h5>
-            <p>Nome Cliente<br />Indirizzo<br />Città, CAP</p>
+            <p>
+              <strong>Ragione Sociale:</strong>
+              {{ clienteSelezionato?.ragioneSociale }}<br />
+              <strong>Sede legale:</strong>
+              {{ clienteSelezionato?.sedeLegale?.via }}<br />
+              <strong>Sede operativa:</strong>
+              {{ clienteSelezionato?.sedeOperativa?.via }}<br />
+              <strong>Partita IVA: </strong>{{ clienteSelezionato?.partitaIva
+              }}<br />
+              <strong>Nome:</strong>{{ clienteSelezionato?.nomeContatto }}<br />
+              <strong>Cognome:</strong> {{ clienteSelezionato?.cognomeContatto
+              }}<br />
+              <strong>Email:</strong> {{ clienteSelezionato?.emailContatto
+              }}<br />
+              <strong>Telefono:</strong>
+              {{ clienteSelezionato?.telefonoContatto }}
+            </p>
           </div>
         </div>
         <table class="table mt-4">
@@ -103,28 +135,29 @@
             <tr>
               <th>Descrizione</th>
               <th>Quantità</th>
-              <th>Prezzo Unitario</th>
+              <th>IVA%</th>
               <th>Totale</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td>Servizio 1</td>
-              <td>2</td>
-              <td>&euro; 100,00</td>
-              <td>&euro; 200,00</td>
-            </tr>
-            <tr>
-              <td>Prodotto A</td>
+              <td>Spesa energetica</td>
               <td>1</td>
-              <td>&euro; 50,00</td>
-              <td>&euro; 50,00</td>
+              <td>&euro; 22%</td>
+              <td>
+                {{ form.get("importoFattura")?.value | currency : "EUR" }}
+              </td>
             </tr>
           </tbody>
           <tfoot>
             <tr>
               <th colspan="3" class="text-end">Totale</th>
-              <th>&euro; {{ form.get("importoFattura")?.value }}</th>
+              <th>
+                {{
+                  (form.get("importoFattura")?.value * 122) / 100
+                    | currency : "EUR"
+                }}
+              </th>
             </tr>
           </tfoot>
         </table>

@@ -63,7 +63,7 @@ public class Cliente {
     @Column(name = "logo_aziendale",unique = true)
     private String logoAziendale;
 
-    @NotBlank(message = "il campo tipo cliente non può essere vuoto")
+
     @Column(name = "tipo_cliente")
     @Enumerated(EnumType.STRING)
     private TipoCliente tipoCliente;

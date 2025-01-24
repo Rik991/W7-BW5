@@ -5,9 +5,17 @@ import { ClientiRoutingModule } from './clienti-routing.module';
 import { ClientiComponent } from './clienti.component';
 import { RegisterClientiComponent } from './register-clienti/register-clienti.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { SharedModule } from '../../shared/shared.module';
+import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [ClientiComponent, RegisterClientiComponent],
-  imports: [CommonModule, ReactiveFormsModule, ClientiRoutingModule],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    ClientiRoutingModule,
+    SharedModule,
+    NgbPaginationModule,
+  ],
 })
 export class ClientiModule {}

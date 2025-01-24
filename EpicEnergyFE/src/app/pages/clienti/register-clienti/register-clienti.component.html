@@ -1,229 +1,349 @@
 <div class="container text-center py-5 align-items-center">
-  <form
-    [formGroup]="form"
-    class="d-flex flex-column gap-4 align-items-center mt-5"
-    (ngSubmit)="registerClienti()"
-  >
-    <h1 class="text-dark">Registrazione Cliente</h1>
-
-    <div class="form-group col-4 position-relative">
-      <input
-        type="text"
-        placeholder="Inserisci la ragione sociale"
-        formControlName="ragioneSociale"
-        class="form-control bg-transparent border-black"
-      />
-    </div>
-
-    <div class="form-group col-4 position-relative">
-      <input
-        type="text"
-        placeholder="Inserisci la partita IVA"
-        formControlName="partitaIva"
-        class="form-control bg-transparent border-black"
-      />
-    </div>
-
-    <div class="form-group col-4 position-relative">
-      <input
-        type="email"
-        placeholder="Inserisci la tua email"
-        formControlName="email"
-        class="form-control bg-transparent border-black"
-      />
-    </div>
-
-    <div class="form-group col-4 position-relative">
-      <input
-        type="text"
-        placeholder="Inserisci la data dell'ultimo contatto"
-        formControlName="dataUltimoContatto"
-        class="form-control bg-transparent border-black"
-      />
-    </div>
-
-    <div class="form-group col-4 position-relative">
-      <input
-        type="number"
-        placeholder="Inserisci il fatturato annuale"
-        formControlName="fatturatoAnnuale"
-        class="form-control bg-transparent border-black"
-      />
-    </div>
-
-    <div class="form-group col-4 position-relative">
-      <input
-        type="text"
-        placeholder="Inserisci la PEC"
-        formControlName="pec"
-        class="form-control bg-transparent border-black"
-      />
-    </div>
-
-    <div class="form-group col-4 position-relative">
-      <input
-        type="text"
-        placeholder="Inserisci il telefono"
-        formControlName="telefono"
-        class="form-control bg-transparent border-black"
-      />
-    </div>
-
-    <div class="form-group col-4 position-relative">
-      <input
-        type="text"
-        placeholder="Inserisci l'email del contatto"
-        formControlName="emailContatto"
-        class="form-control bg-transparent border-black"
-      />
-    </div>
-
-    <div class="form-group col-4 position-relative">
-      <input
-        type="text"
-        placeholder="Inserisci il nome del contatto"
-        formControlName="nomeContatto"
-        class="form-control bg-transparent border-black"
-      />
-    </div>
-
-    <div class="form-group col-4 position-relative">
-      <input
-        type="text"
-        placeholder="Inserisci il cognome del contatto"
-        formControlName="cognomeContatto"
-        class="form-control bg-transparent border-black"
-      />
-    </div>
-
-    <div class="form-group col-4 position-relative">
-      <input
-        type="text"
-        placeholder="Inserisci il telefono del contatto"
-        formControlName="telefonoContatto"
-        class="form-control bg-transparent border-black"
-      />
-    </div>
-
-    <div class="form-group col-4 position-relative">
-      <select
-        formControlName="tipoCliente"
-        class="form-control bg-transparent border-black"
+  <div class="form-card1">
+    <div class="form-card2">
+      <form
+        [formGroup]="form"
+        (ngSubmit)="registerClienti()"
+        class="form text-start"
       >
-        <option value="" disabled selected>Seleziona il tipo di cliente</option>
-        <option value="PA">PA</option>
-        <option value="SAS">SAS</option>
-        <option value="SPA">SPA</option>
-        <option value="SRL">SRL</option>
-      </select>
+        <p class="form-heading">Registrazione Cliente</p>
+
+        <!-- SEZIONE 1: Registrazione Cliente -->
+        <div *ngIf="currentStep === 1" class="bg-standard-leggero">
+          <label class="ps-1" for="ragioneSociale">Ragione Sociale</label>
+          <div class="form-field">
+            <input
+              id="ragioneSociale"
+              required=""
+              placeholder="Es. Enel Spa"
+              class="input-field"
+              type="text"
+              formControlName="ragioneSociale"
+            />
+            <div
+              *ngIf="
+                form.get('ragioneSociale')?.invalid &&
+                form.get('ragioneSociale')?.touched
+              "
+              class="text-danger"
+            >
+              Ragione sociale è richiesta
+            </div>
+          </div>
+
+          <label class="ps-1" for="partitaIva">Partita IVA</label>
+          <div class="form-field">
+            <input
+              id="partitaIva"
+              required=""
+              placeholder="Es. 12345678901"
+              class="input-field"
+              type="text"
+              formControlName="partitaIva"
+            />
+            <div
+              *ngIf="
+                form.get('partitaIva')?.invalid &&
+                form.get('partitaIva')?.touched
+              "
+              class="text-danger"
+            >
+              Partita IVA è richiesta
+            </div>
+          </div>
+
+          <label class="ps-1" for="email">Email</label>
+          <div class="form-field">
+            <input
+              id="email"
+              required=""
+              placeholder="Es. esempio@email.com"
+              class="input-field"
+              type="email"
+              formControlName="email"
+            />
+            <div
+              *ngIf="form.get('email')?.invalid && form.get('email')?.touched"
+              class="text-danger"
+            >
+              Email non valida
+            </div>
+          </div>
+
+          <label class="ps-1" for="dataUltimoContatto"
+            >Data Ultimo Contatto</label
+          >
+          <div class="form-field">
+            <input
+              id="dataUltimoContatto"
+              placeholder="Es. 2025-01-01"
+              class="input-field"
+              type="date"
+              formControlName="dataUltimoContatto"
+            />
+          </div>
+
+          <label class="ps-1" for="fatturatoAnnuale">Fatturato Annuale</label>
+          <div class="form-field">
+            <input
+              id="fatturatoAnnuale"
+              required=""
+              placeholder="Es. 100000"
+              class="input-field"
+              type="number"
+              formControlName="fatturatoAnnuale"
+            />
+          </div>
+
+          <label class="ps-1" for="pec">PEC</label>
+          <div class="form-field">
+            <input
+              id="pec"
+              placeholder="Es. pec@email.com"
+              class="input-field"
+              type="email"
+              formControlName="pec"
+            />
+          </div>
+
+          <label class="ps-1" for="telefono">Telefono</label>
+          <div class="form-field">
+            <input
+              id="telefono"
+              required=""
+              placeholder="Es. 1234567890"
+              class="input-field"
+              type="text"
+              formControlName="telefono"
+            />
+          </div>
+          <label class="ps-1" for="telefono">Email contatto</label>
+          <div class="form-field">
+            <input
+              id="emailContatto"
+              required=""
+              placeholder="Es. 1234567890"
+              class="input-field"
+              type="email"
+              formControlName="emailContatto"
+            />
+          </div>
+          <label class="ps-1" for="telefono">Nome contatto</label>
+          <div class="form-field">
+            <input
+              id="nomeContatto"
+              required=""
+              placeholder="Es. 1234567890"
+              class="input-field"
+              type="text"
+              formControlName="nomeContatto"
+            />
+          </div>
+          <label class="ps-1" for="telefono">Cognome contatto</label>
+          <div class="form-field">
+            <input
+              id="cognomeContatto"
+              required=""
+              placeholder="Es. 1234567890"
+              class="input-field"
+              type="text"
+              formControlName="cognomeContatto"
+            />
+          </div>
+          <label class="ps-1" for="telefono">Telefono contatto</label>
+          <div class="form-field">
+            <input
+              id="telefonoContatto"
+              required=""
+              placeholder="Es. 1234567890"
+              class="input-field"
+              type="text"
+              formControlName="telefonoContatto"
+            />
+          </div>
+
+          <label class="ps-1" for="tipoCliente">Tipo Cliente</label>
+          <div class="form-field">
+            <select
+              id="tipoCliente"
+              class="input-field text-secondary"
+              formControlName="tipoCliente"
+            >
+              <option value="" disabled>Seleziona Tipo Cliente</option>
+              <option value="PA">PA</option>
+              <option value="SAS">SAS</option>
+              <option value="SPA">SPA</option>
+              <option value="SRL">SRL</option>
+            </select>
+          </div>
+
+          <label class="ps-1" for="fileUpload">File</label>
+          <div class="form-field">
+            <input
+              id="fileUpload"
+              type="file"
+              class="input-field text-secondary"
+              (change)="onFileChange($event)"
+            />
+          </div>
+
+          <!-- From Uiverse.io by polina066 -->
+          <div class="w-100 d-flex justify-content-end">
+            <div (click)="nextStep()" class="box">
+              <div class="arrow right"></div>
+              <div class="text">Avanti</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SEZIONE 2: Sede Legale -->
+        <div
+          *ngIf="currentStep === 2"
+          formGroupName="sedeLegale"
+          class="bg-standard-leggero"
+        >
+          <p class="form-heading">Sede Legale</p>
+          <label class="ps-1" for="sedeLegaleVia">Via</label>
+          <div class="form-field">
+            <input
+              id="sedeLegaleVia"
+              placeholder="Es. Via Roma"
+              class="input-field"
+              type="text"
+              formControlName="via"
+            />
+          </div>
+          <label class="ps-1" for="sedeLegaleCivico">Civico</label>
+          <div class="form-field">
+            <input
+              id="sedeLegaleCivico"
+              placeholder="Es. 12A"
+              class="input-field"
+              type="text"
+              formControlName="civico"
+            />
+          </div>
+          <label class="ps-1" for="sedeLegaleLocalita">Località</label>
+          <div class="form-field">
+            <input
+              id="sedeLegaleLocalita"
+              placeholder="Es. 12A"
+              class="input-field"
+              type="text"
+              formControlName="localita"
+            />
+          </div>
+
+          <label class="ps-1" for="sedeLegaleCap">CAP</label>
+          <div class="form-field">
+            <input
+              id="sedeLegaleCap"
+              placeholder="Es. 20100"
+              class="input-field"
+              type="text"
+              formControlName="cap"
+            />
+          </div>
+
+          <label class="ps-1" for="sedeLegaleComune">Comune</label>
+          <div class="form-field">
+            <input
+              id="sedeLegaleComune"
+              required=""
+              placeholder="Es. Milano"
+              class="input-field"
+              type="text"
+              formControlName="comune"
+            />
+          </div>
+
+          <div class="d-flex justify-content-between">
+            <div (click)="previousStep()" class="box">
+              <div class="arrow left"></div>
+              <div class="text">Indietro</div>
+            </div>
+
+            <div (click)="nextStep()" class="box">
+              <div class="arrow right"></div>
+              <div class="text">Avanti</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SEZIONE 3: Sede Operativa -->
+        <div
+          *ngIf="currentStep === 3"
+          formGroupName="sedeOperativa"
+          class="bg-standard-leggero"
+        >
+          <p class="form-heading">Sede Operativa</p>
+          <label class="ps-1" for="sedeOperativaVia">Via</label>
+          <div class="form-field">
+            <input
+              id="sedeOperativaVia"
+              placeholder="Es. Via Verdi"
+              class="input-field"
+              type="text"
+              formControlName="via"
+            />
+          </div>
+          <label class="ps-1" for="sedeOperativaCivico">Civico</label>
+          <div class="form-field">
+            <input
+              id="sedeOperativaCivico"
+              placeholder="Es. 15B"
+              class="input-field"
+              type="text"
+              formControlName="civico"
+            />
+          </div>
+
+          <label class="ps-1" for="sedeOperativaLocalita">Località</label>
+          <div class="form-field">
+            <input
+              id="sedeOperativaLocalita"
+              placeholder="Es. 12A"
+              class="input-field"
+              type="text"
+              formControlName="localita"
+            />
+          </div>
+
+          <label class="ps-1" for="sedeOperativaCap">CAP</label>
+          <div class="form-field">
+            <input
+              id="sedeOperativaCap"
+              placeholder="Es. 10100"
+              class="input-field"
+              type="text"
+              formControlName="cap"
+            />
+          </div>
+
+          <label class="ps-1" for="sedeOperativaComune">Comune</label>
+          <div class="form-field">
+            <input
+              id="sedeOperativaComune"
+              required=""
+              placeholder="Es. Torino"
+              class="input-field"
+              type="text"
+              formControlName="comune"
+            />
+          </div>
+
+          <div class="d-flex justify-content-between">
+            <div (click)="previousStep()" class="box">
+              <div class="arrow left"></div>
+              <div class="text">Indietro</div>
+            </div>
+
+            <button type="submit" class="button conferma-color">
+              Conferma
+            </button>
+          </div>
+        </div>
+      </form>
     </div>
-
-    <div class="form-group col-4 position-relative">
-      <input
-        type="file"
-        (change)="onFileChange($event)"
-        class="form-control bg-transparent border-black"
-      />
-    </div>
-
-    <div formGroupName="sedeLegale">
-      <h2 class="text-dark">Indirizzo Sede Legale</h2>
-
-      <div class="form-group col-4 position-relative">
-        <input
-          type="text"
-          placeholder="Inserisci la via"
-          formControlName="via"
-          class="form-control bg-transparent border-black"
-        />
-      </div>
-
-      <div class="form-group col-4 position-relative">
-        <input
-          type="text"
-          placeholder="Inserisci il civico"
-          formControlName="civico"
-          class="form-control bg-transparent border-black"
-        />
-      </div>
-
-      <div class="form-group col-4 position-relative">
-        <input
-          type="text"
-          placeholder="Inserisci la località"
-          formControlName="localita"
-          class="form-control bg-transparent border-black"
-        />
-      </div>
-
-      <div class="form-group col-4 position-relative">
-        <input
-          type="text"
-          placeholder="Inserisci il CAP"
-          formControlName="cap"
-          class="form-control bg-transparent border-black"
-        />
-      </div>
-
-      <div class="form-group col-4 position-relative">
-        <input
-          type="text"
-          placeholder="Inserisci il comune"
-          formControlName="comune"
-          class="form-control bg-transparent border-black"
-        />
-      </div>
-    </div>
-
-    <div formGroupName="sedeOperativa">
-      <h2 class="text-dark">Indirizzo Sede Operativa</h2>
-
-      <div class="form-group col-4 position-relative">
-        <input
-          type="text"
-          placeholder="Inserisci la via"
-          formControlName="via"
-          class="form-control bg-transparent border-black"
-        />
-      </div>
-
-      <div class="form-group col-4 position-relative">
-        <input
-          type="text"
-          placeholder="Inserisci il civico"
-          formControlName="civico"
-          class="form-control bg-transparent border-black"
-        />
-      </div>
-
-      <div class="form-group col-4 position-relative">
-        <input
-          type="text"
-          placeholder="Inserisci la località"
-          formControlName="localita"
-          class="form-control bg-transparent border-black"
-        />
-      </div>
-
-      <div class="form-group col-4 position-relative">
-        <input
-          type="text"
-          placeholder="Inserisci il CAP"
-          formControlName="cap"
-          class="form-control bg-transparent border-black"
-        />
-      </div>
-
-      <div class="form-group col-4 position-relative">
-        <input
-          type="text"
-          placeholder="Inserisci il comune"
-          formControlName="comune"
-          class="form-control bg-transparent border-black"
-        />
-      </div>
-    </div>
-
-    <button type="submit" class="btn btn-success border mt-3">Conferma</button>
-  </form>
+  </div>
 </div>

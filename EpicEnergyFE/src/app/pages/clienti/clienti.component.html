@@ -1,1 +1,24 @@
-<p>clienti works!</p>
+<section class="container">
+  <!-- selettore pagina -->
+  <div class="d-flex flex-wrap">
+    <div *ngFor="let cliente of clientiArray">
+      <app-badge
+        [cliente]="cliente"
+        (deleteCliente)="onDeleteCliente($event)"
+      ></app-badge>
+    </div>
+  </div>
+  <div class="mx-4">
+    <ngb-pagination
+      [collectionSize]="pageClienti?.totalPages || 0"
+      [(page)]="currentPage"
+      [pageSize]="pageClienti?.size || 10"
+      [maxSize]="5"
+      [rotate]="true"
+      [ellipses]="false"
+      [boundaryLinks]="true"
+      (pageChange)="onPageChange($event)"
+    >
+    </ngb-pagination>
+  </div>
+</section>

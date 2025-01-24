@@ -15,7 +15,7 @@ import java.time.LocalDate;
 @Table(name = "fatture")
 public class Fattura {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
     @Column(nullable = false)
@@ -24,8 +24,7 @@ public class Fattura {
     @Positive(message = "L'importo deve essere positivo!")
     private Double importo;
 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(nullable = false,unique = true)
+    @Column(unique = true)
     private String numero;
 
     @ManyToOne

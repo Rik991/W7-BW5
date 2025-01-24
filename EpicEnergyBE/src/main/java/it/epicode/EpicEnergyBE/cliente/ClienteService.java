@@ -2,6 +2,7 @@ package it.epicode.EpicEnergyBE.cliente;
 
 import it.epicode.EpicEnergyBE.cloudinary.CloudinaryService;
 
+import it.epicode.EpicEnergyBE.indirizzo.Indirizzo;
 import it.epicode.EpicEnergyBE.indirizzo.IndirizzoRepository;
 
 import it.epicode.EpicEnergyBE.provincia.comune.ComuneRepository;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -33,14 +35,22 @@ public class ClienteService {
     @Autowired
     private CloudinaryService cloudinaryService;
 
+    @Transactional
     public Cliente createCliente(@Valid ClienteDTO clienteDTO, MultipartFile logo) {
 
         Cliente cliente = new Cliente();
-        BeanUtils.copyProperties(clienteDTO,cliente);
+        BeanUtils.copyProperties(clienteDTO, cliente);
 
         if (logo != null && !logo.isEmpty()) {
-            cliente.setLogoAziendale(cloudinaryService.uploader(logo,"loghiAziendeT3").get("url").toString());
+            cliente.setLogoAziendale(cloudinaryService.uploader(logo, "loghiAziendeT3").get("url").toString());
         }
+
+        Indirizzo sedeLegale = indirizzoRepository.save(clienteDTO.getSedeLegale());
+        Indirizzo sedeOperativa = indirizzoRepository.save(clienteDTO.getSedeOperativa());
+
+        cliente.setSedeLegale(sedeLegale);
+        cliente.setSedeOperativa(sedeOperativa);
+
 
         return clienteRepository.save(cliente);
     }
@@ -54,25 +64,21 @@ public class ClienteService {
     }
 
 
-    public Cliente updateCliente(Long id,@Valid ClienteDTO clienteDTO) {
+    public Cliente updateCliente(Long id, @Valid ClienteDTO clienteDTO, MultipartFile logo) {
         Cliente cliente = clienteRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Cliente non trovato"));
 
-        cliente.setRagioneSociale(clienteDTO.getRagioneSociale());
-        cliente.setPartitaIva(clienteDTO.getPartitaIva());
-        cliente.setEmail(clienteDTO.getEmail());
-        cliente.setDataInserimento(clienteDTO.getDataInserimento());
-        cliente.setDataUltimoContatto(clienteDTO.getDataUltimoContatto());
-        cliente.setFatturatoAnnuale(clienteDTO.getFatturatoAnnuale());
-        cliente.setPec(clienteDTO.getPec());
-        cliente.setTelefono(clienteDTO.getTelefono());
-        cliente.setEmailContatto(clienteDTO.getEmailContatto());
-        cliente.setNomeContatto(clienteDTO.getNomeContatto());
-        cliente.setCognomeContatto(clienteDTO.getCognomeContatto());
-        cliente.setTelefonoContatto(clienteDTO.getTelefonoContatto());
-        cliente.setTipoCliente(clienteDTO.getTipoCliente());
-        cliente.setSedeLegale(clienteDTO.getSedeLegale());
-        cliente.setSedeOperativa(clienteDTO.getSedeOperativa());
+        BeanUtils.copyProperties(clienteDTO,cliente);
+
+        if (logo != null && !logo.isEmpty()) {
+            cliente.setLogoAziendale(cloudinaryService.uploader(logo, "loghiAziendeT3").get("url").toString());
+        }
+
+        Indirizzo sedeLegale = indirizzoRepository.save(clienteDTO.getSedeLegale());
+        Indirizzo sedeOperativa = indirizzoRepository.save(clienteDTO.getSedeOperativa());
+
+        cliente.setSedeLegale(sedeLegale);
+        cliente.setSedeOperativa(sedeOperativa);
 
         return clienteRepository.save(cliente);
     }
@@ -83,8 +89,8 @@ public class ClienteService {
 
 //get filtrate
 
-    public Page<Cliente> getClientiByfatturatoAnnualeRange(Double minImporto,Double maxImporto,Pageable pageable) {
-        return clienteRepository.findByFatturatoAnnualeRange(minImporto,maxImporto,pageable);
+    public Page<Cliente> getClientiByfatturatoAnnualeRange(Double minImporto, Double maxImporto, Pageable pageable) {
+        return clienteRepository.findByFatturatoAnnualeRange(minImporto, maxImporto, pageable);
     }
 
     public Page<Cliente> getClientiTraDateInserimento(LocalDate dataInizio, LocalDate dataFine, Pageable pageable) {
