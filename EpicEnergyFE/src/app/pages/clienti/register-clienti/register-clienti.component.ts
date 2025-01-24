@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ClientiService } from '../../../services/clienti.service';
 import { iCliente } from '../../../interfaces/i-clienti';
-import { iDtoCliente } from '../../../interfaces/i-dto-cliente';
 
 @Component({
   selector: 'app-register-clienti',

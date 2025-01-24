@@ -60,9 +60,8 @@ public class Cliente {
     @Column(name = "telefono_contatto")
     private String telefonoContatto;
 
-    @Column(name = "logo_aziendale",unique = true)
+    @Column(name = "logo_aziendale", unique = true)
     private String logoAziendale;
-
 
     @Column(name = "tipo_cliente")
     @Enumerated(EnumType.STRING)

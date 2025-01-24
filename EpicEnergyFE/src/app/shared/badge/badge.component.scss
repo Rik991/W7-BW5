@@ -1,9 +1,9 @@
 .wallet-card {
   width: 300px;
+  height: 180px;
   border-radius: 15px;
   background-color: white;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-  padding: 20px;
   position: relative;
   overflow: hidden;
 }
@@ -18,8 +18,10 @@
   margin-bottom: 15px;
 }
 .wallet-icon img {
-  width: 30px;
-  height: 30px;
+  width: 55px;
+  height: 55px;
+  border-radius: 50%;
+  object-fit: cover;
 }
 .wallet-title {
   font-weight: bold;
@@ -47,4 +49,8 @@
 
 .bg-standard-leggero {
   background-color: rgb(236, 252, 252);
+}
+
+.bg-top {
+  background-image: url(https://img.freepik.com/premium-photo/bright-blue-geometric-modern-design-template_665346-4755.jpg);
 }
