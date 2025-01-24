@@ -1,5 +1,6 @@
 package it.epicode.EpicEnergyBE.cliente;
 
+import com.github.javafaker.Faker;
 import it.epicode.EpicEnergyBE.indirizzo.Indirizzo;
 import it.epicode.EpicEnergyBE.provincia.comune.Comune;
 import it.epicode.EpicEnergyBE.provincia.comune.ComuneRepository;
@@ -28,42 +29,47 @@ public class ClienteRunner implements ApplicationRunner {
     public void run(ApplicationArguments args) throws Exception {
 
         if (clienteRepository.findAll().isEmpty()) {
-            Comune comuneLegale = comuneRepository.findByDenominazione("Marsala");
-            Comune comuneOperativo = comuneRepository.findByDenominazione("Catania");
+            Faker faker = new Faker();
 
-            Indirizzo indirizzoSedeLegale = new Indirizzo();
-            indirizzoSedeLegale.setVia("via Mazzini");
-            indirizzoSedeLegale.setCivico("26");
-            indirizzoSedeLegale.setLocalita("Marsala");
-            indirizzoSedeLegale.setCap("91025");
-            indirizzoSedeLegale.setComune(comuneLegale);
+            for (int i = 1; i <= 20; i++) {
+                Comune comuneLegale = comuneRepository.findByDenominazione(faker.address().city());
+                Comune comuneOperativo = comuneRepository.findByDenominazione(faker.address().city());
 
-            Indirizzo indirizzoSedeOperativa = new Indirizzo();
-            indirizzoSedeOperativa.setVia("Via Roma");
-            indirizzoSedeOperativa.setCivico("50");
-            indirizzoSedeOperativa.setLocalita("Catania");
-            indirizzoSedeOperativa.setCap("95124");
-            indirizzoSedeOperativa.setComune(comuneOperativo);
+                Indirizzo indirizzoSedeLegale = new Indirizzo();
+                indirizzoSedeLegale.setVia(faker.address().streetName());
+                indirizzoSedeLegale.setCivico(String.valueOf(faker.number().numberBetween(1, 100)));
+                indirizzoSedeLegale.setLocalita(faker.address().city());
+                indirizzoSedeLegale.setCap(faker.address().zipCode());
+                indirizzoSedeLegale.setComune(comuneLegale);
 
-            ClienteDTO clienteDTO = new ClienteDTO();
+                Indirizzo indirizzoSedeOperativa = new Indirizzo();
+                indirizzoSedeOperativa.setVia(faker.address().streetName());
+                indirizzoSedeOperativa.setCivico(String.valueOf(faker.number().numberBetween(1, 100)));
+                indirizzoSedeOperativa.setLocalita(faker.address().city());
+                indirizzoSedeOperativa.setCap(faker.address().zipCode());
+                indirizzoSedeOperativa.setComune(comuneOperativo);
 
-            clienteDTO.setRagioneSociale("Epicode SRL");
-            clienteDTO.setPartitaIva("A34456");
-            clienteDTO.setEmail("epicode@epicode.it");
-            clienteDTO.setDataInserimento(LocalDate.now());
-            clienteDTO.setDataUltimoContatto(LocalDate.of(2025, 01, 20));
-            clienteDTO.setFatturatoAnnuale(54200.0);
-            clienteDTO.setPec("epicode@epicode.it");
-            clienteDTO.setTelefono("444221");
-            clienteDTO.setEmailContatto("danilofumuso@gmail.com");
-            clienteDTO.setNomeContatto("Danilo");
-            clienteDTO.setCognomeContatto("Fumuso");
-            clienteDTO.setTelefonoContatto("4483291");
-            clienteDTO.setTipoCliente(TipoCliente.SRL);
-            clienteDTO.setSedeLegale(indirizzoSedeLegale);
-            clienteDTO.setSedeOperativa(indirizzoSedeOperativa);
+                ClienteDTO clienteDTO = new ClienteDTO();
 
-            clienteService.createCliente(clienteDTO, null);
+                clienteDTO.setRagioneSociale(faker.company().name());
+                clienteDTO.setPartitaIva(faker.number().digits(11));
+                clienteDTO.setEmail(faker.internet().emailAddress());
+                clienteDTO.setDataInserimento(LocalDate.now());
+                clienteDTO.setDataUltimoContatto(LocalDate.now().minusDays(faker.number().numberBetween(1, 365)));
+                clienteDTO.setFatturatoAnnuale(faker.number().randomDouble(2, 50000, 200000));
+                clienteDTO.setPec(faker.internet().emailAddress());
+                clienteDTO.setTelefono(faker.phoneNumber().phoneNumber());
+                clienteDTO.setEmailContatto(faker.internet().emailAddress());
+                clienteDTO.setNomeContatto(faker.name().firstName());
+                clienteDTO.setCognomeContatto(faker.name().lastName());
+                clienteDTO.setTelefonoContatto(faker.phoneNumber().cellPhone());
+                clienteDTO.setTipoCliente(i % 2 == 0 ? TipoCliente.SRL : TipoCliente.SPA);
+                clienteDTO.setSedeLegale(indirizzoSedeLegale);
+                clienteDTO.setSedeOperativa(indirizzoSedeOperativa);
+
+                clienteService.createCliente(clienteDTO, null);
+            }
+
         }
     }
 }

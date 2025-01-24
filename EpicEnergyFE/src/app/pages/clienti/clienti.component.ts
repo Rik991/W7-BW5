@@ -26,6 +26,12 @@ export class ClientiComponent implements OnInit {
     this.onPageChange(this.currentPage);
   }
 
+  goToPage(page: number): void {
+    if (page >= 1 && page <= this.pageClienti.totalPages) {
+      this.onPageChange(page);
+    }
+  }
+
   onPageChange(page: number): void {
     this.currentPage = page;
     switch (this.filterData.key) {
