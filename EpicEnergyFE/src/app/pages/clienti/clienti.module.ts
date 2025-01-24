@@ -7,9 +7,10 @@ import { RegisterClientiComponent } from './register-clienti/register-clienti.co
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../../shared/shared.module';
 import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
+import { DashboardClienteComponent } from './dashboard-cliente/dashboard-cliente.component';
 
 @NgModule({
-  declarations: [ClientiComponent, RegisterClientiComponent],
+  declarations: [ClientiComponent, RegisterClientiComponent, DashboardClienteComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,

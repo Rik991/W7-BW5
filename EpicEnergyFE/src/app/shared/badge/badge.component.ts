@@ -22,6 +22,10 @@ export class BadgeComponent {
 
   constructor(private Router: Router, private ClientiSvc: ClientiService) {}
 
+  visualizza(id: number) {
+    this.Router.navigate(['clienti/dashboard', id]);
+  }
+
   edit(id: number) {
     this.Router.navigate(['clienti/register', id]);
   }
