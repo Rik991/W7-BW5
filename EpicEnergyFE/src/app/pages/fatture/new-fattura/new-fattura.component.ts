@@ -38,11 +38,12 @@ export class NewFatturaComponent implements OnInit {
   }
 
   private initForm(): void {
+    const currentDate = new Date().toISOString().split('T')[0];
     this.form = this.fb.group({
       ragioneSociale: ['', Validators.required],
       importoFattura: ['', Validators.required],
-      dataFatturazione: ['', Validators.required],
-      statoFattura: ['', Validators.required],
+      dataFatturazione: [currentDate, Validators.required],
+      statoFattura: ['non pagata', Validators.required],
     });
   }
 
@@ -50,7 +51,6 @@ export class NewFatturaComponent implements OnInit {
     // Subscribe to selected fattura
     this.fattureService.selectedFattura$.subscribe((fattura) => {
       if (fattura) {
-        console.log('Precompiling form with fattura:', fattura);
         this.isEditMode = true;
         this.precompilaForm(fattura);
       } else {
@@ -64,7 +64,6 @@ export class NewFatturaComponent implements OnInit {
   }
 
   private precompilaForm(fattura: iFattura): void {
-    console.log('Precompiling form...', fattura);
     this.numeroFattura = Number(fattura.numero);
     this.clienteSelezionato = fattura.cliente;
 
@@ -76,7 +75,6 @@ export class NewFatturaComponent implements OnInit {
         dataFatturazione: fattura.data,
         statoFattura: fattura.statoFattura.nome,
       });
-      console.log('Form values after patch:', this.form.value);
     });
   }
 
@@ -95,7 +93,6 @@ export class NewFatturaComponent implements OnInit {
           .updateFattura(this.numeroFattura.toString(), fatturaDto)
           .subscribe({
             next: (response) => {
-              console.log('Fattura updated:', response);
               this.router.navigate(['/fatture']);
             },
             error: (error) => console.error('Update error:', error),
@@ -105,7 +102,6 @@ export class NewFatturaComponent implements OnInit {
           .createFattura(this.form.value.ragioneSociale, fatturaDto)
           .subscribe({
             next: (response) => {
-              console.log('Fattura created:', response);
               this.router.navigate(['/fatture']);
             },
             error: (error) => console.error('Create error:', error),
@@ -168,7 +164,6 @@ export class NewFatturaComponent implements OnInit {
   getAllStatoFattura() {
     this.fattureService.getAllStatoFattura().subscribe({
       next: (response) => {
-        console.log('Stati Fattura:', response);
         this.statoFatture = response;
       },
       error: (error) => {
@@ -180,7 +175,6 @@ export class NewFatturaComponent implements OnInit {
   getAllClienti() {
     this.clientiService.getAllClienti().subscribe({
       next: (data) => {
-        console.log('Clienti ricevuti:', data); // Controlla che sia un array
         this.clienti = data;
       },
       error: (error) => {
@@ -214,16 +208,20 @@ export class NewFatturaComponent implements OnInit {
     this.fattureService.clearSelectedFattura();
   }
 
-  downloadPDF() {
-    const data = this.fatturaElement.nativeElement;
-    html2canvas(data).then((canvas) => {
-      const imgWidth = 208;
-      const imgHeight = (canvas.height * imgWidth) / canvas.width;
-      const contentDataURL = canvas.toDataURL('image/png');
-      const pdf = new jsPDF('p', 'mm', 'a4');
-      const position = 0;
-      pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight);
-      pdf.save('fattura.pdf');
-    });
+  downloadPDF(): void {
+    if (this.fatturaElement) {
+      const data = this.fatturaElement.nativeElement;
+      html2canvas(data).then((canvas) => {
+        const imgWidth = 208;
+        const imgHeight = (canvas.height * imgWidth) / canvas.width;
+        const contentDataURL = canvas.toDataURL('image/png');
+        const pdf = new jsPDF('p', 'mm', 'a4');
+        const position = 0;
+        pdf.addImage(contentDataURL, 'PNG', 0, position, imgWidth, imgHeight);
+        pdf.save('fattura.pdf');
+      });
+    } else {
+      console.error('Fattura element is not defined');
+    }
   }
 }

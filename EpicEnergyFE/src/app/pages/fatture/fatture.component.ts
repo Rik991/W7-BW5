@@ -144,7 +144,6 @@ export class FattureComponent implements OnInit {
   getAllStatoFattura() {
     this.fattureService.getAllStatoFattura().subscribe({
       next: (response) => {
-        console.log('Stati Fattura:', response);
         this.statoFatture = response;
       },
       error: (error) => {
@@ -154,8 +153,23 @@ export class FattureComponent implements OnInit {
   }
 
   editFattura(fattura: iFattura): void {
-    // Store fattura in service or use navigation extras
     this.fattureService.setSelectedFattura(fattura);
     this.router.navigate(['/fatture/newfattura']);
+  }
+
+  goToPage(page: number): void {
+    if (page >= 1 && page <= this.pageFatture.totalPages) {
+      this.onPageChange(page);
+    }
+  }
+
+  getBadgeClass(statoFatturaNome: string): string {
+    if (
+      statoFatturaNome.toLowerCase() === 'scaduta' ||
+      statoFatturaNome.toLowerCase() === 'non pagata'
+    ) {
+      return 'badge bg-danger';
+    }
+    return 'badge bg-succesSaturo';
   }
 }
