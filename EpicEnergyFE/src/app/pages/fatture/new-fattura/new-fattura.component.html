@@ -86,55 +86,74 @@
       </div>
     </div>
     <div class="col-12 col-lg-6">
-      <div class="container bg-white shadow-sm py-3 px-3" #fattura>
-        <div class="row mt-2">
+      <div class="container bg-white shadow-sm py-4 px-4 rounded" #fattura>
+        <div class="row mb-4">
           <div class="col-6 text-start">
-            <p class="mb-1">
-              NO. <span>{{ numeroFattura }}</span>
-            </p>
-            <p class="mb-1">
-              Date: <span>{{ form.get("dataFatturazione")?.value }}</span>
-            </p>
+            <h5 class="fw-bold">Mittente:</h5>
+            <p class="mb-1">Nome Azienda: Epicode SRL</p>
+            <p class="mb-1">Indirizzo: Via Roma, 1</p>
+            <p class="mb-1">Città: Roma, CAP: 00100</p>
+            <p class="mb-1">Partita IVA: 12345678901</p>
           </div>
+          <!-- logo qui  -->
         </div>
-        <hr class="mt-1" />
-        <h1>Fattura</h1>
-        <div class="row mt-4">
+        <hr class="mb-4" />
+        <div class="row mb-4 d-flex justify-content-between">
           <div class="col-6 text-start">
-            <h5>Mittente:</h5>
-            <p>
-              Nome Azienda: Epicode SRL<br />
-              Indirizzo<br />
-              Città, CAP<br />
-              Partita IVA: 12345678901
-            </p>
-          </div>
-          <div class="col-6 text-end">
-            <h5>Destinatario:</h5>
-            <p>
+            <h5 class="fw-bold">Destinatario:</h5>
+            <p class="mb-1">
               <strong>Ragione Sociale:</strong>
-              {{ clienteSelezionato?.ragioneSociale }}<br />
+              {{ clienteSelezionato?.ragioneSociale }}
+            </p>
+            <p class="mb-1">
               <strong>Sede legale:</strong>
-              {{ clienteSelezionato?.sedeLegale?.via }}<br />
+              {{ clienteSelezionato?.sedeLegale?.via }}
+            </p>
+            <p class="mb-1">
               <strong>Sede operativa:</strong>
-              {{ clienteSelezionato?.sedeOperativa?.via }}<br />
-              <strong>Partita IVA: </strong>{{ clienteSelezionato?.partitaIva
-              }}<br />
-              <strong>Nome:</strong>{{ clienteSelezionato?.nomeContatto }}<br />
-              <strong>Cognome:</strong> {{ clienteSelezionato?.cognomeContatto
-              }}<br />
-              <strong>Email:</strong> {{ clienteSelezionato?.emailContatto
-              }}<br />
+              {{ clienteSelezionato?.sedeOperativa?.via }}
+            </p>
+            <p class="mb-1">
+              <strong>Partita IVA:</strong> {{ clienteSelezionato?.partitaIva }}
+            </p>
+            <p class="mb-1">
+              <strong>Nome:</strong> {{ clienteSelezionato?.nomeContatto }}
+            </p>
+            <p class="mb-1">
+              <strong>Cognome:</strong>
+              {{ clienteSelezionato?.cognomeContatto }}
+            </p>
+            <p class="mb-1">
+              <strong>Email:</strong> {{ clienteSelezionato?.emailContatto }}
+            </p>
+            <p class="mb-1">
               <strong>Telefono:</strong>
               {{ clienteSelezionato?.telefonoContatto }}
             </p>
           </div>
+          <div class="col-6">
+            <h5 class="fw-bold">Fattura</h5>
+            <p class="mb-1">
+              Numero: <span>{{ numeroFattura }}</span>
+            </p>
+            <p class="mb-1">
+              Data:
+              <span>{{
+                form.get("dataFatturazione")?.value | date : "dd/MM/yyyy"
+              }}</span>
+            </p>
+            <p class="mb-1">
+              Stato Fattura:
+              <span>{{ form.get("statoFattura")?.value }}</span>
+            </p>
+          </div>
         </div>
-        <table class="table mt-4">
+        <table class="table table-bordered mt-4">
           <thead class="table-dark">
             <tr>
               <th>Descrizione</th>
               <th>Quantità</th>
+              <th>Prezzo Unitario</th>
               <th>IVA%</th>
               <th>Totale</th>
             </tr>
@@ -143,7 +162,8 @@
             <tr>
               <td>Spesa energetica</td>
               <td>1</td>
-              <td>&euro; 22%</td>
+              <td>&euro; 200,00</td>
+              <td>22%</td>
               <td>
                 {{ form.get("importoFattura")?.value | currency : "EUR" }}
               </td>
@@ -151,8 +171,9 @@
           </tbody>
           <tfoot>
             <tr>
-              <th colspan="3" class="text-end">Totale</th>
+              <th colspan="4" class="text-end">Totale</th>
               <th>
+                &euro;
                 {{
                   (form.get("importoFattura")?.value * 122) / 100
                     | currency : "EUR"
@@ -163,10 +184,11 @@
         </table>
         <div class="row mt-4">
           <div class="col-12 text-start">
+            <h5 class="fw-bold">Metodo di Pagamento:</h5>
+            <p class="mb-1"><strong>Bonifico Bancario</strong></p>
             <p class="mb-1">
-              <strong>Metodo di Pagamento:</strong> Bonifico Bancario
+              <strong>IBAN:</strong> IT00X1234567890123456789012
             </p>
-            <p><strong>IBAN:</strong> IT00X1234567890123456789012</p>
           </div>
         </div>
       </div>
