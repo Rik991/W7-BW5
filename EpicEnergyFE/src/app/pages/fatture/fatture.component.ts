@@ -162,4 +162,14 @@ export class FattureComponent implements OnInit {
       this.onPageChange(page);
     }
   }
+
+  getBadgeClass(statoFatturaNome: string): string {
+    if (
+      statoFatturaNome.toLowerCase() === 'scaduta' ||
+      statoFatturaNome.toLowerCase() === 'non pagata'
+    ) {
+      return 'badge bg-danger';
+    }
+    return 'badge bg-succesSaturo';
+  }
 }

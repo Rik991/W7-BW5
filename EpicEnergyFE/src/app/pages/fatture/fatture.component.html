@@ -27,9 +27,9 @@
           <td>{{ fattura.numero }}</td>
           <td>{{ fattura.cliente.ragioneSociale }}</td>
           <td>
-            <span class="badge bg-succesSaturo">{{
-              fattura.statoFattura.nome
-            }}</span>
+            <span [ngClass]="getBadgeClass(fattura.statoFattura.nome)">
+              {{ fattura.statoFattura.nome }}
+            </span>
           </td>
           <td>{{ fattura.importo | currency : "EUR" }}</td>
           <td class="text-center">
@@ -46,7 +46,7 @@
   </div>
 
   <div class="d-flex justify-content-between align-items-center">
-    <p>Pagina {{ currentPage }} di {{ pageFatture?.totalPages }}</p>
+    <p>Pagina {{ currentPage }} di {{ pageFatture.totalPages }}</p>
     <nav>
       <ul class="pagination mb-0">
         <li class="page-item" [class.disabled]="currentPage === 1">
@@ -71,7 +71,7 @@
         </li>
         <li
           class="page-item"
-          [class.disabled]="currentPage === pageFatture?.totalPages"
+          [class.disabled]="currentPage === pageFatture.totalPages"
         >
           <a
             class="btn bg-white mx-1 border-0 shadow-sm"
