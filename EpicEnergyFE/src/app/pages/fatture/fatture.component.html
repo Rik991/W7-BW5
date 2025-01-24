@@ -33,17 +33,11 @@
           </td>
           <td>{{ fattura.importo | currency : "EUR" }}</td>
           <td class="text-center">
-            <button class="btn btn-sm shadow-sm mx-2 fw-semibold btn-primary">
-              Visualizza
-            </button>
             <button
-              class="btn btn-sm shadow-sm mx-2 fw-semibold btn-warning text-white"
+              class="btn btn-sm shadow-sm mx-2 fw-semibold btn-outline-warning text-black"
               (click)="editFattura(fattura)"
             >
-              Modifica
-            </button>
-            <button class="btn btn-sm shadow-sm mx-2 fw-semibold btn-danger">
-              Elimina
+              Gestisci
             </button>
           </td>
         </tr>

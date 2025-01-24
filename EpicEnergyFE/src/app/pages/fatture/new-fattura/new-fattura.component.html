@@ -135,28 +135,29 @@
             <tr>
               <th>Descrizione</th>
               <th>Quantità</th>
-              <th>Prezzo Unitario</th>
+              <th>IVA%</th>
               <th>Totale</th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td>IVA%</td>
+              <td>Spesa energetica</td>
               <td>1</td>
               <td>&euro; 22%</td>
-              <td>&euro; 200,00</td>
-            </tr>
-            <tr>
-              <td>Prodotto A</td>
-              <td>1</td>
-              <td>&euro; 50,00</td>
-              <td>&euro; 50,00</td>
+              <td>
+                {{ form.get("importoFattura")?.value | currency : "EUR" }}
+              </td>
             </tr>
           </tbody>
           <tfoot>
             <tr>
               <th colspan="3" class="text-end">Totale</th>
-              <th>&euro; {{ form.get("importoFattura")?.value }}</th>
+              <th>
+                {{
+                  (form.get("importoFattura")?.value * 122) / 100
+                    | currency : "EUR"
+                }}
+              </th>
             </tr>
           </tfoot>
         </table>
