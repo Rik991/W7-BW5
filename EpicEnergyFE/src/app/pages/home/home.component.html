@@ -104,7 +104,6 @@
                 Tutte le fatture
               </button>
             </div>
-            <!-- ///////////// -->
             <div class="m-4">
               <button
                 class="btn btn-primary"
@@ -119,7 +118,89 @@
                 [(ngModel)]="dataFatture.ragioneSociale"
               />
             </div>
-
+            <div class="m-4">
+              <label for="statoFattura">Filtra per stato fattura:</label>
+              <select
+                id="statoFattura"
+                class="form-select"
+                [(ngModel)]="dataFatture.statoFattura"
+                (change)="sendDataFatture(3)"
+              >
+                <option value="">Seleziona stato</option>
+                <option *ngFor="let stato of statoFatture" [value]="stato.nome">
+                  {{ stato.nome }}
+                </option>
+              </select>
+              <button
+                class="btn btn-primary mt-2"
+                (click)="sendDataFatture(3)"
+                routerLink="/fatture"
+              >
+                Stato fattura
+              </button>
+            </div>
+            <div class="m-4">
+              <label for="dataInizio">Data Inizio:</label>
+              <input
+                id="dataInizio"
+                class="form-control"
+                type="date"
+                [(ngModel)]="dataFatture.dataIniziale"
+              />
+              <label for="dataFine" class="mt-2">Data Fine:</label>
+              <input
+                id="dataFine"
+                class="form-control"
+                type="date"
+                [(ngModel)]="dataFatture.dataFinale"
+              />
+              <button
+                class="btn btn-primary mt-2"
+                (click)="sendDataFatture(4)"
+                routerLink="/fatture"
+              >
+                Filtra per Data
+              </button>
+            </div>
+            <div class="m-4">
+              <label for="anno">Anno:</label>
+              <input
+                id="anno"
+                class="form-control"
+                type="number"
+                [(ngModel)]="dataFatture.anno"
+              />
+              <button
+                class="btn btn-primary mt-2"
+                (click)="sendDataFatture(5)"
+                routerLink="/fatture"
+              >
+                Filtra per Anno
+              </button>
+            </div>
+            <div class="m-4">
+              <label for="minImporto">Importo Minimo:</label>
+              <input
+                id="minImporto"
+                class="form-control"
+                type="number"
+                [(ngModel)]="dataFatture.importoMin"
+              />
+              <label for="maxImporto" class="mt-2">Importo Massimo:</label>
+              <input
+                id="maxImporto"
+                class="form-control"
+                type="number"
+                [(ngModel)]="dataFatture.importoMax"
+              />
+              <button
+                class="btn btn-primary mt-2"
+                (click)="sendDataFatture(6)"
+                routerLink="/fatture"
+              >
+                Filtra per Importo
+              </button>
+            </div>
             <div class="text-end">
               <button routerLink="/clienti" class="btn shadow-sm p-2 py-1 px-2">
                 <i class="bi bi-arrows-angle-expand"></i>
@@ -127,8 +208,7 @@
             </div>
           </div>
         </div>
-
-        <!-- a high_quality -->
+        <!-- Filter Clients Section -->
 
         <div class="col bg-white shadow-sm rounded-3 m-3 p-3 h-100">
           <h5>Filtra clienti per:</h5>

@@ -2,14 +2,14 @@ import { FattureService } from './../../services/fatture.service';
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { ClientiService } from '../../services/clienti.service';
-import { iFattura } from '../../interfaces/i-fatture';
+import { iFattura, iStatoFattura } from '../../interfaces/i-fatture';
 import { IFilterFatture } from '../../interfaces/i-filter-fatture';
 import { iPageFatture } from '../../interfaces/i-page-fatture';
 
 @Component({
   selector: 'app-fatture',
   templateUrl: './fatture.component.html',
-  styleUrl: './fatture.component.scss',
+  styleUrls: ['./fatture.component.scss'],
 })
 export class FattureComponent implements OnInit {
   form!: FormGroup;
@@ -17,6 +17,11 @@ export class FattureComponent implements OnInit {
   currentPage: number = 1;
   fattureArray: iFattura[] = [];
   pageFatture!: iPageFatture;
+  statoFatture: iStatoFattura[] = [];
+  dataFatture = {
+    ragioneSociale: '',
+    statoFatturaNome: '',
+  };
 
   @ViewChild('fattura', { static: false }) fatturaElement!: ElementRef;
 
@@ -36,9 +41,10 @@ export class FattureComponent implements OnInit {
 
     this.fattureService.filtroFatture$.subscribe((fatture) => {
       this.fatture = fatture;
+      this.onPageChange(this.currentPage);
     });
 
-    this.onPageChange(this.currentPage);
+    this.getAllStatoFattura();
   }
 
   onPageChange(page: number): void {
@@ -50,27 +56,26 @@ export class FattureComponent implements OnInit {
       case 2:
         this.getByRagioneSociale(this.fatture.ragioneSociale, page);
         break;
-      // case 3:
-      //   this.getByDataUltimoContatto(
-      //     this.filterData.dataIniziale,
-      //     this.filterData.dataFinale,
-      //     page
-      //   );
-      //   break;
-      // case 4:
-      //   this.getByRangeDataInserimento(
-      //     this.filterData.dataIniziale,
-      //     this.filterData.dataFinale,
-      //     page
-      //   );
-      //   break;
-      // case 5:
-      //   this.getByRangeFatturatoAnnuale(
-      //     this.filterData.fatturatoMin,
-      //     this.filterData.fatturatoMax,
-      //     page
-      //   );
-      // break;
+      case 3:
+        this.getByStatoFattura(this.fatture.statoFattura, page);
+        break;
+      case 4:
+        this.getByData(
+          this.fatture.dataIniziale,
+          this.fatture.dataFinale,
+          page
+        );
+        break;
+      case 5:
+        this.getByAnno(Number(this.fatture.anno), page);
+        break;
+      case 6:
+        this.getByImportoRange(
+          Number(this.fatture.importoMin),
+          Number(this.fatture.importoMax),
+          page
+        );
+        break;
     }
   }
 
@@ -90,5 +95,61 @@ export class FattureComponent implements OnInit {
         this.pageFatture = pageFatture;
         this.fattureArray = pageFatture.content;
       });
+  }
+
+  getByStatoFattura(statoFatturaNome: string, page: number): void {
+    const currentPage = page - 1;
+    this.fattureService
+      .getByStatoFattura(statoFatturaNome, currentPage)
+      .subscribe((pageFatture) => {
+        this.pageFatture = pageFatture;
+        this.fattureArray = pageFatture.content;
+      });
+  }
+
+  getByData(dataInizio: string, dataFine: string, page: number): void {
+    const currentPage = page - 1;
+    this.fattureService
+      .getByData(dataInizio, dataFine, currentPage)
+      .subscribe((pageFatture) => {
+        this.pageFatture = pageFatture;
+        this.fattureArray = pageFatture.content;
+      });
+  }
+
+  getByAnno(anno: number, page: number): void {
+    const currentPage = page - 1;
+    this.fattureService
+      .getByAnno(anno, currentPage)
+      .subscribe((pageFatture) => {
+        this.pageFatture = pageFatture;
+        this.fattureArray = pageFatture.content;
+      });
+  }
+
+  getByImportoRange(
+    minImporto: number,
+    maxImporto: number,
+    page: number
+  ): void {
+    const currentPage = page - 1;
+    this.fattureService
+      .getByImportoRange(minImporto, maxImporto, currentPage)
+      .subscribe((pageFatture) => {
+        this.pageFatture = pageFatture;
+        this.fattureArray = pageFatture.content;
+      });
+  }
+
+  getAllStatoFattura() {
+    this.fattureService.getAllStatoFattura().subscribe({
+      next: (response) => {
+        console.log('Stati Fattura:', response);
+        this.statoFatture = response;
+      },
+      error: (error) => {
+        console.error('Errore nel recupero degli stati Fattura:', error);
+      },
+    });
   }
 }
