@@ -28,7 +28,11 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
     this.authSvc.user$.subscribe((user) => (this.user = user));
 
+    if (this.user?.avatar) {
+      this.profileImg = this.user?.avatar;
+    }
     this.name = this.user?.nome;
+
     this.getAllStatoFattura();
   }
 
@@ -74,5 +78,4 @@ export class HomeComponent implements OnInit {
       },
     });
   }
-
 }
