@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ClientiService } from '../../../services/clienti.service';
 import { iCliente } from '../../../interfaces/i-clienti';
+import { iDtoCliente } from '../../../interfaces/i-dto-cliente';
 
 @Component({
   selector: 'app-register-clienti',
@@ -13,6 +14,7 @@ export class RegisterClientiComponent implements OnInit {
   form!: FormGroup;
   logoAziendaleFile: File | undefined;
   id?: string;
+  comune!: string;
 
   constructor(
     private fb: FormBuilder,
@@ -58,14 +60,18 @@ export class RegisterClientiComponent implements OnInit {
         .getClientiById(parseInt(this.id))
         .subscribe((cliente) => {
           this.form.patchValue(cliente);
-          this.form
-            .get('sedeLegale')
-            ?.get('comune')
-            ?.setValue(cliente.sedeLegale.comune);
+          console.log(cliente);
+
+          let comuneLegale = JSON.stringify(cliente.sedeLegale.comune);
+          comuneLegale = JSON.parse(comuneLegale).denominazione;
+
+          let comuneOperativo = JSON.stringify(cliente.sedeOperativa.comune);
+          comuneOperativo = JSON.parse(comuneOperativo).denominazione;
+          this.form.get('sedeLegale')?.get('comune')?.setValue(comuneLegale);
           this.form
             .get('sedeOperativa')
             ?.get('comune')
-            ?.setValue(cliente.sedeOperativa.comune);
+            ?.setValue(comuneOperativo);
         });
     }
   }
@@ -95,19 +101,31 @@ export class RegisterClientiComponent implements OnInit {
         sedeOperativa: this.form.value.sedeOperativa,
       };
 
-      this.clientiService
-        .registerClienti(formData, this.logoAziendaleFile)
-        .subscribe({
-          next: (res) => {
-            this.router.navigate(['/clienti']);
-            alert('Registrazione cliente effettuata correttamente');
-          },
-          error: (error) => {
-            alert('Errore nella registrazione del cliente: ' + error.message);
-          },
-        });
-    } else {
-      alert('Controlla i tuoi dati, ci sono errori nel modulo.');
+      if (this.id) {
+        this.clientiService
+          .updateCliente(parseInt(this.id), formData, this.logoAziendaleFile)
+          .subscribe({
+            next: (res) => {
+              this.router.navigate(['/clienti']);
+              alert('Cliente modificato correttamente');
+            },
+            error: (error) => {
+              alert('Errore nella modifica del cliente: ' + error.message);
+            },
+          });
+      } else {
+        this.clientiService
+          .registerClienti(formData, this.logoAziendaleFile)
+          .subscribe({
+            next: (res) => {
+              this.router.navigate(['/clienti']);
+              alert('Registrazione cliente effettuata correttamente');
+            },
+            error: (error) => {
+              alert('Errore nella registrazione del cliente: ' + error.message);
+            },
+          });
+      }
     }
   }
 }

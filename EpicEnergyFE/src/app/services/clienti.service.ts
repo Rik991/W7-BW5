@@ -99,7 +99,7 @@ export class ClientiService {
     return this.http.delete<void>(`${this.clientiUrl}/${id}`);
   }
 
-  updateClienti(
+  updateCliente(
     id: number,
     clientData: Partial<iCliente>,
     logoAziendale?: File
