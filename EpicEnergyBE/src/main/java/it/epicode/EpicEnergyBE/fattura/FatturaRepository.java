@@ -14,7 +14,7 @@ public interface FatturaRepository extends JpaRepository<Fattura, Long> {
 
     void deleteByNumero(String numero);
 
-    @Query("SELECT f FROM Fattura f WHERE f.cliente.ragioneSociale = :ragioneSociale")
+    @Query("SELECT f FROM Fattura f WHERE LOWER(f.cliente.ragioneSociale) LIKE LOWER(CONCAT('%', :ragioneSociale, '%'))")
     Page<Fattura> findFattureCliente(@Param("ragioneSociale") String ragioneSociale, Pageable pageable);
 
     @Query("SELECT f FROM Fattura f WHERE f.statoFattura.nome = :statoFatturaNome")
