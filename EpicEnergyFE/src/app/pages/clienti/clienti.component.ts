@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { ClientiService } from '../../services/clienti.service';
 import { iPageClienti } from '../../interfaces/i-page-clienti';
 import { iCliente } from '../../interfaces/i-clienti';
 import { iFilterClienti } from '../../interfaces/i-filter-clienti';
+import { NgFor } from '@angular/common';
 
 @Component({
   selector: 'app-clienti',
@@ -112,5 +113,11 @@ export class ClientiComponent implements OnInit {
         this.pageClienti = pageClienti;
         this.clientiArray = pageClienti.content;
       });
+  }
+
+  onDeleteCliente(id: number): void {
+    this.clientiSvc.deleteClienti(id).subscribe(() => {
+      this.onPageChange(this.currentPage);
+    });
   }
 }

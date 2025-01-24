@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ClientiService } from '../../../services/clienti.service';
 import { iCliente } from '../../../interfaces/i-clienti';
 
@@ -12,14 +12,18 @@ import { iCliente } from '../../../interfaces/i-clienti';
 export class RegisterClientiComponent implements OnInit {
   form!: FormGroup;
   logoAziendaleFile: File | undefined;
+  id?: string;
 
   constructor(
     private fb: FormBuilder,
     private clientiService: ClientiService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit() {
+    this.id = this.route.snapshot.paramMap.get('id')!;
+
     this.form = this.fb.group({
       ragioneSociale: ['', Validators.required],
       partitaIva: ['', Validators.required],
@@ -48,6 +52,22 @@ export class RegisterClientiComponent implements OnInit {
         comune: ['', Validators.required],
       }),
     });
+
+    if (this.id) {
+      this.clientiService
+        .getClientiById(parseInt(this.id))
+        .subscribe((cliente) => {
+          this.form.patchValue(cliente);
+          this.form
+            .get('sedeLegale')
+            ?.get('comune')
+            ?.setValue(cliente.sedeLegale.comune);
+          this.form
+            .get('sedeOperativa')
+            ?.get('comune')
+            ?.setValue(cliente.sedeOperativa.comune);
+        });
+    }
   }
 
   onFileChange(event: any) {
