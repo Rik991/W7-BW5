@@ -28,3 +28,7 @@ hr {
   height: -webkit-fill-available;
 }
 
+button:hover {
+  transform: scale(1.03);
+  transition: transform 0.2s;
+}
