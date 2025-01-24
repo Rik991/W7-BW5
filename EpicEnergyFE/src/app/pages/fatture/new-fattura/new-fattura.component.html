@@ -3,8 +3,8 @@
     <div class="col-12 col-lg-6">
       <!-- From Uiverse.io by mi-series -->
       <div class="mb-">
-        <header>Registration Form</header>
-        <form [formGroup]="form" class="form mx-3" (ngSubmit)="createFattura()">
+        <header>{{ isEditMode ? "Modifica Fattura" : "Nuova Fattura" }}</header>
+        <form [formGroup]="form" class="form mx-3" (ngSubmit)="onSubmit()">
           <div class="select-box">
             <select
               formControlName="ragioneSociale"
@@ -57,7 +57,9 @@
               </div>
             </div>
           </div>
-          <button type="submit" class="fw-bolder text-white">Submit</button>
+          <button type="submit" class="fw-bolder text-white">
+            {{ isEditMode ? "Aggiorna" : "Crea" }}
+          </button>
         </form>
       </div>
       <hr />

@@ -20,6 +20,9 @@ export class FattureService {
   private fatturaByAnnoUrl = environment.fattureByAnnoUrl;
   private fatturaByImportoRangeUrl = environment.fattureByRangeImportoUrl;
 
+  private selectedFatturaSubject = new BehaviorSubject<iFattura | null>(null);
+  selectedFattura$ = this.selectedFatturaSubject.asObservable();
+
   constructor(private http: HttpClient) {}
 
   private filtroFattureSubject = new BehaviorSubject<IFilterFatture>({
@@ -135,5 +138,19 @@ export class FattureService {
 
   getUltimoNumeroFattura(): Observable<number> {
     return this.http.get<number>(`${this.fattureUrl}/ultimo-numero`);
+  }
+
+  updateFattura(
+    numero: string,
+    fattura: iFatturaRequest
+  ): Observable<iFattura> {
+    return this.http.put<iFattura>(`${this.fattureUrl}/${numero}`, fattura);
+  }
+  setSelectedFattura(fattura: iFattura) {
+    this.selectedFatturaSubject.next(fattura);
+  }
+
+  clearSelectedFattura() {
+    this.selectedFatturaSubject.next(null);
   }
 }

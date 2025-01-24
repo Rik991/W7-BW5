@@ -6,7 +6,7 @@ import { NewFatturaComponent } from './new-fattura/new-fattura.component';
 const routes: Routes = [
   { path: '', component: FattureComponent },
   { path: 'newfattura', component: NewFatturaComponent },
-  { path: 'newfattura/:id', component: NewFatturaComponent },
+  { path: 'newfattura/:numero', component: NewFatturaComponent },
 ];
 
 @NgModule({

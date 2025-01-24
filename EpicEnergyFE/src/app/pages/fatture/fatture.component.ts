@@ -5,6 +5,7 @@ import { ClientiService } from '../../services/clienti.service';
 import { iFattura, iStatoFattura } from '../../interfaces/i-fatture';
 import { IFilterFatture } from '../../interfaces/i-filter-fatture';
 import { iPageFatture } from '../../interfaces/i-page-fatture';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-fatture',
@@ -28,7 +29,8 @@ export class FattureComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private fattureService: FattureService,
-    private clientiService: ClientiService
+    private clientiService: ClientiService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -149,5 +151,11 @@ export class FattureComponent implements OnInit {
         console.error('Errore nel recupero degli stati Fattura:', error);
       },
     });
+  }
+
+  editFattura(fattura: iFattura): void {
+    // Store fattura in service or use navigation extras
+    this.fattureService.setSelectedFattura(fattura);
+    this.router.navigate(['/fatture/newfattura']);
   }
 }
