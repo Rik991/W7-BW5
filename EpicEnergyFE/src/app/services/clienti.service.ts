@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { map, Observable } from 'rxjs';
+import { map, BehaviorSubject, Observable, Subject } from 'rxjs';
 import { environment } from '../../environments/environment.development';
 import { iCliente } from '../interfaces/i-clienti';
 import { iPageClienti } from '../interfaces/i-page-clienti';
+import { iFilterClienti } from '../interfaces/i-filter-clienti';
 
 @Injectable({
   providedIn: 'root',
@@ -19,6 +20,20 @@ export class ClientiService {
     environment.clientiByDataUltimoContattoUrl;
 
   constructor(private http: HttpClient) {}
+
+  private filtroClientiSubject = new BehaviorSubject<iFilterClienti>({
+    key: 1,
+    ragioneSociale: '',
+    dataIniziale: '',
+    dataFinale: '',
+    fatturatoMin: '',
+    fatturatoMax: '',
+  });
+  filtroClienti$ = this.filtroClientiSubject.asObservable();
+
+  sendData(data: iFilterClienti) {
+    this.filtroClientiSubject.next(data);
+  }
 
   registerClienti(
     clientData: Partial<iCliente>,
@@ -90,7 +105,7 @@ export class ClientiService {
     return this.http.delete<void>(`${this.clientiUrl}/${id}`);
   }
 
-  updateClienti(
+  updateCliente(
     id: number,
     clientData: Partial<iCliente>,
     logoAziendale?: File
@@ -158,8 +173,8 @@ export class ClientiService {
     page: number
   ): Observable<iPageClienti> {
     let params = new HttpParams()
-      .set('dataIniziale', dataIniziale)
-      .set('dataFinale', dataFinale)
+      .set('dataInizio', dataIniziale)
+      .set('dataFine', dataFinale)
       .set('page', page.toString())
       .set('size', '12');
     return this.http.get<iPageClienti>(this.clientiByRangeDataInserimentoUrl, {
@@ -173,8 +188,8 @@ export class ClientiService {
     page: number
   ): Observable<iPageClienti> {
     let params = new HttpParams()
-      .set('fatturatoMin', fatturatoMin)
-      .set('fatturatoMax', fatturatoMax)
+      .set('minImporto', fatturatoMin)
+      .set('maxImporto', fatturatoMax)
       .set('page', page.toString())
       .set('size', '12');
     return this.http.get<iPageClienti>(this.clientiByRangeFatturatoAnnualeUrl, {
@@ -188,8 +203,8 @@ export class ClientiService {
     page: number
   ): Observable<iPageClienti> {
     let params = new HttpParams()
-      .set('dataIniziale', dataIniziale)
-      .set('dataFinale', dataFinale)
+      .set('dataInizio', dataIniziale)
+      .set('dataFine', dataFinale)
       .set('page', page.toString())
       .set('size', '12');
     return this.http.get<iPageClienti>(this.clientiByDataUltimoContattoUrl, {

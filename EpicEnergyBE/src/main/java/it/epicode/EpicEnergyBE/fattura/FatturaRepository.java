@@ -14,7 +14,7 @@ public interface FatturaRepository extends JpaRepository<Fattura, Long> {
 
     void deleteByNumero(String numero);
 
-    @Query("SELECT f FROM Fattura f WHERE f.cliente.ragioneSociale = :ragioneSociale")
+    @Query("SELECT f FROM Fattura f WHERE LOWER(f.cliente.ragioneSociale) LIKE LOWER(CONCAT('%', :ragioneSociale, '%'))")
     Page<Fattura> findFattureCliente(@Param("ragioneSociale") String ragioneSociale, Pageable pageable);
 
     @Query("SELECT f FROM Fattura f WHERE f.statoFattura.nome = :statoFatturaNome")
@@ -28,5 +28,8 @@ public interface FatturaRepository extends JpaRepository<Fattura, Long> {
 
     @Query("SELECT f FROM Fattura f WHERE f.importo BETWEEN :minImporto AND :maxImporto")
     Page<Fattura> findFattureByImportoRange(@Param("minImporto") Double minImporto, @Param("maxImporto") Double maxImporto, Pageable pageable);
+
+    @Query("SELECT MAX(f.numero) FROM Fattura f")
+    Integer findUltimoNumeroFattura();
 
 }

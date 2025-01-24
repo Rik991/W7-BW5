@@ -6,6 +6,7 @@ import { RegisterClientiComponent } from './register-clienti/register-clienti.co
 const routes: Routes = [
   { path: '', component: ClientiComponent },
   { path: 'register', component: RegisterClientiComponent },
+  { path: 'register/:id', component: RegisterClientiComponent },
 ];
 
 @NgModule({

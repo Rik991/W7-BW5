@@ -1,29 +1,62 @@
-import { Component } from '@angular/core';
+import { Component, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { ClientiService } from '../../services/clienti.service';
 import { iPageClienti } from '../../interfaces/i-page-clienti';
 import { iCliente } from '../../interfaces/i-clienti';
+import { iFilterClienti } from '../../interfaces/i-filter-clienti';
+import { NgFor } from '@angular/common';
 
 @Component({
   selector: 'app-clienti',
   templateUrl: './clienti.component.html',
   styleUrl: './clienti.component.scss',
 })
-export class ClientiComponent {
-  constructor(private clientiSvc: ClientiService) {}
-
+export class ClientiComponent implements OnInit {
+  filterData!: iFilterClienti;
   pageClienti!: iPageClienti;
   clientiArray: iCliente[] = [];
   currentPage: number = 1;
 
-  key: number = 1;
-
-  onPageChange(page: number, key: number): void {
-    this.currentPage = page;
-    this.getAll(page);
-  }
+  constructor(private clientiSvc: ClientiService) {}
 
   ngOnInit(): void {
-    // this.loadPage(this.currentPage);
+    this.clientiSvc.filtroClienti$.subscribe((data) => {
+      this.filterData = data;
+    });
+
+    this.onPageChange(this.currentPage);
+  }
+
+  onPageChange(page: number): void {
+    this.currentPage = page;
+    switch (this.filterData.key) {
+      case 1:
+        this.getAll(page);
+        break;
+      case 2:
+        this.getByRagione(this.filterData.ragioneSociale, page);
+        break;
+      case 3:
+        this.getByDataUltimoContatto(
+          this.filterData.dataIniziale,
+          this.filterData.dataFinale,
+          page
+        );
+        break;
+      case 4:
+        this.getByRangeDataInserimento(
+          this.filterData.dataIniziale,
+          this.filterData.dataFinale,
+          page
+        );
+        break;
+      case 5:
+        this.getByRangeFatturatoAnnuale(
+          this.filterData.fatturatoMin,
+          this.filterData.fatturatoMax,
+          page
+        );
+        break;
+    }
   }
 
   getAll(page: number): void {
@@ -41,7 +74,6 @@ export class ClientiComponent {
       .subscribe((pageClienti) => {
         this.pageClienti = pageClienti;
         this.clientiArray = pageClienti.content;
-        console.log(pageClienti);
       });
   }
 
@@ -81,5 +113,11 @@ export class ClientiComponent {
         this.pageClienti = pageClienti;
         this.clientiArray = pageClienti.content;
       });
+  }
+
+  onDeleteCliente(id: number): void {
+    this.clientiSvc.deleteClienti(id).subscribe(() => {
+      this.onPageChange(this.currentPage);
+    });
   }
 }

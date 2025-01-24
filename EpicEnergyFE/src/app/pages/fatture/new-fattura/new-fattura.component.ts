@@ -5,8 +5,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import html2canvas from 'html2canvas';
 import jsPDF from 'jspdf';
 import { iFatturaRequest } from '../../../interfaces/i-fattura-request';
-import { iStatoFattura } from '../../../interfaces/i-fatture';
+import { iFattura, iStatoFattura } from '../../../interfaces/i-fatture';
 import { iCliente } from '../../../interfaces/i-clienti';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-new-fattura',
@@ -18,24 +19,113 @@ export class NewFatturaComponent implements OnInit {
   statoFatture: iStatoFattura[] = [];
   clienti: iCliente[] = [];
   clienteSelezionato?: iCliente;
+  numeroFattura: number = 0;
+  isEditMode = false;
+  fatturaId?: number;
 
   @ViewChild('fattura', { static: false }) fatturaElement!: ElementRef;
 
   constructor(
     private fb: FormBuilder,
     private fattureService: FattureService,
-    private clientiService: ClientiService
+    private clientiService: ClientiService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
+    this.initForm();
+    this.loadData();
+  }
+
+  private initForm(): void {
     this.form = this.fb.group({
       ragioneSociale: ['', Validators.required],
-      importoFattura: ['', [Validators.required, Validators.required]],
+      importoFattura: ['', Validators.required],
       dataFatturazione: ['', Validators.required],
       statoFattura: ['', Validators.required],
     });
+  }
+
+  private loadData(): void {
+    // Subscribe to selected fattura
+    this.fattureService.selectedFattura$.subscribe((fattura) => {
+      if (fattura) {
+        console.log('Precompiling form with fattura:', fattura);
+        this.isEditMode = true;
+        this.precompilaForm(fattura);
+      } else {
+        this.isEditMode = false;
+        this.getUltimoNumeroFattura();
+      }
+    });
+
     this.getAllClienti();
     this.getAllStatoFattura();
+  }
+
+  private precompilaForm(fattura: iFattura): void {
+    console.log('Precompiling form...', fattura);
+    this.numeroFattura = Number(fattura.numero);
+    this.clienteSelezionato = fattura.cliente;
+
+    // Wait for clienti and statoFatture to be loaded
+    Promise.all([this.getAllClienti(), this.getAllStatoFattura()]).then(() => {
+      this.form.patchValue({
+        ragioneSociale: fattura.cliente.ragioneSociale,
+        importoFattura: fattura.importo,
+        dataFatturazione: fattura.data,
+        statoFattura: fattura.statoFattura.nome,
+      });
+      console.log('Form values after patch:', this.form.value);
+    });
+  }
+
+  onSubmit(): void {
+    if (this.form.valid) {
+      const fatturaDto: iFatturaRequest = {
+        data: this.form.value.dataFatturazione,
+        importo: Number(this.form.value.importoFattura),
+        numero: this.numeroFattura.toString(),
+        statoFatturaNome: this.form.value.statoFattura,
+        clienteId: this.clienteSelezionato?.id,
+      };
+
+      if (this.isEditMode) {
+        this.fattureService
+          .updateFattura(this.numeroFattura.toString(), fatturaDto)
+          .subscribe({
+            next: (response) => {
+              console.log('Fattura updated:', response);
+              this.router.navigate(['/fatture']);
+            },
+            error: (error) => console.error('Update error:', error),
+          });
+      } else {
+        this.fattureService
+          .createFattura(this.form.value.ragioneSociale, fatturaDto)
+          .subscribe({
+            next: (response) => {
+              console.log('Fattura created:', response);
+              this.router.navigate(['/fatture']);
+            },
+            error: (error) => console.error('Create error:', error),
+          });
+      }
+    }
+  }
+
+  getUltimoNumeroFattura(): void {
+    this.fattureService.getUltimoNumeroFattura().subscribe({
+      next: (response) => {
+        this.numeroFattura = response + 1; // Incrementa l'ultimo numero di fattura
+      },
+      error: (error) => {
+        console.error(
+          "Errore nel recupero dell'ultimo numero di fattura:",
+          error
+        );
+      },
+    });
   }
 
   createStatoFattura(nome: string) {
@@ -118,6 +208,10 @@ export class NewFatturaComponent implements OnInit {
           },
         });
     }
+  }
+
+  ngOnDestroy(): void {
+    this.fattureService.clearSelectedFattura();
   }
 
   downloadPDF() {

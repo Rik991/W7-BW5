@@ -22,70 +22,31 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>18/11/2019</td>
-          <td>ORS-0120</td>
-          <td>Project: Sarraceno EP 2</td>
-          <td><span class="badge bg-succesSaturo">Pagata</span></td>
-          <td>USD 810.00</td>
+        <tr *ngFor="let fattura of fattureArray">
+          <td>{{ fattura.data }}</td>
+          <td>{{ fattura.numero }}</td>
+          <td>{{ fattura.cliente.ragioneSociale }}</td>
+          <td>
+            <span class="badge bg-succesSaturo">{{
+              fattura.statoFattura.nome
+            }}</span>
+          </td>
+          <td>{{ fattura.importo | currency : "EUR" }}</td>
           <td class="text-center">
-            <button class="btn btn-sm shadow-sm mx-2 fw-semibold btn-primary">
-              Visualizza
-            </button>
             <button
-              class="btn btn-sm shadow-sm mx-2 fw-semibold btn-warning text-white"
+              class="btn btn-sm shadow-sm mx-2 fw-semibold btn-outline-warning text-black"
+              (click)="editFattura(fattura)"
             >
-              Modifica
-            </button>
-            <button class="btn btn-sm shadow-sm mx-2 fw-semibold btn-danger">
-              Elimina
+              Gestisci
             </button>
           </td>
         </tr>
-        <tr>
-          <td>18/11/2019</td>
-          <td>ORS-0119</td>
-          <td>Project: Hello Cello</td>
-          <td><span class="badge bg-attesa">Non Pagata</span></td>
-          <td>USD 1,575.00</td>
-          <td class="text-center">
-            <button class="btn btn-sm shadow-sm mx-2 fw-semibold btn-primary">
-              Visualizza
-            </button>
-            <button
-              class="btn btn-sm shadow-sm mx-2 fw-semibold btn-warning text-white"
-            >
-              Modifica
-            </button>
-            <button class="btn btn-sm shadow-sm mx-2 fw-semibold btn-danger">
-              Elimina
-            </button>
-          </td>
-        </tr>
-        <tr>
-          <td>10/11/2019</td>
-          <td>ORS-0118</td>
-          <td>Project: Sarraceno EP 2</td>
-          <td><span class="badge bg-succesSaturo">Pagata</span></td>
-          <td>USD 1,980.00</td>
-          <td class="text-center">
-            <button class="btn btn-sm shadow-sm mx-2 fw-semibold btn-primary">
-              Visualizza
-            </button>
-            <button
-              class="btn btn-sm shadow-sm mx-2 fw-semibold btn-warning text-white"
-            >
-              Modifica
-            </button>
-            <button class="btn btn-sm shadow-sm mx-2 fw-semibold btn-danger">
-              Elimina
-            </button>
-          </td>
-        </tr>
+
         <!-- Aggiungere altre righe come necessario -->
       </tbody>
     </table>
   </div>
+
   <div class="d-flex justify-content-between align-items-center">
     <p>Pagina 1 di 2</p>
     <nav>
