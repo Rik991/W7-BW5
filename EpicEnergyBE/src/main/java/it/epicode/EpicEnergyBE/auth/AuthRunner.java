@@ -21,13 +21,13 @@ public class AuthRunner implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) throws Exception {
         // Creazione dell'utente admin se non esiste
-        Optional<AppUser> adminUser = appUserService.findByUsername("admin");
+        Optional<AppUser> adminUser = appUserService.findByUsername("Mauro");
         if (adminUser.isEmpty()) {
             RegisterRequest adminRequest = new RegisterRequest();
-            adminRequest.setUsername("admin");
+            adminRequest.setUsername("Mauro");
             adminRequest.setPassword("adminpwd");
             adminRequest.setEmail("admin@epicode.it");
-            adminRequest.setNome("Admin");
+            adminRequest.setNome("Mauro");
             adminRequest.setCognome("Capo");
             appUserService.registerUser(adminRequest, null, Set.of(Role.ROLE_ADMIN));
         }
