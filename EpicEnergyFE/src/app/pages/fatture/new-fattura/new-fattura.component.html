@@ -87,7 +87,9 @@
       <div class="container bg-white shadow-sm py-3 px-3" #fattura>
         <div class="row mt-2">
           <div class="col-6 text-start">
-            <p class="mb-1">NO. <span>00123</span></p>
+            <p class="mb-1">
+              NO. <span>{{ numeroFattura }}</span>
+            </p>
             <p class="mb-1">
               Date: <span>{{ form.get("dataFatturazione")?.value }}</span>
             </p>

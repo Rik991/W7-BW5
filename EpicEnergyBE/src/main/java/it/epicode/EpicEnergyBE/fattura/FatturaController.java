@@ -76,4 +76,10 @@ public class FatturaController {
     public ResponseEntity<Page<Fattura>> getFattureByImportoRange(@RequestParam Double minImporto, @RequestParam Double maxImporto, Pageable pageable) {
         return ResponseEntity.ok(fatturaService.findByImportoRange(minImporto, maxImporto, pageable));
     }
+
+    @GetMapping("/ultimo-numero")
+    public ResponseEntity<Integer> getUltimoNumeroFattura() {
+        Integer ultimoNumero = fatturaService.getUltimoNumeroFattura();
+        return ResponseEntity.ok(ultimoNumero);
+    }
 }

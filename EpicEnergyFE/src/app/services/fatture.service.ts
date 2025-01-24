@@ -132,4 +132,8 @@ export class FattureService {
       params,
     });
   }
+
+  getUltimoNumeroFattura(): Observable<number> {
+    return this.http.get<number>(`${this.fattureUrl}/ultimo-numero`);
+  }
 }

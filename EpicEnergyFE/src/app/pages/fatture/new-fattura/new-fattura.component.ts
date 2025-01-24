@@ -18,6 +18,7 @@ export class NewFatturaComponent implements OnInit {
   statoFatture: iStatoFattura[] = [];
   clienti: iCliente[] = [];
   clienteSelezionato?: iCliente;
+  numeroFattura: number = 0;
 
   @ViewChild('fattura', { static: false }) fatturaElement!: ElementRef;
 
@@ -36,6 +37,21 @@ export class NewFatturaComponent implements OnInit {
     });
     this.getAllClienti();
     this.getAllStatoFattura();
+    this.getUltimoNumeroFattura();
+  }
+
+  getUltimoNumeroFattura(): void {
+    this.fattureService.getUltimoNumeroFattura().subscribe({
+      next: (response) => {
+        this.numeroFattura = response + 1; // Incrementa l'ultimo numero di fattura
+      },
+      error: (error) => {
+        console.error(
+          "Errore nel recupero dell'ultimo numero di fattura:",
+          error
+        );
+      },
+    });
   }
 
   createStatoFattura(nome: string) {

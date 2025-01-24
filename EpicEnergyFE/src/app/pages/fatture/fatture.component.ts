@@ -43,8 +43,6 @@ export class FattureComponent implements OnInit {
       this.fatture = fatture;
       this.onPageChange(this.currentPage);
     });
-
-    this.getAllStatoFattura();
   }
 
   onPageChange(page: number): void {

@@ -29,4 +29,7 @@ public interface FatturaRepository extends JpaRepository<Fattura, Long> {
     @Query("SELECT f FROM Fattura f WHERE f.importo BETWEEN :minImporto AND :maxImporto")
     Page<Fattura> findFattureByImportoRange(@Param("minImporto") Double minImporto, @Param("maxImporto") Double maxImporto, Pageable pageable);
 
+    @Query("SELECT MAX(f.numero) FROM Fattura f")
+    Integer findUltimoNumeroFattura();
+
 }

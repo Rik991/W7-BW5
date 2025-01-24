@@ -94,4 +94,7 @@ public class FatturaService {
     public Page<Fattura> findByImportoRange(Double minImporto, Double maxImporto, Pageable pageable) {
         return fatturaRepository.findFattureByImportoRange(minImporto, maxImporto, pageable);
     }
+    public Integer getUltimoNumeroFattura() {
+        return fatturaRepository.findUltimoNumeroFattura();
+    }
 }
